@@ -9,7 +9,10 @@ const primary = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Ticketfy',
+  title: {
+    template: '%s | Ticketfy',
+    default: 'Ticketfy',
+  },
   description: 'A ticketing platform',
 };
 
