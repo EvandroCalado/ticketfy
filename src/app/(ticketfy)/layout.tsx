@@ -6,7 +6,7 @@ const TicketfyLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main>
+    <main className='flex min-h-screen flex-col'>
       <Header />
       {children}
     </main>

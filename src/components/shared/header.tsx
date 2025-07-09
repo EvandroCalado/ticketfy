@@ -11,16 +11,14 @@ import { Button } from '../ui/button';
 export const Header = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
-    <header>
+    <header className='border-border border-b'>
       <div className='container mx-auto flex items-center justify-between p-5'>
         <h2 className='text-foreground'>
           Ticket<strong className='text-primary'>fy</strong>
         </h2>
 
-        <nav className='flex items-center gap-5'>
+        <nav className='flex items-center gap-2 md:gap-5'>
           {navLinks.map(link => (
             <Button
               key={link.href}
@@ -33,7 +31,7 @@ export const Header = () => {
           ))}
         </nav>
 
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-2 md:gap-3'>
           <Button variant='ghost' className='w-24'>
             Cadastrar
           </Button>
