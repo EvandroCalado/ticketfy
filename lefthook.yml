@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   jobs:
     - name: Lint
-      run: pnpm lint --fix {staged_files}
+      run: pnpm lint --fix
       glob: '*.{js,ts,jsx,tsx}'
 
     - name: Test
