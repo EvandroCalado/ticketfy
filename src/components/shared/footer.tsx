@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 export const Footer = () => {
   return (
     <footer>
-      <div className='container mx-auto flex items-center justify-between p-5'>
+      <div className='container mx-auto flex flex-col items-center justify-between gap-3 p-5 md:flex-row'>
         <span className='text-muted-foreground text-sm'>
           © {new Date().getFullYear()} Evandro Calado. Todos os direitos
           reservados.
