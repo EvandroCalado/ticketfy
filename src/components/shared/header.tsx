@@ -18,7 +18,7 @@ export const Header = () => {
           Ticket<strong className='text-primary'>fy</strong>
         </h2>
 
-        <nav className='flex items-center gap-2 md:gap-5'>
+        <nav className='hidden items-center gap-2 md:flex md:gap-5'>
           {navLinks.map(link => (
             <Button
               key={link.href}
