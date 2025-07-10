@@ -18,7 +18,7 @@ export const TicketsList = ({ tickets }: TicketsListProps) => {
         <span className='text-muted-foreground/60'>Tickets encontrados</span>
       </div>
 
-      <div className='animate-fade-from-top grid h-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='animate-fade-from-top grid h-full grow grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {tickets.map(ticket => (
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}

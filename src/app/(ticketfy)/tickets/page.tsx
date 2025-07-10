@@ -41,7 +41,7 @@ const initialTickets = [
 
 const TicketsPage = () => {
   return (
-    <div className='container mx-auto flex-1 space-y-10 p-5'>
+    <div className='container mx-auto flex flex-1 flex-col space-y-10 p-5'>
       <TicketsList tickets={initialTickets} />
     </div>
   );
