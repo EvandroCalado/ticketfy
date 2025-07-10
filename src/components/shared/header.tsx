@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { navLinks } from '@/utils/nav-links';
 
 import { Button } from '../ui/button';
+import { Logo } from './logo';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -14,9 +15,7 @@ export const Header = () => {
   return (
     <header className='border-border border-b'>
       <div className='container mx-auto flex items-center justify-between p-5'>
-        <h2 className='text-foreground'>
-          Ticket<strong className='text-primary'>fy</strong>
-        </h2>
+        <Logo />
 
         <nav className='hidden items-center gap-2 md:flex md:gap-5'>
           {navLinks.map(link => (
