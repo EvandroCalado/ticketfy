@@ -5,14 +5,18 @@ import { MessageSquareWarningIcon, TicketIcon } from 'lucide-react';
 import { TicketListEmpty } from '@/components/ticket/ticket-list-empty';
 import { Button } from '@/components/ui/button';
 
+import { getTicket } from '../actions/get-ticket';
+
 type TicketPageParams = {
   params: Promise<{ ticketId: string }>;
 };
 
 const TicketPage = async ({ params }: TicketPageParams) => {
-  const ticket = [];
+  const { ticketId } = await params;
 
-  if (!ticket.length) {
+  const ticket = await getTicket(ticketId);
+
+  if (!ticket) {
     return (
       <TicketListEmpty
         label='Ticket não encontrado!'
@@ -28,13 +32,9 @@ const TicketPage = async ({ params }: TicketPageParams) => {
     );
   }
 
-  const { ticketId } = await params;
-
-  console.log(ticketId);
-
   return (
-    <div className='container mx-auto p-5'>
-      <h1>TicketPage</h1>
+    <div className='container mx-auto flex-1 p-5'>
+      <h1>{ticket.title}</h1>
     </div>
   );
 };
