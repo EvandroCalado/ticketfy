@@ -17,7 +17,8 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
       <Card>
         <CardHeader>
           <CardTitle className='flex items-center gap-2'>
-            <span>{TICKET_ICONS[ticket.status]}</span>
+            {TICKET_ICONS[ticket.status]}
+
             <span className='text-xl'>{ticket.title}</span>
           </CardTitle>
         </CardHeader>
@@ -27,9 +28,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
         </CardContent>
 
         <div className='border-border mx-5 flex items-center justify-between border-t p-0 pt-3'>
-          <span className='text-primary text-sm'>
-            {TICKET_STATUS[ticket.status]}
-          </span>
+          {TICKET_STATUS[ticket.status]}
 
           <Button asChild size='sm'>
             <Link href={`/ticket/${ticket.id}`}>Ver mais</Link>
