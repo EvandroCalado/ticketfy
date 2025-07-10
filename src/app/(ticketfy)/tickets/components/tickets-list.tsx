@@ -1,13 +1,15 @@
-import { Ticket } from '../types/ticket';
+import { getTickets } from '../actions/get-tickets';
 import { TicketCard } from './ticket-card';
 
-type TicketsListProps = {
-  tickets: Ticket[];
-};
+// type TicketsListProps = {
+//   tickets: Ticket[];
+// };
 
-export const TicketsList = ({ tickets }: TicketsListProps) => {
+export const TicketsList = async () => {
+  const tickets = await getTickets();
+
   return (
-    <>
+    <div className='container mx-auto flex flex-1 flex-col space-y-10 p-5'>
       <div>
         <h1 className='text-4xl font-semibold tracking-tighter'>Tickets</h1>
         <p className='text-muted-foreground'>Todos os seus tickets</p>
@@ -23,6 +25,6 @@ export const TicketsList = ({ tickets }: TicketsListProps) => {
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
