@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import { ThemeProvider } from './theme-provider';
 
 const primary = Inter({
   variable: '--font-primary',
@@ -22,8 +23,17 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang='pt-BR'>
-      <body className={`${primary.variable}`}>{children}</body>
+    <html lang='pt-BR' suppressHydrationWarning>
+      <body className={`${primary.variable}`}>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 };
