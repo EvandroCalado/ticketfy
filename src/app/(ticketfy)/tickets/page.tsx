@@ -1,4 +1,4 @@
-import { TicketCard } from './components/ticket-card';
+import { TicketsList } from './components/tickets-list';
 
 const initialTickets = [
   {
@@ -42,20 +42,7 @@ const initialTickets = [
 const TicketsPage = () => {
   return (
     <div className='container mx-auto flex-1 space-y-10 p-5'>
-      <div>
-        <h1 className='text-4xl font-semibold tracking-tighter'>Tickets</h1>
-        <p className='text-muted-foreground'>Todos os seus tickets</p>
-      </div>
-
-      <div className='border-border border-b pb-5 text-xs'>
-        6 <span className='text-muted-foreground/60'>Tickets encontrados</span>
-      </div>
-
-      <div className='animate-fade-from-top grid h-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
-        {initialTickets.map(ticket => (
-          <TicketCard key={ticket.id} ticket={ticket} />
-        ))}
-      </div>
+      <TicketsList tickets={initialTickets} />
     </div>
   );
 };
