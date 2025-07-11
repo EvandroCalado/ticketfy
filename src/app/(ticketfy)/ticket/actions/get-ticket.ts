@@ -1,10 +1,15 @@
-import { initialTickets } from '../../tickets/actions/get-tickets';
-import { Ticket } from '../../tickets/types/ticket';
+'use server';
+
+import { prisma } from '@/lib/prisma';
+
+import { Ticket } from '/prisma/index';
 
 export const getTicket = async (ticketId: string): Promise<Ticket | null> => {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  const ticket = initialTickets.find(ticket => ticket.id === ticketId);
+  const ticket = await prisma.ticket.findUnique({
+    where: {
+      id: ticketId,
+    },
+  });
 
   return ticket || null;
 };

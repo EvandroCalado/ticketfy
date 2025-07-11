@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { TICKET_ICONS } from '../constants/ticket-icons';
 import { TICKET_STATUS } from '../constants/ticket-status';
-import { Ticket } from '../types/ticket';
+import { Ticket } from '/prisma/index';
 
 type TicketCardProps = {
   ticket: Ticket;
