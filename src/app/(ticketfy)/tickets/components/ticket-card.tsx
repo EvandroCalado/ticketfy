@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { ExternalLinkIcon } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -31,8 +33,10 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
       <div className='border-border flex items-center justify-between border-t px-0 pt-3'>
         {TICKET_STATUS[ticket.status]}
 
-        <Button asChild size='sm'>
-          <Link href={`/ticket/${ticket.id}`}>Ver mais</Link>
+        <Button asChild size='icon' aria-label='Ver ticket' title='Ver ticket'>
+          <Link href={`/ticket/${ticket.id}`}>
+            <ExternalLinkIcon />
+          </Link>
         </Button>
       </div>
     </Card>
