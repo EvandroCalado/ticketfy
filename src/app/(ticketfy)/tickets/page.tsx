@@ -1,12 +1,18 @@
 import { Suspense } from 'react';
 
+import { Spinner } from '@/components/shared/spinner';
+
 import { TicketsList } from './components/tickets-list';
+import { TicketsTitle } from './components/tickets-title';
 
 const TicketsPage = async () => {
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
-      <TicketsList />
-    </Suspense>
+    <>
+      <TicketsTitle />
+      <Suspense fallback={<Spinner size='16' />}>
+        <TicketsList />
+      </Suspense>
+    </>
   );
 };
 
