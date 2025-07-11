@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { MessageSquareWarningIcon, TicketIcon } from 'lucide-react';
 
-import { TicketListEmpty } from '@/components/ticket/ticket-list-empty';
+import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
 
 import { getTicket } from '../actions/get-ticket';
@@ -18,7 +18,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
 
   if (!ticket) {
     return (
-      <TicketListEmpty
+      <EmptyError
         label='Ticket não encontrado!'
         icon={MessageSquareWarningIcon}
         button={
