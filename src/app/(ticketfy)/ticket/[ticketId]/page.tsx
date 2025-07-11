@@ -1,9 +1,4 @@
-import Link from 'next/link';
-
-import { MessageSquareWarningIcon, TicketIcon } from 'lucide-react';
-
-import { EmptyError } from '@/components/shared/empty-error';
-import { Button } from '@/components/ui/button';
+import { notFound } from 'next/navigation';
 
 import { getTicket } from '../actions/get-ticket';
 
@@ -16,21 +11,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
 
   const ticket = await getTicket(ticketId);
 
-  if (!ticket) {
-    return (
-      <EmptyError
-        label='Ticket não encontrado!'
-        icon={MessageSquareWarningIcon}
-        button={
-          <Button asChild>
-            <Link href='/tickets'>
-              <TicketIcon /> Voltar para Tickets
-            </Link>
-          </Button>
-        }
-      />
-    );
-  }
+  if (!ticket) notFound();
 
   return (
     <div className='container mx-auto flex-1 p-5'>
