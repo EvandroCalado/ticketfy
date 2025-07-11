@@ -6,7 +6,7 @@ type TicketListEmptyProps = {
   button?: React.ReactNode;
 };
 
-export const TicketListEmpty = ({
+export const EmptyError = ({
   label,
   icon: Icon,
   button = null,
