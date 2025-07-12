@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { ReactScan } from '@/components/react-scan';
+
 import './globals.css';
 import { ThemeProvider } from './theme-provider';
 
@@ -24,6 +26,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang='pt-BR' suppressHydrationWarning>
+      <ReactScan />
       <body className={`${primary.variable}`}>
         <ThemeProvider
           attribute='class'
