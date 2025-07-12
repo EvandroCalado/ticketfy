@@ -15,7 +15,7 @@ type TicketCardProps = {
 
 export const TicketCard = ({ ticket }: TicketCardProps) => {
   return (
-    <Card className='p-4'>
+    <Card className='max-h-1/2 p-4'>
       <CardHeader className='px-0'>
         <CardTitle className='flex items-center gap-2'>
           {TICKET_ICONS[ticket.status]}
