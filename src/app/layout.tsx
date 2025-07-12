@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { ReactScan } from '@/components/react-scan';
+import { ReactScan } from '@/components/shared/react-scan';
 
 import './globals.css';
 import { ThemeProvider } from './theme-provider';
