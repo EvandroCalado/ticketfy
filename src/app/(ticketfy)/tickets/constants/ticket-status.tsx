@@ -1,7 +1,32 @@
 export const TICKET_STATUS = {
-  OPEN: <span className='text-xs font-semibold text-blue-500'>Em aberto</span>,
-  IN_PROGRESS: (
-    <span className='text-xs font-semibold text-yellow-500'>Em andamento</span>
+  OPEN: (
+    <div className='flex items-center gap-2 text-xs font-semibold'>
+      <span
+        className='size-2 rounded-full bg-blue-500'
+        aria-label='Em aberto'
+        title='Em aberto'
+      />
+      <span className='text-muted-foreground'>Em aberto</span>
+    </div>
   ),
-  DONE: <span className='text-xs font-semibold text-green-500'>Concluído</span>,
+  IN_PROGRESS: (
+    <div className='flex items-center gap-2 text-xs font-semibold'>
+      <span
+        className='size-2 rounded-full bg-yellow-500'
+        aria-label='Em andamento'
+        title='Em andamento'
+      />
+      <span className='text-muted-foreground'>Em andamento</span>
+    </div>
+  ),
+  DONE: (
+    <div className='flex items-center gap-2 text-xs font-semibold'>
+      <span
+        className='size-2 rounded-full bg-green-500'
+        aria-label='Concluído'
+        title='Concluído'
+      />
+      <span className='text-muted-foreground'>Concluído</span>
+    </div>
+  ),
 };
