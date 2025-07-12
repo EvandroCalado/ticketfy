@@ -7,16 +7,19 @@ const Tickets = [
     title: 'Correção de Bug no Login',
     content:
       'Usuários estão relatando problemas ao tentar fazer login com Google. O botão não está respondendo após clicar.',
+    status: 'OPEN' as const,
   },
   {
     title: 'Novo Layout para Dashboard',
     content:
       'Implementar novo design do dashboard seguindo as especificações do Figma. Incluir novos widgets e melhorar a experiência de usuário.',
+    status: 'IN_PROGRESS' as const,
   },
   {
     title: 'Migração do Banco de Dados',
     content:
       'Planejar e executar migração do MySQL para PostgreSQL. Garantir que não haja perda de dados durante o processo.',
+    status: 'DONE' as const,
   },
   {
     title: 'Otimização de Performance',
