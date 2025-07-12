@@ -1,6 +1,13 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { getTicket } from '../actions/get-ticket';
+import { CalendarIcon, MoveLeftIcon, SquareCheckBigIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
+import { TICKET_STATUS } from '../../tickets/constants/ticket-status';
+import { getTicket } from './actions/get-ticket';
+import { DeleteButton } from './components/delete-button';
 
 type TicketPageParams = {
   params: Promise<{ ticketId: string }>;
@@ -14,8 +21,53 @@ const TicketPage = async ({ params }: TicketPageParams) => {
   if (!ticket) notFound();
 
   return (
-    <div className='container mx-auto flex-1 p-5'>
-      <h1>{ticket.title}</h1>
+    <div className='container mx-auto max-w-4xl flex-1 space-y-10 p-5'>
+      <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
+
+      <p className='text-muted-foreground text-sm md:text-base'>
+        {ticket.content}
+      </p>
+
+      <div className='flex items-center justify-between'>
+        <div className='flex flex-col gap-2 text-xs font-semibold'>
+          <div
+            className='text-muted-foreground flex items-center gap-2'
+            aria-label='Status do ticket'
+            title='Status do ticket'
+          >
+            <SquareCheckBigIcon className='size-5' />
+
+            {TICKET_STATUS[ticket.status]}
+          </div>
+
+          <div
+            className='text-muted-foreground flex items-center gap-2'
+            aria-label='Data de criação do ticket'
+            title='Data de criação do ticket'
+          >
+            <span className='font-semibold'>
+              <CalendarIcon className='size-5' />
+            </span>
+
+            {ticket.createdAt.toLocaleDateString('pt-BR', {
+              dateStyle: 'long',
+            })}
+          </div>
+        </div>
+
+        <DeleteButton ticketId={ticketId} />
+      </div>
+
+      <Button
+        asChild
+        variant='outline'
+        aria-label='Voltar para tickets'
+        title='Voltar para tickets'
+      >
+        <Link href='/tickets'>
+          <MoveLeftIcon /> Voltar
+        </Link>
+      </Button>
     </div>
   );
 };
