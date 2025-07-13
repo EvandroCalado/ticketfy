@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { CalendarIcon, MoveLeftIcon, SquareCheckBigIcon } from 'lucide-react';
+import {
+  CalendarIcon,
+  EditIcon,
+  MoveLeftIcon,
+  SquareCheckBigIcon,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -28,8 +33,8 @@ const TicketPage = async ({ params }: TicketPageParams) => {
         {ticket.content}
       </p>
 
-      <div className='flex items-center justify-between'>
-        <div className='flex flex-col gap-2 text-xs font-semibold'>
+      <div className='flex flex-col gap-2'>
+        <div className='flex items-center justify-between'>
           <div
             className='text-muted-foreground flex items-center gap-2'
             aria-label='Status do ticket'
@@ -40,6 +45,10 @@ const TicketPage = async ({ params }: TicketPageParams) => {
             {TICKET_STATUS[ticket.status]}
           </div>
 
+          <DeleteButton ticketId={ticketId} />
+        </div>
+
+        <div className='flex items-center justify-between'>
           <div
             className='text-muted-foreground flex items-center gap-2'
             aria-label='Data de criação do ticket'
@@ -53,9 +62,19 @@ const TicketPage = async ({ params }: TicketPageParams) => {
               dateStyle: 'long',
             })}
           </div>
-        </div>
 
-        <DeleteButton ticketId={ticketId} />
+          <Button
+            asChild
+            variant='outline'
+            size='icon'
+            aria-label='Editar ticket'
+            title='Editar ticket'
+          >
+            <Link href={`/ticket/edit/${ticketId}`}>
+              <EditIcon />
+            </Link>
+          </Button>
+        </div>
       </div>
 
       <Button
