@@ -28,7 +28,12 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button aria-label='Excluir ticket' title='Excluir ticket'>
+        <Button
+          size='icon'
+          variant='destructive'
+          aria-label='Excluir ticket'
+          title='Excluir ticket'
+        >
           <TrashIcon />
         </Button>
       </DialogTrigger>
@@ -36,12 +41,14 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
         <DialogHeader>
           <DialogTitle>Tem certeza?</DialogTitle>
           <DialogDescription>
-            Esta ação não pode ser desfeita. Esta será permanentemente excluída
+            Esta ação não pode ser desfeita. Este ticket será permanentemente
+            excluído e não poderá ser recuperado.
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <Button
+            variant='destructive'
             aria-label='Excluir ticket'
             title='Excluir ticket'
             disabled={isPending}
