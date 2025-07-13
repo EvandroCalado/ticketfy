@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
+import { ticketPath } from '@/utils/paths';
 
 import { TicketStatus } from '/prisma/index';
 
@@ -19,6 +20,6 @@ export const updateTicket = async (id: string, formData: FormData) => {
     data,
   });
 
-  revalidatePath(`/ticket/${id}`);
-  redirect(`/ticket/${id}`);
+  revalidatePath(ticketPath(id));
+  redirect(ticketPath(id));
 };

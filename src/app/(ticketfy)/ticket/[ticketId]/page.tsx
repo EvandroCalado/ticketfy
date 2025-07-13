@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { ticketEditPath, ticketsPath } from '@/utils/paths';
 
 import { TICKET_STATUS } from '../../tickets/constants/ticket-status';
 import { getTicket } from './actions/get-ticket';
@@ -70,7 +71,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
             aria-label='Editar ticket'
             title='Editar ticket'
           >
-            <Link href={`/ticket/edit/${ticketId}`}>
+            <Link href={ticketEditPath(ticketId)}>
               <EditIcon />
             </Link>
           </Button>
@@ -83,7 +84,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
         aria-label='Voltar para tickets'
         title='Voltar para tickets'
       >
-        <Link href='/tickets'>
+        <Link href={ticketsPath()}>
           <MoveLeftIcon /> Voltar
         </Link>
       </Button>

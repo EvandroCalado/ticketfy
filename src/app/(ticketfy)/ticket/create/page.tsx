@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { ticketsPath } from '@/utils/paths';
 
 import { createTicket } from './actions/create-ticket';
 
@@ -50,7 +51,7 @@ const TicketCreatePage = () => {
         aria-label='Voltar para tickets'
         title='Voltar para tickets'
       >
-        <Link href='/tickets'>
+        <Link href={ticketsPath()}>
           <MoveLeftIcon /> Voltar
         </Link>
       </Button>

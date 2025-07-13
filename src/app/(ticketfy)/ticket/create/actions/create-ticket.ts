@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
+import { ticketsPath } from '@/utils/paths';
 
 export const createTicket = async (formData: FormData) => {
   const data = {
@@ -13,6 +14,6 @@ export const createTicket = async (formData: FormData) => {
 
   await prisma.ticket.create({ data });
 
-  revalidatePath('/tickets');
-  redirect('/tickets');
+  revalidatePath(ticketsPath());
+  redirect(ticketsPath());
 };

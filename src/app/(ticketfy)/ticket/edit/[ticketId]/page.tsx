@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { MoveLeftIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { ticketPath } from '@/utils/paths';
 
 import { getTicket } from '../../[ticketId]/actions/get-ticket';
 import { TicketEditForm } from './components/ticket-edit-form';
@@ -31,7 +32,7 @@ const TicketEditPage = async ({ params }: TicketEditPageParams) => {
         aria-label='Voltar para tickets'
         title='Voltar para tickets'
       >
-        <Link href={`/ticket/${ticketId}`}>
+        <Link href={ticketPath(ticketId)}>
           <MoveLeftIcon /> Voltar
         </Link>
       </Button>
