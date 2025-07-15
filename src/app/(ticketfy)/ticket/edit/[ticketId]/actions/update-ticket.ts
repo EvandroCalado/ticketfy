@@ -2,23 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 
-import z from 'zod';
-
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { ticketPath } from '@/utils/paths';
 
 import { CreateTicketState } from '../../../create/constants/initial-create-state';
+import { updateTicketSchema } from '../schemas/update-ticket';
 import { TicketStatus } from '/prisma/index';
-
-const updateTicketSchema = z.object({
-  title: z.string().min(3, 'Título deve ter pelo menos 3 caracteres'),
-  content: z
-    .string()
-    .min(10, 'Conteúdo deve ter pelo menos 10 caracteres')
-    .max(1024, 'Conteúdo deve ter no máximo 1024 caracteres'),
-  status: z.enum(['OPEN', 'IN_PROGRESS', 'DONE']),
-});
 
 export const updateTicket = async (
   id: string,
