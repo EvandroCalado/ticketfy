@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { ReactScan } from '@/components/shared/react-scan';
+import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
 import { ThemeProvider } from './theme-provider';
@@ -36,6 +37,7 @@ const RootLayout = ({
         >
           {children}
         </ThemeProvider>
+        <Toaster position='top-right' invert richColors />
       </body>
     </html>
   );
