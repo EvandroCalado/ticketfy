@@ -1,19 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ComponentProps, useActionState } from 'react';
+import { ComponentProps } from 'react';
 
 import { toast } from 'sonner';
 
-import { createTicket } from '@/app/(ticketfy)/ticket/create/actions/create-ticket';
-import { CREATE_TICKET_STATE } from '@/app/(ticketfy)/ticket/create/constants/initial-create-state';
+import { CreateTicketState } from '@/app/(ticketfy)/ticket/create/constants/initial-create-state';
 import { useStateFeedback } from '@/app/(ticketfy)/ticket/create/hooks/use-state-feedback';
 import { ticketsPath } from '@/utils/paths';
 
-type FormProps = ComponentProps<'form'>;
-export const Form = ({ children, ...props }: FormProps) => {
-  const [state, dispatch] = useActionState(createTicket, CREATE_TICKET_STATE);
+type FormProps = ComponentProps<'form'> & {
+  state: CreateTicketState;
+};
 
+export const Form = ({ state, ...props }: FormProps) => {
   const router = useRouter();
 
   useStateFeedback(state, {
@@ -27,8 +27,8 @@ export const Form = ({ children, ...props }: FormProps) => {
   });
 
   return (
-    <form {...props} className='space-y-6' action={dispatch}>
-      {children}
+    <form {...props} className='space-y-6'>
+      {props.children}
     </form>
   );
 };

@@ -2,8 +2,10 @@
 
 import { useActionState } from 'react';
 
+import { Loader2Icon, SaveAllIcon } from 'lucide-react';
+
 import { Form } from '@/components/shared/form';
-import { SubmitButton } from '@/components/shared/submit-button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,10 +14,13 @@ import { createTicket } from '../actions/create-ticket';
 import { CREATE_TICKET_STATE } from '../constants/initial-create-state';
 
 export const TicketCreateForm = () => {
-  const [state] = useActionState(createTicket, CREATE_TICKET_STATE);
+  const [state, dispatch, isPending] = useActionState(
+    createTicket,
+    CREATE_TICKET_STATE,
+  );
 
   return (
-    <Form>
+    <Form state={state} action={dispatch}>
       <div className='relative'>
         <Label htmlFor='title' className='text-muted-foreground mb-2'>
           Título
@@ -53,7 +58,10 @@ export const TicketCreateForm = () => {
         )}
       </div>
 
-      <SubmitButton />
+      <Button type='submit' disabled={isPending} className='w-full'>
+        {isPending ? <Loader2Icon className='animate-spin' /> : <SaveAllIcon />}
+        {isPending ? 'Criando...' : 'Criar'}
+      </Button>
     </Form>
   );
 };
