@@ -1,19 +1,44 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+
+import z from 'zod';
 
 import { prisma } from '@/lib/prisma';
+import { formErrorHandler } from '@/utils/form-error-handler';
 import { ticketsPath } from '@/utils/paths';
 
-export const createTicket = async (formData: FormData) => {
-  const data = {
-    title: formData.get('title') as string,
-    content: formData.get('content') as string,
-  };
+import { CreateTicketState } from '../constants/initial-create-state';
 
-  await prisma.ticket.create({ data });
+const createTicketSchema = z.object({
+  title: z.string().min(3, 'Título deve ter pelo menos 3 caracteres'),
+  content: z
+    .string()
+    .min(10, 'Conteúdo deve ter pelo menos 10 caracteres')
+    .max(1024, 'Conteúdo deve ter no máximo 1024 caracteres'),
+});
 
-  revalidatePath(ticketsPath());
-  redirect(ticketsPath());
+export const createTicket = async (
+  prevState: unknown,
+  formData: FormData,
+): Promise<CreateTicketState> => {
+  try {
+    const data = createTicketSchema.parse({
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+    });
+
+    await prisma.ticket.create({ data });
+
+    revalidatePath(ticketsPath());
+
+    return {
+      status: 'success',
+      message: 'Ticket criado com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
+    };
+  } catch (error) {
+    return formErrorHandler(error, formData);
+  }
 };
