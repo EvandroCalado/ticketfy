@@ -1,37 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useActionState } from 'react';
 
-import { toast } from 'sonner';
-
+import { Form } from '@/components/shared/form';
 import { SubmitButton } from '@/components/shared/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ticketsPath } from '@/utils/paths';
 
 import { createTicket } from '../actions/create-ticket';
 import { CREATE_TICKET_STATE } from '../constants/initial-create-state';
-import { useStateFeedback } from '../hooks/use-state-feedback';
 
 export const TicketCreateForm = () => {
-  const [state, dispatch] = useActionState(createTicket, CREATE_TICKET_STATE);
-
-  const router = useRouter();
-
-  useStateFeedback(state, {
-    onSuccess: ({ state }) => {
-      toast.success(state.message);
-      router.push(ticketsPath());
-    },
-    onError: ({ state }) => {
-      toast.error(state.message);
-    },
-  });
+  const [state] = useActionState(createTicket, CREATE_TICKET_STATE);
 
   return (
-    <form className='space-y-6' action={dispatch}>
+    <Form>
       <div className='relative'>
         <Label htmlFor='title' className='text-muted-foreground mb-2'>
           Título
@@ -70,6 +54,6 @@ export const TicketCreateForm = () => {
       </div>
 
       <SubmitButton />
-    </form>
+    </Form>
   );
 };
