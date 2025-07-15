@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { SubmitButton } from '@/components/shared/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -65,14 +65,7 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
         />
       </div>
 
-      <Button
-        type='submit'
-        className='mt-4 w-full'
-        aria-label='Salvar ticket'
-        title='Salvar ticket'
-      >
-        Salvar
-      </Button>
+      <SubmitButton />
     </form>
   );
 };
