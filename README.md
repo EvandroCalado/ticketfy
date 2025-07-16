@@ -1,6 +1,6 @@
 # 🎟️ Ticketfy
 
-Sistema de gerenciamento de ingressos desenvolvido com as mais modernas tecnologias do ecossistema React/Next.js.
+Sistema de gerenciamento de tickets desenvolvido com as mais modernas tecnologias do ecossistema React/Next.js.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -10,25 +10,22 @@ Sistema de gerenciamento de ingressos desenvolvido com as mais modernas tecnolog
 - **Tailwind CSS** - Framework CSS utilitário para estilização
 - **Prisma** - ORM para banco de dados
 - **Zod** - Validação de dados em tempo de execução
-- **Radix UI** - Componentes acessíveis e sem estilos
-- **React Hook Form** - Gerenciamento de formulários
+- **Shadcn UI** - Componentes acessíveis e sem estilos
 - **date-fns** - Manipulação de datas
-- **Vitest** - Framework de testes
 
 ## ✨ Funcionalidades
 
-- Criação e gerenciamento de ingressos
+- Criação e gerenciamento de tickets
 - Interface moderna e responsiva
 - Validação de formulários robusta
 - Tema escuro/claro
 - Componentes acessíveis
-- Testes automatizados
 
 ## 🛠️ Como Executar
 
 1. Clone o repositório:
    ```bash
-   git clone [URL_DO_REPOSITORIO]
+   git clone https://github.com/EvandroCalado/ticketfy.git
    cd ticketfy
    ```
 
@@ -80,4 +77,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar 
 
 ## 📬 Contato
 
-Se tiver alguma dúvida ou sugestão, entre em contato através do [seu-email@exemplo.com](mailto:seu-email@exemplo.com) ou abra uma issue no repositório.
+Se tiver alguma dúvida ou sugestão, entre em contato através do [evandrocalado07@gmail.com](mailto:evandrocalado07@gmail.com) ou abra uma issue no repositório.
