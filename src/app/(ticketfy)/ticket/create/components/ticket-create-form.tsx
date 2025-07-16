@@ -67,13 +67,6 @@ export const TicketCreateForm = () => {
           <Label htmlFor='deadline' className='text-muted-foreground mb-2'>
             Prazo
           </Label>
-          {/* <Input
-            id='deadline'
-            name='deadline'
-            type='date'
-            placeholder='Prazo do ticket'
-            defaultValue={(payload?.get('deadline') as string) || ''}
-          /> */}
           <DatePicker
             id='deadline'
             name='deadline'
