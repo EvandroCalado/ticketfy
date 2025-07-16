@@ -18,8 +18,8 @@ export const Form = ({ state, ...props }: FormProps) => {
 
   useStateFeedback(state, {
     onSuccess: ({ state }) => {
-      toast.success(state.message);
       router.push(ticketsPath());
+      toast.success(state.message);
     },
     onError: ({ state }) => {
       toast.error(state.message);
