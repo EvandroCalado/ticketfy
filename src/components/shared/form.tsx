@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
 
 import { CreateTicketState } from '@/app/(ticketfy)/ticket/create/constants/initial-create-state';
 import { useStateFeedback } from '@/app/(ticketfy)/ticket/create/hooks/use-state-feedback';
-import { ticketsPath } from '@/utils/paths';
 
 type FormProps = ComponentProps<'form'> & {
   state: CreateTicketState;
@@ -15,11 +13,8 @@ type FormProps = ComponentProps<'form'> & {
 };
 
 export const Form = ({ state, action, ...props }: FormProps) => {
-  const router = useRouter();
-
   useStateFeedback(state, {
     onSuccess: ({ state }) => {
-      router.push(ticketsPath());
       toast.success(state.message);
     },
     onError: ({ state }) => {

@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
@@ -20,16 +21,10 @@ export const createTicket = async (
     });
 
     await prisma.ticket.create({ data });
-
-    revalidatePath(ticketsPath());
-
-    return {
-      status: 'success',
-      message: 'Ticket criado com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
-    };
   } catch (error) {
     return formErrorHandler(error, formData);
   }
+
+  revalidatePath(ticketsPath());
+  redirect(ticketsPath());
 };

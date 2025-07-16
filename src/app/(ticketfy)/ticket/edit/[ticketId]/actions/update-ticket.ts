@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
@@ -25,16 +26,10 @@ export const updateTicket = async (
       where: { id },
       data,
     });
-
-    revalidatePath(ticketPath(id));
-
-    return {
-      status: 'success',
-      message: 'Ticket atualizado com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
-    };
   } catch (error) {
     return formErrorHandler(error, formData);
   }
+
+  revalidatePath(ticketPath(id));
+  redirect(ticketPath(id));
 };
