@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { formatErrorMessage } from '@/utils/format-error-message';
 
 import { createTicket } from '../actions/create-ticket';
 import { CREATE_TICKET_STATE } from '../constants/initial-create-state';
@@ -18,6 +19,8 @@ export const TicketCreateForm = () => {
     createTicket,
     CREATE_TICKET_STATE,
   );
+
+  const { fieldErrors, payload } = state;
 
   return (
     <Form state={state} action={dispatch}>
@@ -29,12 +32,12 @@ export const TicketCreateForm = () => {
           id='title'
           name='title'
           placeholder='Título do ticket'
-          defaultValue={(state.payload?.get('title') as string) || ''}
+          defaultValue={(payload?.get('title') as string) || ''}
         />
 
-        {state.fieldErrors?.title && (
+        {fieldErrors?.title && (
           <p className='text-destructive absolute -bottom-5 text-xs'>
-            {state.fieldErrors.title.join(', ')}
+            {formatErrorMessage(fieldErrors.title)}
           </p>
         )}
       </div>
@@ -48,12 +51,12 @@ export const TicketCreateForm = () => {
           name='content'
           className='min-h-48'
           placeholder='Conteúdo do ticket'
-          defaultValue={(state.payload?.get('content') as string) || ''}
+          defaultValue={(payload?.get('content') as string) || ''}
         />
 
-        {state.fieldErrors?.content && (
+        {fieldErrors?.content && (
           <p className='text-destructive absolute -bottom-5 text-xs'>
-            {state.fieldErrors.content.join(', ')}
+            {formatErrorMessage(fieldErrors.content)}
           </p>
         )}
       </div>
@@ -68,12 +71,12 @@ export const TicketCreateForm = () => {
             name='deadline'
             type='date'
             placeholder='Prazo do ticket'
-            defaultValue={(state.payload?.get('deadline') as string) || ''}
+            defaultValue={(payload?.get('deadline') as string) || ''}
           />
 
-          {state.fieldErrors?.deadline && (
+          {fieldErrors?.deadline && (
             <p className='text-destructive absolute -bottom-5 text-xs'>
-              {state.fieldErrors.deadline.join(', ')}
+              {formatErrorMessage(fieldErrors.deadline)}
             </p>
           )}
         </div>
@@ -87,12 +90,12 @@ export const TicketCreateForm = () => {
             name='bounty'
             type='number'
             placeholder='Bônus do ticket'
-            defaultValue={(state.payload?.get('bounty') as string) || ''}
+            defaultValue={(payload?.get('bounty') as string) || ''}
           />
 
-          {state.fieldErrors?.bounty && (
+          {fieldErrors?.bounty && (
             <p className='text-destructive absolute -bottom-5 text-xs'>
-              {state.fieldErrors.bounty.join(', ')}
+              {formatErrorMessage(fieldErrors.bounty)}
             </p>
           )}
         </div>
