@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ComponentProps } from 'react';
+import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
 
@@ -11,9 +11,10 @@ import { ticketsPath } from '@/utils/paths';
 
 type FormProps = ComponentProps<'form'> & {
   state: CreateTicketState;
+  action: FormHTMLAttributes<HTMLFormElement>;
 };
 
-export const Form = ({ state, ...props }: FormProps) => {
+export const Form = ({ state, action, ...props }: FormProps) => {
   const router = useRouter();
 
   useStateFeedback(state, {
@@ -27,7 +28,7 @@ export const Form = ({ state, ...props }: FormProps) => {
   });
 
   return (
-    <form {...props} className='space-y-6'>
+    <form {...props} className='space-y-6' action={action}>
       {props.children}
     </form>
   );
