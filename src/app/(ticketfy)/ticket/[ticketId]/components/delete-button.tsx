@@ -55,7 +55,7 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
             onClick={() => startTransition(() => deleteTicket(ticketId))}
           >
             {isPending && <Spinner size='4' />}
-            Excluir
+            {isPending ? 'Excluindo...' : 'Excluir'}
           </Button>
         </DialogFooter>
       </DialogContent>
