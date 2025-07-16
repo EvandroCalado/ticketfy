@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
+import { toCent } from '@/utils/format-currency';
 import { ticketPath } from '@/utils/paths';
 
 import { CreateTicketState } from '../../../create/constants/initial-create-state';
@@ -20,11 +21,16 @@ export const updateTicket = async (
       title: formData.get('title') as string,
       content: formData.get('content') as string,
       status: formData.get('status') as TicketStatus,
+      deadline: formData.get('deadline') as string,
+      bounty: Number(formData.get('bounty')),
     });
 
     await prisma.ticket.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        bounty: toCent(data.bounty),
+      },
     });
   } catch (error) {
     return formErrorHandler(error, formData);

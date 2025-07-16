@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 
 import { FileUpIcon, Loader2Icon } from 'lucide-react';
 
+import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +17,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { fromCent } from '@/utils/format-currency';
+import { formatErrorMessage } from '@/utils/format-error-message';
 
 import { CREATE_TICKET_STATE } from '../../../create/constants/initial-create-state';
 import { updateTicket } from '../actions/update-ticket';
@@ -32,6 +35,8 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
     CREATE_TICKET_STATE,
   );
 
+  const { fieldErrors } = state;
+
   return (
     <Form state={state} action={dispatch}>
       <div className='flex flex-col items-center gap-5 md:flex-row'>
@@ -46,9 +51,9 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
             defaultValue={ticket.title}
           />
 
-          {state.fieldErrors?.title && (
+          {fieldErrors?.title && (
             <p className='text-destructive absolute -bottom-5 text-xs'>
-              {state.fieldErrors.title.join(', ')}
+              {formatErrorMessage(fieldErrors.title)}
             </p>
           )}
         </div>
@@ -70,9 +75,9 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
             </SelectContent>
           </Select>
 
-          {state.fieldErrors?.status && (
+          {fieldErrors?.status && (
             <p className='text-destructive absolute -bottom-5 text-xs'>
-              {state.fieldErrors.status.join(', ')}
+              {formatErrorMessage(fieldErrors.status)}
             </p>
           )}
         </div>
@@ -89,6 +94,44 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
           placeholder='Conteúdo do ticket'
           defaultValue={ticket.content}
         />
+      </div>
+
+      <div className='flex items-center gap-5'>
+        <div className='relative w-full'>
+          <Label htmlFor='deadline' className='text-muted-foreground mb-2'>
+            Prazo
+          </Label>
+          <DatePicker
+            id='deadline'
+            name='deadline'
+            defaultValue={ticket.deadline}
+          />
+
+          {fieldErrors?.deadline && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {formatErrorMessage(fieldErrors.deadline)}
+            </p>
+          )}
+        </div>
+
+        <div className='relative w-full'>
+          <Label htmlFor='bounty' className='text-muted-foreground mb-2'>
+            Bônus(R$)
+          </Label>
+          <Input
+            id='bounty'
+            name='bounty'
+            type='number'
+            placeholder='Bônus do ticket'
+            defaultValue={fromCent(ticket.bounty)}
+          />
+
+          {fieldErrors?.bounty && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {formatErrorMessage(fieldErrors.bounty)}
+            </p>
+          )}
+        </div>
       </div>
 
       <Button type='submit' disabled={isPending} className='w-full'>
