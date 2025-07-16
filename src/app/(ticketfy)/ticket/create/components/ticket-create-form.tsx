@@ -58,7 +58,47 @@ export const TicketCreateForm = () => {
         )}
       </div>
 
-      <Button type='submit' disabled={isPending} className='w-full'>
+      <div className='flex items-center gap-5'>
+        <div className='relative w-full'>
+          <Label htmlFor='deadline' className='text-muted-foreground mb-2'>
+            Prazo
+          </Label>
+          <Input
+            id='deadline'
+            name='deadline'
+            type='date'
+            placeholder='Prazo do ticket'
+            defaultValue={(state.payload?.get('deadline') as string) || ''}
+          />
+
+          {state.fieldErrors?.deadline && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {state.fieldErrors.deadline.join(', ')}
+            </p>
+          )}
+        </div>
+
+        <div className='relative w-full'>
+          <Label htmlFor='bounty' className='text-muted-foreground mb-2'>
+            Bônus(R$)
+          </Label>
+          <Input
+            id='bounty'
+            name='bounty'
+            type='number'
+            placeholder='Bônus do ticket'
+            defaultValue={(state.payload?.get('bounty') as string) || ''}
+          />
+
+          {state.fieldErrors?.bounty && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {state.fieldErrors.bounty.join(', ')}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <Button type='submit' disabled={isPending} className='mt-4 w-full'>
         {isPending ? <Loader2Icon className='animate-spin' /> : <FileUpIcon />}
         {isPending ? 'Criando...' : 'Criar'}
       </Button>
