@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
+import { toCent } from '@/utils/format-currency';
 import { ticketsPath } from '@/utils/paths';
 
 import { CreateTicketState } from '../constants/initial-create-state';
@@ -18,9 +19,16 @@ export const createTicket = async (
     const data = createTicketSchema.parse({
       title: formData.get('title') as string,
       content: formData.get('content') as string,
+      deadline: formData.get('deadline') as string,
+      bounty: Number(formData.get('bounty')),
     });
 
-    await prisma.ticket.create({ data });
+    const dbData = {
+      ...data,
+      bounty: toCent(data.bounty),
+    };
+
+    await prisma.ticket.create({ data: dbData });
   } catch (error) {
     return formErrorHandler(error, formData);
   }

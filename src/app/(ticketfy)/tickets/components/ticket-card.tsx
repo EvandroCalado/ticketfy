@@ -4,6 +4,7 @@ import { FileSymlinkIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { formatCurrency } from '@/utils/format-currency';
 
 import { TICKET_ICONS } from '../constants/ticket-icons';
 import { TICKET_STATUS } from '../constants/ticket-status';
@@ -25,9 +26,16 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
       </CardHeader>
 
       <CardContent className='grow px-0'>
-        <span className='text-muted-foreground line-clamp-3'>
-          {ticket.content}
-        </span>
+        <div className='flex h-full flex-col justify-between'>
+          <span className='text-muted-foreground line-clamp-2'>
+            {ticket.content}
+          </span>
+
+          <div className='text-muted-foreground/40 mt-4 flex items-center justify-between text-sm font-semibold'>
+            <span>{ticket.deadline}</span>
+            <span>{formatCurrency(ticket.bounty)}</span>
+          </div>
+        </div>
       </CardContent>
 
       <div className='border-border flex items-center justify-between border-t px-0 pt-3'>
