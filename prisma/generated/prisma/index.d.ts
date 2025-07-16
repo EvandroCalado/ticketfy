@@ -229,8 +229,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.11.1
-   * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
+   * Prisma Client JS version: 6.12.0
+   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
    */
   export type PrismaVersion = {
     client: string
@@ -893,8 +893,18 @@ export namespace Prisma {
 
   export type AggregateTicket = {
     _count: TicketCountAggregateOutputType | null
+    _avg: TicketAvgAggregateOutputType | null
+    _sum: TicketSumAggregateOutputType | null
     _min: TicketMinAggregateOutputType | null
     _max: TicketMaxAggregateOutputType | null
+  }
+
+  export type TicketAvgAggregateOutputType = {
+    bounty: number | null
+  }
+
+  export type TicketSumAggregateOutputType = {
+    bounty: number | null
   }
 
   export type TicketMinAggregateOutputType = {
@@ -902,6 +912,8 @@ export namespace Prisma {
     title: string | null
     content: string | null
     status: $Enums.TicketStatus | null
+    deadline: string | null
+    bounty: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -911,6 +923,8 @@ export namespace Prisma {
     title: string | null
     content: string | null
     status: $Enums.TicketStatus | null
+    deadline: string | null
+    bounty: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -920,17 +934,29 @@ export namespace Prisma {
     title: number
     content: number
     status: number
+    deadline: number
+    bounty: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type TicketAvgAggregateInputType = {
+    bounty?: true
+  }
+
+  export type TicketSumAggregateInputType = {
+    bounty?: true
+  }
+
   export type TicketMinAggregateInputType = {
     id?: true
     title?: true
     content?: true
     status?: true
+    deadline?: true
+    bounty?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -940,6 +966,8 @@ export namespace Prisma {
     title?: true
     content?: true
     status?: true
+    deadline?: true
+    bounty?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -949,6 +977,8 @@ export namespace Prisma {
     title?: true
     content?: true
     status?: true
+    deadline?: true
+    bounty?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -992,6 +1022,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TicketAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TicketSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TicketMinAggregateInputType
@@ -1022,6 +1064,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TicketCountAggregateInputType | true
+    _avg?: TicketAvgAggregateInputType
+    _sum?: TicketSumAggregateInputType
     _min?: TicketMinAggregateInputType
     _max?: TicketMaxAggregateInputType
   }
@@ -1031,9 +1075,13 @@ export namespace Prisma {
     title: string
     content: string
     status: $Enums.TicketStatus
+    deadline: string
+    bounty: number
     createdAt: Date
     updatedAt: Date
     _count: TicketCountAggregateOutputType | null
+    _avg: TicketAvgAggregateOutputType | null
+    _sum: TicketSumAggregateOutputType | null
     _min: TicketMinAggregateOutputType | null
     _max: TicketMaxAggregateOutputType | null
   }
@@ -1057,6 +1105,8 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     status?: boolean
+    deadline?: boolean
+    bounty?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["ticket"]>
@@ -1066,6 +1116,8 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     status?: boolean
+    deadline?: boolean
+    bounty?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["ticket"]>
@@ -1075,6 +1127,8 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     status?: boolean
+    deadline?: boolean
+    bounty?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["ticket"]>
@@ -1084,11 +1138,13 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     status?: boolean
+    deadline?: boolean
+    bounty?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["ticket"]>
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "status" | "deadline" | "bounty" | "createdAt" | "updatedAt", ExtArgs["result"]["ticket"]>
 
   export type $TicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Ticket"
@@ -1098,6 +1154,8 @@ export namespace Prisma {
       title: string
       content: string
       status: $Enums.TicketStatus
+      deadline: string
+      bounty: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["ticket"]>
@@ -1527,6 +1585,8 @@ export namespace Prisma {
     readonly title: FieldRef<"Ticket", 'String'>
     readonly content: FieldRef<"Ticket", 'String'>
     readonly status: FieldRef<"Ticket", 'TicketStatus'>
+    readonly deadline: FieldRef<"Ticket", 'String'>
+    readonly bounty: FieldRef<"Ticket", 'Int'>
     readonly createdAt: FieldRef<"Ticket", 'DateTime'>
     readonly updatedAt: FieldRef<"Ticket", 'DateTime'>
   }
@@ -1914,6 +1974,8 @@ export namespace Prisma {
     title: 'title',
     content: 'content',
     status: 'status',
+    deadline: 'deadline',
+    bounty: 'bounty',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -1971,6 +2033,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1985,16 +2061,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -2009,6 +2085,8 @@ export namespace Prisma {
     title?: StringFilter<"Ticket"> | string
     content?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
+    deadline?: StringFilter<"Ticket"> | string
+    bounty?: IntFilter<"Ticket"> | number
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
   }
@@ -2018,6 +2096,8 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
+    deadline?: SortOrder
+    bounty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2030,6 +2110,8 @@ export namespace Prisma {
     title?: StringFilter<"Ticket"> | string
     content?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
+    deadline?: StringFilter<"Ticket"> | string
+    bounty?: IntFilter<"Ticket"> | number
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
   }, "id">
@@ -2039,11 +2121,15 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
+    deadline?: SortOrder
+    bounty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TicketCountOrderByAggregateInput
+    _avg?: TicketAvgOrderByAggregateInput
     _max?: TicketMaxOrderByAggregateInput
     _min?: TicketMinOrderByAggregateInput
+    _sum?: TicketSumOrderByAggregateInput
   }
 
   export type TicketScalarWhereWithAggregatesInput = {
@@ -2054,6 +2140,8 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Ticket"> | string
     content?: StringWithAggregatesFilter<"Ticket"> | string
     status?: EnumTicketStatusWithAggregatesFilter<"Ticket"> | $Enums.TicketStatus
+    deadline?: StringWithAggregatesFilter<"Ticket"> | string
+    bounty?: IntWithAggregatesFilter<"Ticket"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
   }
@@ -2063,6 +2151,8 @@ export namespace Prisma {
     title: string
     content: string
     status?: $Enums.TicketStatus
+    deadline: string
+    bounty: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2072,6 +2162,8 @@ export namespace Prisma {
     title: string
     content: string
     status?: $Enums.TicketStatus
+    deadline: string
+    bounty: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2081,6 +2173,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    deadline?: StringFieldUpdateOperationsInput | string
+    bounty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2090,6 +2184,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    deadline?: StringFieldUpdateOperationsInput | string
+    bounty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2099,6 +2195,8 @@ export namespace Prisma {
     title: string
     content: string
     status?: $Enums.TicketStatus
+    deadline: string
+    bounty: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2108,6 +2206,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    deadline?: StringFieldUpdateOperationsInput | string
+    bounty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2117,6 +2217,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    deadline?: StringFieldUpdateOperationsInput | string
+    bounty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2143,6 +2245,17 @@ export namespace Prisma {
     not?: NestedEnumTicketStatusFilter<$PrismaModel> | $Enums.TicketStatus
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2159,8 +2272,14 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
+    deadline?: SortOrder
+    bounty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type TicketAvgOrderByAggregateInput = {
+    bounty?: SortOrder
   }
 
   export type TicketMaxOrderByAggregateInput = {
@@ -2168,6 +2287,8 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
+    deadline?: SortOrder
+    bounty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2177,8 +2298,14 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
+    deadline?: SortOrder
+    bounty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type TicketSumOrderByAggregateInput = {
+    bounty?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2209,6 +2336,22 @@ export namespace Prisma {
     _max?: NestedEnumTicketStatusFilter<$PrismaModel>
   }
 
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2229,6 +2372,14 @@ export namespace Prisma {
 
   export type EnumTicketStatusFieldUpdateOperationsInput = {
     set?: $Enums.TicketStatus
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -2254,6 +2405,17 @@ export namespace Prisma {
     in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumTicketStatusFilter<$PrismaModel> | $Enums.TicketStatus
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -2284,17 +2446,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedEnumTicketStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TicketStatus | EnumTicketStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
@@ -2303,6 +2454,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTicketStatusFilter<$PrismaModel>
     _max?: NestedEnumTicketStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
