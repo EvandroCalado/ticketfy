@@ -1,90 +1,83 @@
-## Next.js Boilerplate
+# 🎟️ Ticketfy
 
-Este é um boilerplate moderno para projetos Next.js, configurado com as melhores práticas e ferramentas de desenvolvimento.
+Sistema de gerenciamento de ingressos desenvolvido com as mais modernas tecnologias do ecossistema React/Next.js.
 
-## Tecnologias Principais
+## 🚀 Tecnologias Utilizadas
 
-- **Next.js 15.3.4**: Framework React para produção
-- **React 19**: Biblioteca JavaScript para UI
-- **TypeScript**: JavaScript com tipagem estática
-- **TailwindCSS**: Framework CSS utilitário
-- **Vite**: Build tool e servidor de desenvolvimento
-- **Vitest**: Framework de testes rápido
-- **ESLint**: Linter para JavaScript/TypeScript
-- **Prettier**: Formatação de código
-- **pnpm**: Gerenciador de pacotes
+- **Next.js 15** - Framework React para renderização híbrida e roteamento
+- **React 19** - Biblioteca JavaScript para construção de interfaces
+- **TypeScript** - Adiciona tipagem estática ao JavaScript
+- **Tailwind CSS** - Framework CSS utilitário para estilização
+- **Prisma** - ORM para banco de dados
+- **Zod** - Validação de dados em tempo de execução
+- **Radix UI** - Componentes acessíveis e sem estilos
+- **React Hook Form** - Gerenciamento de formulários
+- **date-fns** - Manipulação de datas
+- **Vitest** - Framework de testes
 
-## Como Criar um Novo Projeto a partir deste Boilerplate
+## ✨ Funcionalidades
 
-### 1. Clonar o Repositório
+- Criação e gerenciamento de ingressos
+- Interface moderna e responsiva
+- Validação de formulários robusta
+- Tema escuro/claro
+- Componentes acessíveis
+- Testes automatizados
+
+## 🛠️ Como Executar
+
+1. Clone o repositório:
+   ```bash
+   git clone [URL_DO_REPOSITORIO]
+   cd ticketfy
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Configure as variáveis de ambiente:
+   ```bash
+   cp .env.example .env
+   ```
+   Preencha as variáveis necessárias no arquivo `.env`
+
+4. Execute as migrações do banco de dados:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+5. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+
+6. Acesse a aplicação em:
+   ```
+   http://localhost:3000
+   ```
+
+## 🧪 Testes
+
+Para executar os testes:
 ```bash
-git clone https://github.com/evandro/nextjs-boilerplate.git nome-do-seu-projeto
+npm test
 ```
 
-### 2. Configurar o Projeto
+Para verificar a cobertura de testes:
 ```bash
-cd nome-do-seu-projeto
-pnpm install
+npm run test:coverage
 ```
 
-### 3. Iniciar o Desenvolvimento
-```bash
-pnpm dev
-```
+## 📝 Licença
 
-## Scripts Disponíveis
+Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
-```bash
-# Desenvolvimento com Turbopack
-pnpm dev
+## 👥 Contribuição
 
-# Build de produção
-pnpm build
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
 
-# Iniciar servidor de produção
-pnpm start
+## 📬 Contato
 
-# Executar testes
-pnpm test
-
-# Executar testes com cobertura
-pnpm test:coverage
-
-# Verificar linting
-pnpm lint
-
-# Verificar tipos TypeScript
-pnpm typecheck
-```
-
-## Estrutura do Projeto
-
-```
-src/
-├── app/           # Páginas e layout do Next.js
-```
-
-## Recursos Incluídos
-
-- Configuração completa do TypeScript
-- Setup de testes com Vitest
-- Linting e formatação de código
-- Configuração do TailwindCSS
-- Configuração do ESLint
-- Setup de CI/CD com GitHub Actions
-- Configuração do Lefthook para hooks Git
-
-## Requisitos
-
-- Node.js (versão LTS recomendada)
-- pnpm (gerenciador de pacotes)
-
-## Licença
-
-MIT.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Se tiver alguma dúvida ou sugestão, entre em contato através do [seu-email@exemplo.com](mailto:seu-email@exemplo.com) ou abra uma issue no repositório.
