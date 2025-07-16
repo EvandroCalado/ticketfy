@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 
 import { FileUpIcon, Loader2Icon } from 'lucide-react';
 
+import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,11 +67,16 @@ export const TicketCreateForm = () => {
           <Label htmlFor='deadline' className='text-muted-foreground mb-2'>
             Prazo
           </Label>
-          <Input
+          {/* <Input
             id='deadline'
             name='deadline'
             type='date'
             placeholder='Prazo do ticket'
+            defaultValue={(payload?.get('deadline') as string) || ''}
+          /> */}
+          <DatePicker
+            id='deadline'
+            name='deadline'
             defaultValue={(payload?.get('deadline') as string) || ''}
           />
 
