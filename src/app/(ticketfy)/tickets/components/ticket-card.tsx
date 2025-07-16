@@ -5,6 +5,7 @@ import { FileSymlinkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatCurrency } from '@/utils/format-currency';
+import { formatDate } from '@/utils/format-date';
 
 import { TICKET_ICONS } from '../constants/ticket-icons';
 import { TICKET_STATUS } from '../constants/ticket-status';
@@ -32,7 +33,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
           </span>
 
           <div className='text-muted-foreground/40 mt-4 flex items-center justify-between text-sm font-semibold'>
-            <span>{ticket.deadline}</span>
+            <span>{formatDate(ticket.deadline)}</span>
             <span>{formatCurrency(ticket.bounty)}</span>
           </div>
         </div>
