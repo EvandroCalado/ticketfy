@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ExternalLinkIcon } from 'lucide-react';
+import { FileSymlinkIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,7 +35,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
 
         <Button asChild size='icon' aria-label='Ver ticket' title='Ver ticket'>
           <Link href={`/ticket/${ticket.id}`}>
-            <ExternalLinkIcon />
+            <FileSymlinkIcon />
           </Link>
         </Button>
       </div>

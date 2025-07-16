@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 
-import { Loader2Icon, SaveAllIcon } from 'lucide-react';
+import { FileUpIcon, Loader2Icon } from 'lucide-react';
 
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
@@ -92,7 +92,7 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
       </div>
 
       <Button type='submit' disabled={isPending} className='w-full'>
-        {isPending ? <Loader2Icon className='animate-spin' /> : <SaveAllIcon />}
+        {isPending ? <Loader2Icon className='animate-spin' /> : <FileUpIcon />}
         {isPending ? 'Atualizando...' : 'Atualizar'}
       </Button>
     </Form>

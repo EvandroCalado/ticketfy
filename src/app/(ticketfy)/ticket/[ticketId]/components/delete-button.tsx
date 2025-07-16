@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react';
 
-import { TrashIcon } from 'lucide-react';
+import { FileX2Icon } from 'lucide-react';
 
 import { Spinner } from '@/components/shared/spinner';
 import { Button } from '@/components/ui/button';
@@ -29,12 +29,12 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          size='icon'
           variant='destructive'
           aria-label='Excluir ticket'
           title='Excluir ticket'
+          className='w-24'
         >
-          <TrashIcon />
+          <FileX2Icon /> Excluir
         </Button>
       </DialogTrigger>
       <DialogContent>

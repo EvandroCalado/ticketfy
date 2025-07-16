@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { FilePlusIcon } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 
 import { getTickets } from '../actions/get-tickets';
@@ -16,8 +18,11 @@ export const TicketsList = async () => {
           <span className='text-muted-foreground/60'>Tickets encontrados</span>
         </div>
 
-        <Button>
-          <Link href='/ticket/create'>Adicionar ticket</Link>
+        <Button asChild>
+          <Link href='/ticket/create'>
+            <FilePlusIcon />
+            Adicionar ticket
+          </Link>
         </Button>
       </div>
 

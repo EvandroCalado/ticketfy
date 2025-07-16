@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import {
   CalendarIcon,
-  EditIcon,
+  FilePenIcon,
   MoveLeftIcon,
   SquareCheckBigIcon,
 } from 'lucide-react';
@@ -67,12 +67,12 @@ const TicketPage = async ({ params }: TicketPageParams) => {
           <Button
             asChild
             variant='outline'
-            size='icon'
             aria-label='Editar ticket'
             title='Editar ticket'
+            className='w-24'
           >
             <Link href={ticketEditPath(ticketId)}>
-              <EditIcon />
+              <FilePenIcon /> Editar
             </Link>
           </Button>
         </div>
