@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 
 import { FileUpIcon, Loader2Icon } from 'lucide-react';
 
+import { TICKET_STATUS } from '@/app/(ticketfy)/tickets/constants/ticket-status';
 import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
@@ -69,9 +70,11 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
               <SelectValue placeholder='Status' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='OPEN'>Em aberto</SelectItem>
-              <SelectItem value='IN_PROGRESS'>Em andamento</SelectItem>
-              <SelectItem value='DONE'>Concluído</SelectItem>
+              {Object.keys(TICKET_STATUS).map(status => (
+                <SelectItem key={status} value={status}>
+                  {TICKET_STATUS[status as keyof typeof TICKET_STATUS]}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
 
