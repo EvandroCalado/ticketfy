@@ -2,13 +2,17 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import {
+  CalendarCheckIcon,
   CalendarIcon,
+  CreditCardIcon,
   FilePenIcon,
   MoveLeftIcon,
   SquareCheckBigIcon,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { formatCurrency } from '@/utils/format-currency';
+import { formatDate } from '@/utils/format-date';
 import { ticketEditPath, ticketsPath } from '@/utils/paths';
 
 import { TICKET_STATUS } from '../../tickets/constants/ticket-status';
@@ -34,7 +38,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
         {ticket.content}
       </p>
 
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-6'>
         <div className='flex items-center justify-between'>
           <div
             className='text-muted-foreground flex items-center gap-2'
@@ -45,36 +49,58 @@ const TicketPage = async ({ params }: TicketPageParams) => {
 
             {TICKET_STATUS[ticket.status]}
           </div>
-
-          <DeleteButton ticketId={ticketId} />
         </div>
 
-        <div className='flex items-center justify-between'>
+        <div className='text-muted-foreground flex flex-col justify-between gap-6 sm:flex-row sm:items-center'>
           <div
-            className='text-muted-foreground flex items-center gap-2'
+            className='flex items-center gap-2'
             aria-label='Data de criação do ticket'
             title='Data de criação do ticket'
           >
-            <span className='font-semibold'>
-              <CalendarIcon className='size-5' />
-            </span>
+            <CalendarIcon className='size-5' />
 
-            {ticket.createdAt.toLocaleDateString('pt-BR', {
-              dateStyle: 'long',
-            })}
+            {formatDate(ticket.createdAt.toString())}
           </div>
 
-          <Button
-            asChild
-            variant='outline'
-            aria-label='Editar ticket'
-            title='Editar ticket'
-            className='w-24'
+          <div
+            className='flex items-center gap-2'
+            aria-label='Data de prazo do ticket'
+            title='Data de prazo do ticket'
           >
-            <Link href={ticketEditPath(ticketId)}>
-              <FilePenIcon /> Editar
-            </Link>
-          </Button>
+            <CalendarCheckIcon className='size-5' />
+            {formatDate(ticket.deadline.toString())}
+          </div>
+        </div>
+
+        <div className='flex flex-col justify-between gap-6 sm:flex-row sm:items-center'>
+          <span
+            className='text-muted-foreground flex items-center gap-2 font-semibold'
+            aria-label='Bônus do ticket'
+            title='Bônus do ticket'
+          >
+            <CreditCardIcon className='size-5' />
+            {formatCurrency(ticket.bounty)}
+          </span>
+
+          <div
+            className='flex items-center gap-2'
+            aria-label='Ações do ticket'
+            title='Ações do ticket'
+          >
+            <Button
+              asChild
+              variant='outline'
+              aria-label='Editar ticket'
+              title='Editar ticket'
+              className='w-24'
+            >
+              <Link href={ticketEditPath(ticketId)}>
+                <FilePenIcon /> Editar
+              </Link>
+            </Button>
+
+            <DeleteButton ticketId={ticketId} />
+          </div>
         </div>
       </div>
 
