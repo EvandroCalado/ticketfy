@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Home',
+  description: 'Uma plataforma de tickets',
 };
 
 const Home = () => {
@@ -39,7 +40,7 @@ const Home = () => {
           height={500}
           priority
           placeholder='blur'
-          blurDataURL='/empty_img.webp'
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           className='max-h-[500px] w-auto'
         />
