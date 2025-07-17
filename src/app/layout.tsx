@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { ReactScan } from '@/components/shared/react-scan';
 import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
@@ -10,6 +9,8 @@ import { ThemeProvider } from './theme-provider';
 const primary = Inter({
   variable: '--font-primary',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Ticketfy',
     default: 'Ticketfy',
   },
-  description: 'A ticketing platform',
+  description: 'Uma plataforma de tickets',
 };
 
 const RootLayout = ({
@@ -27,8 +28,8 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang='pt-BR' suppressHydrationWarning>
-      <ReactScan />
-      <body className={`${primary.variable}`}>
+      {/* <ReactScan /> */}
+      <body className={`${primary.variable} antialiased`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
