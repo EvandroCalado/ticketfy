@@ -51,7 +51,12 @@ const TicketPage = async ({ params }: TicketPageParams) => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='ghost' size='icon'>
+            <Button
+              variant='ghost'
+              size='icon'
+              aria-label='Opções'
+              title='Opções'
+            >
               <EllipsisVerticalIcon />
             </Button>
           </DropdownMenuTrigger>
@@ -59,7 +64,11 @@ const TicketPage = async ({ params }: TicketPageParams) => {
             <DropdownMenuLabel>Opções</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={ticketEditPath(ticketId)}>
+              <Link
+                href={ticketEditPath(ticketId)}
+                aria-label='Editar'
+                title='Editar'
+              >
                 <FilePenIcon /> Editar
               </Link>
             </DropdownMenuItem>

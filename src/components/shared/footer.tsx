@@ -13,6 +13,8 @@ export const Footer = () => {
 
         <span className='flex items-center gap-4'>
           <Link
+            aria-label='Github'
+            title='Github'
             href='https://github.com/evandrocalado'
             target='_blank'
             rel='noopener noreferrer'
@@ -21,6 +23,8 @@ export const Footer = () => {
             <GithubIcon className='size-5' />
           </Link>
           <Link
+            aria-label='Linkedin'
+            title='Linkedin'
             href='https://www.linkedin.com/in/evandro-calado/'
             target='_blank'
             rel='noopener noreferrer'
@@ -31,10 +35,20 @@ export const Footer = () => {
         </span>
 
         <span className='text-muted-foreground flex items-center gap-4 text-xs'>
-          <Link href='/' className='hover:text-foreground duration-150'>
+          <Link
+            aria-label='Política de Privacidade'
+            title='Política de Privacidade'
+            href='/'
+            className='hover:text-foreground duration-150'
+          >
             Política de Privacidade
           </Link>
-          <Link href='/' className='hover:text-foreground duration-150'>
+          <Link
+            aria-label='Termos de Uso'
+            title='Termos de Uso'
+            href='/'
+            className='hover:text-foreground duration-150'
+          >
             Termos de Uso
           </Link>
         </span>

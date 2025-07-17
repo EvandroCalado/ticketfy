@@ -61,12 +61,12 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
 
         <div className='relative w-full md:w-[180px]'>
           <Label className='text-muted-foreground mb-2'>Status</Label>
-          <Select
-            name='status'
-            aria-label='Status do ticket'
-            defaultValue={ticket.status}
-          >
-            <SelectTrigger className='w-full md:w-[180px]'>
+          <Select name='status' defaultValue={ticket.status}>
+            <SelectTrigger
+              className='w-full md:w-[180px]'
+              aria-label='Status do ticket'
+              title='Status do ticket'
+            >
               <SelectValue placeholder='Status' />
             </SelectTrigger>
             <SelectContent>
