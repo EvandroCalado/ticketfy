@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -27,6 +28,10 @@ import { ticketEditPath, ticketsPath } from '@/utils/paths';
 import { TICKET_STATUS } from '../../tickets/constants/ticket-status';
 import { getTicket } from './actions/get-ticket';
 import { DeleteButton } from './components/delete-button';
+
+export const metadata: Metadata = {
+  title: 'Ticket',
+};
 
 type TicketPageParams = {
   params: Promise<{ ticketId: string }>;

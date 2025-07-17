@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { MoveLeftIcon } from 'lucide-react';
@@ -6,6 +7,10 @@ import { Button } from '@/components/ui/button';
 import { ticketsPath } from '@/utils/paths';
 
 import { TicketCreateForm } from './components/ticket-create-form';
+
+export const metadata: Metadata = {
+  title: 'Criar ticket',
+};
 
 const TicketCreatePage = () => {
   return (
