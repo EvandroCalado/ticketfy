@@ -1,16 +1,20 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { MessageSquareWarningIcon, TicketIcon } from 'lucide-react';
+import { TicketIcon } from 'lucide-react';
 
 import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
 import { ticketsPath } from '@/utils/paths';
 
+export const metadata: Metadata = {
+  title: 'Ticket não encontrado',
+};
+
 const NotFound = () => {
   return (
     <EmptyError
       label='Ticket não encontrado!'
-      icon={MessageSquareWarningIcon}
       button={
         <Button asChild>
           <Link href={ticketsPath()}>
