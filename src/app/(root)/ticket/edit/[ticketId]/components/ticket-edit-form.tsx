@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 
 import { FileUpIcon, Loader2Icon } from 'lucide-react';
 
-import { TICKET_STATUS } from '@/app/(ticketfy)/tickets/constants/ticket-status';
+import { TICKET_STATUS } from '@/app/(root)/tickets/constants/ticket-status';
 import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';

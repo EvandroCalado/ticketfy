@@ -4,7 +4,7 @@ import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
 
-import { CreateTicketState } from '@/app/(ticketfy)/ticket/create/constants/initial-create-state';
+import { CreateTicketState } from '@/app/(root)/ticket/create/constants/initial-create-state';
 import { useStateFeedback } from '@/hooks/use-state-feedback';
 
 type FormProps = ComponentProps<'form'> & {

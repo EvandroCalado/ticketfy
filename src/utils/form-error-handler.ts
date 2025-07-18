@@ -1,6 +1,6 @@
 import { ZodError, flattenError } from 'zod';
 
-import { CreateTicketState } from '@/app/(ticketfy)/ticket/create/constants/initial-create-state';
+import { CreateTicketState } from '@/app/(root)/ticket/create/constants/initial-create-state';
 
 export const formErrorHandler = (
   error: unknown,
