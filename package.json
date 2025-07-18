@@ -11,7 +11,8 @@
     "test": "vitest",
     "test:ci": "vitest --run --passWithNoTests",
     "test:coverage": "vitest --coverage",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^15.4.1",
