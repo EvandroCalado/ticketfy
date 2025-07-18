@@ -39,9 +39,9 @@ const RootLayout = ({
           disableTransitionOnChange
         >
           {children}
-          <SpeedInsights />
         </ThemeProvider>
         <Toaster position='top-right' invert richColors />
+        <SpeedInsights />
       </body>
     </html>
   );
