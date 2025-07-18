@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
@@ -37,6 +39,7 @@ const RootLayout = ({
           disableTransitionOnChange
         >
           {children}
+          <SpeedInsights />
         </ThemeProvider>
         <Toaster position='top-right' invert richColors />
       </body>
