@@ -8,13 +8,13 @@ import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { ticketsPath } from '@/utils/paths';
 
-import { CreateTicketState } from '../constants/initial-create-state';
+import { TicketState } from '../constants/initial-create-state';
 import { createTicketSchema } from '../schemas/create-ticket';
 
 export const createTicket = async (
   prevState: unknown,
   formData: FormData,
-): Promise<CreateTicketState> => {
+): Promise<TicketState> => {
   try {
     const data = createTicketSchema.parse({
       title: formData.get('title') as string,

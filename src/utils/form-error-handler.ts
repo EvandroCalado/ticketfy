@@ -1,11 +1,11 @@
 import { ZodError, flattenError } from 'zod';
 
-import { CreateTicketState } from '@/app/(root)/ticket/create/constants/initial-create-state';
+import { TicketState } from '@/app/(root)/ticket/create/constants/initial-create-state';
 
 export const formErrorHandler = (
   error: unknown,
   formData: FormData,
-): CreateTicketState => {
+): TicketState => {
   if (error instanceof ZodError) {
     return {
       status: 'error',
