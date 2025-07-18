@@ -52,7 +52,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant='ghost'
+              variant='outline'
               size='icon'
               aria-label='Opções'
               title='Opções'
