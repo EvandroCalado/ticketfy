@@ -143,6 +143,10 @@ const config = {
         "fromEnvVar": null,
         "value": "debian-openssl-3.0.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -150,7 +154,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../../.env",
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
@@ -169,8 +173,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nenum TicketStatus {\n  OPEN\n  IN_PROGRESS\n  DONE\n}\n\nmodel Ticket {\n  id        String       @id @default(cuid())\n  title     String\n  content   String       @db.VarChar(1024)\n  status    TicketStatus @default(OPEN)\n  deadline  String\n  bounty    Int\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n}\n",
-  "inlineSchemaHash": "147a05d86c9db67a5a228d0fda2b13bf85b91d291603d0bbf216dd6a17aad3de",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nenum TicketStatus {\n  OPEN\n  IN_PROGRESS\n  DONE\n}\n\nmodel Ticket {\n  id        String       @id @default(cuid())\n  title     String\n  content   String       @db.VarChar(1024)\n  status    TicketStatus @default(OPEN)\n  deadline  String\n  bounty    Int\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n}\n",
+  "inlineSchemaHash": "9fa719679d28d9a6e99809f68f6edbbe758ec9fbfe779f40398878261a2a091d",
   "copyEngine": true
 }
 config.dirname = '/'
