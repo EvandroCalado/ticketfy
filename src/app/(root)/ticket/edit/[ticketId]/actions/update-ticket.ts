@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
-import { ticketPath } from '@/utils/paths';
+import { ticketPath, ticketsPath } from '@/utils/paths';
 
 import { TicketState } from '../../../create/constants/initial-create-state';
 import { updateTicketSchema } from '../schemas/update-ticket';
@@ -37,5 +37,6 @@ export const updateTicket = async (
   }
 
   revalidatePath(ticketPath(id));
+  revalidatePath(ticketsPath());
   redirect(ticketPath(id));
 };
