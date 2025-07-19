@@ -73,11 +73,13 @@ const AboutPage = () => {
 
       <div className='flex flex-col-reverse items-center justify-between gap-10 md:flex-row'>
         <p className='text-muted-foreground/40 max-w-xl'>
-          Em setembro de 2020, a Ticketfy firmou parceria com a Stripe, uma das
-          principais provedoras de serviços de pagamento dos Estados Unidos,
+          Em setembro de 2020, a Ticketfy firmou{' '}
+          <span className='text-foreground'>parceria com a Stripe</span>, uma
+          das principais provedoras de serviços de pagamento dos Estados Unidos,
           para os para nossos serviços de assinaturas. permitindo à empresa
-          expandir sua presença para mais de 2.500 clientes corporativos e
-          autônomos, além de um fluxo de mais de 100.000 tickets por mês.
+          <span className='text-foreground'>expandir sua presença</span> para
+          mais de 2.500 clientes corporativos e autônomos, além de um fluxo de
+          mais de 100.000 tickets por mês.
         </p>
 
         <Image
