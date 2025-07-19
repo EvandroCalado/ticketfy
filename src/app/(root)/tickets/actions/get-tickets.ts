@@ -12,7 +12,7 @@ export type GetTicketsResponse = {
 export const getTickets = async (): Promise<GetTicketsResponse> => {
   const tickets = await prisma.ticket.findMany({
     orderBy: {
-      createdAt: 'desc',
+      updatedAt: 'desc',
     },
   });
 
