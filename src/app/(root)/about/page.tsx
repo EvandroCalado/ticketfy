@@ -6,7 +6,7 @@ export const metadata = {
 
 const AboutPage = () => {
   return (
-    <main className='container mx-auto flex flex-1 flex-col items-center gap-24 p-5'>
+    <main className='container mx-auto flex flex-1 flex-col items-center gap-5 p-5 md:gap-24'>
       <h1 className='text-xl font-bold tracking-tighter sm:text-4xl'>
         Então <span className='text-primary'>quem</span> é o Ticketfy?
       </h1>
@@ -17,7 +17,7 @@ const AboutPage = () => {
         viewBox='0 0 275 382'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
-        className='stroke-foreground animate-fade-from-top'
+        className='stroke-foreground animate-fade-from-top p-5'
       >
         <path
           d='M151.417 1C91.4168 73.5 303.95 46.0107 270.417 135.5C242.5 210 132 182 35.9168 222.5C-19.5234 245.869 -17.8832 330.1 116.917 380.5'
