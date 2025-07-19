@@ -6,24 +6,40 @@ export const metadata = {
 
 const AboutPage = () => {
   return (
-    <main className='container mx-auto flex flex-1 flex-col items-center gap-28 p-5'>
+    <main className='container mx-auto flex flex-1 flex-col items-center gap-24 p-5'>
       <h1 className='text-xl font-bold tracking-tighter sm:text-4xl'>
         Então <span className='text-primary'>quem</span> é o Ticketfy?
       </h1>
 
-      <Image
-        src='/dashed.webp'
-        alt='Linha pontilhada '
-        width={300}
-        height={300}
-        priority
-        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-        placeholder='blur'
-        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
-        className='max-h-[300px] w-auto p-5'
-      />
+      <svg
+        width={275}
+        height={382}
+        viewBox='0 0 275 382'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        className='stroke-foreground animate-fade-from-top'
+      >
+        <path
+          d='M151.417 1C91.4168 73.5 303.95 46.0107 270.417 135.5C242.5 210 132 182 35.9168 222.5C-19.5234 245.869 -17.8832 330.1 116.917 380.5'
+          strokeWidth='3'
+          strokeDasharray='20 20'
+        />
+        <defs>
+          <linearGradient
+            id='paint0_linear_127_3'
+            x1='138'
+            y1='1'
+            x2='138'
+            y2='432'
+            gradientUnits='userSpaceOnUse'
+          >
+            <stop stopColor='white' />
+            <stop offset='1' stopColor='white' stopOpacity='0' />
+          </linearGradient>
+        </defs>
+      </svg>
 
-      <div className='flex flex-col-reverse items-center justify-between gap-10 md:flex-row'>
+      <div className='animate-fade-from-top flex flex-col-reverse items-center justify-between gap-10 md:flex-row'>
         <p className='text-muted-foreground/40 max-w-xl'>
           A Ticketfy é uma plataforma online para{' '}
           <span className='text-foreground'>gestão de tickets</span> com a
@@ -45,7 +61,7 @@ const AboutPage = () => {
         />
       </div>
 
-      <div className='flex flex-col items-center justify-between gap-10 md:flex-row'>
+      <div className='animate-fade-from-top flex flex-col items-center justify-between gap-10 md:flex-row'>
         <Image
           src='/world.webp'
           alt='Imagem de mundo'
@@ -71,7 +87,7 @@ const AboutPage = () => {
         </p>
       </div>
 
-      <div className='flex flex-col-reverse items-center justify-between gap-10 md:flex-row'>
+      <div className='animate-fade-from-top flex flex-col-reverse items-center justify-between gap-10 md:flex-row'>
         <p className='text-muted-foreground/40 max-w-xl'>
           Em setembro de 2020, a Ticketfy firmou{' '}
           <span className='text-foreground'>parceria com a Stripe</span>, uma
