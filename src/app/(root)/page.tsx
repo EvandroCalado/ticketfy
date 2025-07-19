@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <main className='container mx-auto grid flex-1 items-center p-5 md:grid-cols-2'>
-      <div className='space-y-10'>
+      <div className='animate-fade-from-top space-y-10'>
         <h1 className='max-w-xl text-3xl font-semibold md:text-5xl'>
           Abra tickets onde estiver, em{' '}
           <span className='text-primary'>um só lugar</span>
@@ -32,7 +32,7 @@ const Home = () => {
         </Button>
       </div>
 
-      <div className='flex items-center justify-center'>
+      <div className='animate-fade-from-top flex items-center justify-center'>
         <Image
           src='/hero.webp'
           alt='Imagem de tickets'
