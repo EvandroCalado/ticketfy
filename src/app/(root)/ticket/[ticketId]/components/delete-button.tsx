@@ -2,9 +2,6 @@
 
 import { useTransition } from 'react';
 
-import { FileX2Icon } from 'lucide-react';
-
-import { Spinner } from '@/components/shared/spinner';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -34,7 +31,7 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
           title='Excluir ticket'
           className='w-24'
         >
-          <FileX2Icon /> Excluir
+          Excluir
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -54,7 +51,6 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
             disabled={isPending}
             onClick={() => startTransition(() => deleteTicket(ticketId))}
           >
-            {isPending && <Spinner size='4' />}
             {isPending ? 'Excluindo...' : 'Excluir'}
           </Button>
         </DialogFooter>

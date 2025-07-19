@@ -2,8 +2,6 @@
 
 import { useActionState } from 'react';
 
-import { FileUpIcon, Loader2Icon } from 'lucide-react';
-
 import { TICKET_STATUS } from '@/app/(root)/tickets/constants/ticket-status';
 import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
@@ -138,7 +136,6 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
       </div>
 
       <Button type='submit' disabled={isPending} className='w-full'>
-        {isPending ? <Loader2Icon className='animate-spin' /> : <FileUpIcon />}
         {isPending ? 'Atualizando...' : 'Atualizar'}
       </Button>
     </Form>

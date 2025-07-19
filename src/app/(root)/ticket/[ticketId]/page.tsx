@@ -7,7 +7,6 @@ import {
   CalendarIcon,
   CreditCardIcon,
   EllipsisVerticalIcon,
-  FilePenIcon,
   MoveLeftIcon,
   SquareCheckBigIcon,
 } from 'lucide-react';
@@ -69,7 +68,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
                 aria-label='Editar'
                 title='Editar'
               >
-                <FilePenIcon /> Editar
+                Editar
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
