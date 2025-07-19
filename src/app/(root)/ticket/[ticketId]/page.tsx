@@ -90,7 +90,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
           {TICKET_STATUS[ticket.status]}
         </div>
 
-        <div className='text-muted-foreground flex flex-col justify-between gap-6 sm:flex-row sm:items-center'>
+        <div className='text-muted-foreground flex flex-col justify-between gap-6 text-sm sm:flex-row sm:items-center'>
           <div
             className='flex items-center gap-2'
             aria-label='Data de criação do ticket'
