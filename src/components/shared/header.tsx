@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { navLinks } from '@/utils/nav-links';
+import { signInPath, signUpPath } from '@/utils/paths';
 
 import { Button } from '../ui/button';
 import { DarkMode } from './dark-mode';
@@ -33,10 +34,12 @@ export const Header = () => {
 
         <div className='flex items-center gap-2 md:gap-3'>
           <DarkMode />
-          <Button variant='ghost' className='w-24'>
-            Cadastrar
+          <Button variant='ghost' className='w-24' asChild>
+            <Link href={signUpPath()}>Cadastrar</Link>
           </Button>
-          <Button className='w-24'>Entrar</Button>
+          <Button className='w-24' asChild>
+            <Link href={signInPath()}>Entrar</Link>
+          </Button>
         </div>
       </div>
     </header>
