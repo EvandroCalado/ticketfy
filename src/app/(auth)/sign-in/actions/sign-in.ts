@@ -20,8 +20,6 @@ export const signIn = async (
       Object.fromEntries(formData),
     );
 
-    console.log(email, password);
-
     const user = await prisma.user.findUnique({
       where: {
         email,
