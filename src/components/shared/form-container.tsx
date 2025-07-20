@@ -1,22 +1,18 @@
-import Link from 'next/link';
-
 import { Card } from '../ui/card';
 import { Separator } from '../ui/separator';
 
 type FormContainerProps = {
   title: string;
   description: string;
-  link: string;
-  LinkText: string;
-  children: React.ReactNode;
+  content: React.ReactNode;
+  footer?: React.ReactNode;
 };
 
 export const FormContainer = ({
   title,
   description,
-  link,
-  LinkText,
-  children,
+  content,
+  footer,
 }: FormContainerProps) => {
   return (
     <Card className='animate-fade-from-top flex w-full max-w-sm flex-col justify-center gap-6 p-5'>
@@ -27,14 +23,9 @@ export const FormContainer = ({
 
       <Separator />
 
-      {children}
+      {content}
 
-      <Link
-        href={link}
-        className='text-primary text-center text-sm hover:underline hover:underline-offset-4'
-      >
-        {LinkText}
-      </Link>
+      {footer}
     </Card>
   );
 };
