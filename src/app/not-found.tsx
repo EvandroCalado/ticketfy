@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { HomeIcon } from 'lucide-react';
+import { MoveLeftIcon } from 'lucide-react';
 
 import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
@@ -19,7 +19,7 @@ const NotFound = () => {
         button={
           <Button asChild>
             <Link href={homePath()}>
-              <HomeIcon /> Voltar para Home
+              <MoveLeftIcon /> Voltar para Home
             </Link>
           </Button>
         }
