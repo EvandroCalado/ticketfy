@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { formatErrorMessage } from '@/utils/format-error-message';
+import { ticketsPath } from '@/utils/paths';
 
 import { signUp } from '../actions/sign-up';
 
@@ -17,7 +18,7 @@ export const SignUpForm = () => {
   const { fieldErrors, payload } = state;
 
   return (
-    <Form state={state} action={dispatch}>
+    <Form state={state} action={dispatch} redirect={ticketsPath()}>
       <div className='relative'>
         <Label htmlFor='username' className='mb-1'>
           Usuário

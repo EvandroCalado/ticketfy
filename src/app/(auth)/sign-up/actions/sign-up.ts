@@ -1,6 +1,12 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
+import { hash } from '@node-rs/argon2';
+
 import { InitialState } from '@/app/(root)/ticket/create/constants/initial-create-state';
+import { lucia } from '@/lib/lucia';
+import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 
 import { signUpSchema } from '../schemas/sign-up';
@@ -14,9 +20,24 @@ export const signUp = async (
       Object.fromEntries(formData),
     );
 
-    console.log(username, email, password);
+    const passwordHash = await hash(password);
 
-    // TODO: Implementar cadastro no banco de dados
+    const user = await prisma.user.create({
+      data: {
+        name: username,
+        email,
+        passwordHash,
+      },
+    });
+
+    const session = await lucia.createSession(user.id, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    (await cookies()).set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
   } catch (error) {
     return formErrorHandler(error, formData);
   }
