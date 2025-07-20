@@ -8,14 +8,14 @@ import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { ticketPath, ticketsPath } from '@/utils/paths';
 
-import { TicketState } from '../../../create/constants/initial-create-state';
+import { InitialState } from '../../../create/constants/initial-create-state';
 import { updateTicketSchema } from '../schemas/update-ticket';
 import { TicketStatus } from '/prisma/index';
 
 export const updateTicket = async (
   id: string,
   formData: FormData,
-): Promise<TicketState> => {
+): Promise<InitialState> => {
   try {
     const data = updateTicketSchema.parse({
       title: formData.get('title') as string,

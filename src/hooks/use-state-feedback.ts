@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { TicketState } from '@/app/(root)/ticket/create/constants/initial-create-state';
+import { InitialState } from '@/app/(root)/ticket/create/constants/initial-create-state';
 
 type State = {
-  state: TicketState;
+  state: InitialState;
 };
 
 type UseStateFeedbackOptions = {
@@ -12,7 +12,7 @@ type UseStateFeedbackOptions = {
 };
 
 export const useStateFeedback = (
-  state: TicketState,
+  state: InitialState,
   options?: UseStateFeedbackOptions,
 ) => {
   useEffect(() => {

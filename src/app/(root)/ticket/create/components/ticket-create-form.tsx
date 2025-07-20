@@ -11,12 +11,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { formatErrorMessage } from '@/utils/format-error-message';
 
 import { createTicket } from '../actions/create-ticket';
-import { CREATE_TICKET_STATE } from '../constants/initial-create-state';
+import { INITIAL_STATE } from '../constants/initial-create-state';
 
 export const TicketCreateForm = () => {
   const [state, dispatch, isPending] = useActionState(
     createTicket,
-    CREATE_TICKET_STATE,
+    INITIAL_STATE,
   );
 
   const { fieldErrors, payload } = state;
