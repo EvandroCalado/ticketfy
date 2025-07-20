@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
@@ -10,12 +11,18 @@ import { useStateFeedback } from '@/hooks/use-state-feedback';
 type FormProps = ComponentProps<'form'> & {
   state: InitialState;
   action: FormHTMLAttributes<HTMLFormElement>;
+  redirect?: string;
 };
 
-export const Form = ({ state, action, ...props }: FormProps) => {
+export const Form = ({ state, action, redirect, ...props }: FormProps) => {
+  const router = useRouter();
+
   useStateFeedback(state, {
     onSuccess: ({ state }) => {
       toast.success(state.message);
+      if (redirect) {
+        router.push(redirect);
+      }
     },
     onError: ({ state }) => {
       toast.error(state.message);
