@@ -1,6 +1,8 @@
+import Link from 'next/link';
+
 import { FormContainer } from '@/components/shared/form-container';
 
-import { SignInForm } from './components/sign-in-form';
+import { SignUpForm } from './components/sign-up-form';
 
 const SignUpPage = () => {
   return (
@@ -8,11 +10,19 @@ const SignUpPage = () => {
       <FormContainer
         title='Cadastro'
         description='Crie sua conta para começar'
-        link='/sign-in'
-        LinkText='Já tem uma conta? Faça login'
-      >
-        <SignInForm />
-      </FormContainer>
+        content={<SignUpForm />}
+        footer={
+          <span className='text-muted-foreground/40 text-center text-sm'>
+            Já tem uma conta?{' '}
+            <Link
+              href='/sign-in'
+              className='text-primary hover:underline hover:underline-offset-4'
+            >
+              Faça login
+            </Link>
+          </span>
+        }
+      />
     </main>
   );
 };
