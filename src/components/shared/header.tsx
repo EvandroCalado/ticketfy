@@ -1,13 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-import { User } from 'lucia';
-
-import { getAuth } from '@/actions/get-auth';
 import { signOut } from '@/actions/sign-out';
+import { useAuth } from '@/hooks/use-auth';
 import { cn } from '@/lib/utils';
 import { navLinks } from '@/utils/nav-links';
 import { signInPath, signUpPath } from '@/utils/paths';
@@ -15,23 +11,15 @@ import { signInPath, signUpPath } from '@/utils/paths';
 import { Button } from '../ui/button';
 import { DarkMode } from './dark-mode';
 import { Logo } from './logo';
+import { SubmitButton } from './submit-button';
 
 export const Header = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, isFetchUser, pathname] = useAuth();
 
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { user } = await getAuth();
-      setUser(user);
-    };
-
-    fetchUser();
-  }, []);
+  if (!isFetchUser) return null;
 
   return (
-    <header className='border-border border-b'>
+    <header className='border-border animate-header-from-top bg-background absolute top-0 right-0 left-0 z-50 border-b'>
       <div className='container mx-auto flex items-center justify-between p-5'>
         <Logo />
 
@@ -54,9 +42,7 @@ export const Header = () => {
 
           {user ? (
             <form action={signOut}>
-              <Button type='submit' className='w-24'>
-                Sair
-              </Button>
+              <SubmitButton className='w-24'>Sair</SubmitButton>
             </form>
           ) : (
             <>
