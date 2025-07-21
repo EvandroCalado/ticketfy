@@ -9,7 +9,7 @@ import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { signInPath, ticketsPath } from '@/utils/paths';
 
-import { InitialActionsState } from '../../../../../constants/initial-create-state';
+import { InitialActionsState } from '../../../../../../constants/initial-create-state';
 import { createTicketSchema } from '../schemas/create-ticket';
 
 export const createTicket = async (

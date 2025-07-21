@@ -8,7 +8,7 @@ import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { ticketPath, ticketsPath } from '@/utils/paths';
 
-import { InitialActionsState } from '../../../../../../constants/initial-create-state';
+import { InitialActionsState } from '../../../../../../../constants/initial-create-state';
 import { updateTicketSchema } from '../schemas/update-ticket';
 import { TicketStatus } from '/prisma/index';
 

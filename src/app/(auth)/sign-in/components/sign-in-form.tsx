@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
 import { formatErrorMessage } from '@/utils/format-error-message';
-import { homePath } from '@/utils/paths';
+import { ticketsPath } from '@/utils/paths';
 
 import { signIn } from '../actions/sign-in';
 
@@ -22,7 +22,7 @@ export const SignInForm = () => {
   const { fieldErrors, payload } = state;
 
   return (
-    <Form state={state} action={dispatch} redirect={homePath()}>
+    <Form state={state} action={dispatch} redirect={ticketsPath()}>
       <div className='relative'>
         <Label htmlFor='email' className='mb-1'>
           Email

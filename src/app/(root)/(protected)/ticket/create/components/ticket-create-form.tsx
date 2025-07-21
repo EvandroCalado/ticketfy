@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { formatErrorMessage } from '@/utils/format-error-message';
 
-import { INITIAL_ACTION_STATE } from '../../../../../constants/initial-create-state';
+import { INITIAL_ACTION_STATE } from '../../../../../../constants/initial-create-state';
 import { createTicket } from '../actions/create-ticket';
 
 export const TicketCreateForm = () => {
