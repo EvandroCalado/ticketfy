@@ -3,12 +3,13 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { getAuth } from '@/actions/get-auth';
+import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
-import { ticketPath, ticketsPath } from '@/utils/paths';
+import { signInPath, ticketPath, ticketsPath } from '@/utils/paths';
 
-import { InitialActionsState } from '../../../../../../../constants/initial-create-state';
 import { updateTicketSchema } from '../schemas/update-ticket';
 import { TicketStatus } from '/prisma/index';
 
@@ -16,6 +17,10 @@ export const updateTicket = async (
   id: string,
   formData: FormData,
 ): Promise<InitialActionsState> => {
+  const { user } = await getAuth();
+
+  if (!user) redirect(signInPath());
+
   try {
     const data = updateTicketSchema.parse({
       title: formData.get('title') as string,
@@ -26,7 +31,7 @@ export const updateTicket = async (
     });
 
     await prisma.ticket.update({
-      where: { id },
+      where: { id, userId: user.id },
       data: {
         ...data,
         bounty: toCent(data.bounty),
