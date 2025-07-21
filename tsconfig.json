@@ -32,5 +32,5 @@
     "vitest.config.mts",
     ".test/vitest.setup.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "prisma/generated"]
 }
