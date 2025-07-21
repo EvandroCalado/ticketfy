@@ -19,7 +19,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { fromCent } from '@/utils/format-currency';
 import { formatErrorMessage } from '@/utils/format-error-message';
 
-import { INITIAL_STATE } from '../../../create/constants/initial-create-state';
+import { INITIAL_ACTION_STATE } from '../../../../../../constants/initial-create-state';
 import { updateTicket } from '../actions/update-ticket';
 import { Ticket } from '/prisma/index';
 
@@ -31,7 +31,7 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
   const [state, dispatch, isPending] = useActionState(
     (_prevState: unknown, formData: FormData) =>
       updateTicket(ticket.id, formData),
-    INITIAL_STATE,
+    INITIAL_ACTION_STATE,
   );
 
   const { fieldErrors } = state;

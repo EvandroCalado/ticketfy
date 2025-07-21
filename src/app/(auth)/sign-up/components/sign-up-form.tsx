@@ -2,18 +2,21 @@
 
 import { useActionState } from 'react';
 
-import { INITIAL_STATE } from '@/app/(root)/ticket/create/constants/initial-create-state';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
 import { formatErrorMessage } from '@/utils/format-error-message';
 import { ticketsPath } from '@/utils/paths';
 
 import { signUp } from '../actions/sign-up';
 
 export const SignUpForm = () => {
-  const [state, dispatch, isPending] = useActionState(signUp, INITIAL_STATE);
+  const [state, dispatch, isPending] = useActionState(
+    signUp,
+    INITIAL_ACTION_STATE,
+  );
 
   const { fieldErrors, payload } = state;
 

@@ -5,11 +5,11 @@ import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
 
-import { InitialState } from '@/app/(root)/ticket/create/constants/initial-create-state';
+import { InitialActionsState } from '@/constants/initial-create-state';
 import { useStateFeedback } from '@/hooks/use-state-feedback';
 
 type FormProps = ComponentProps<'form'> & {
-  state: InitialState;
+  state: InitialActionsState;
   action: FormHTMLAttributes<HTMLFormElement>;
   redirect?: string;
 };

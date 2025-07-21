@@ -3,18 +3,21 @@
 import Link from 'next/link';
 import { useActionState } from 'react';
 
-import { INITIAL_STATE } from '@/app/(root)/ticket/create/constants/initial-create-state';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
 import { formatErrorMessage } from '@/utils/format-error-message';
 import { homePath } from '@/utils/paths';
 
 import { signIn } from '../actions/sign-in';
 
 export const SignInForm = () => {
-  const [state, dispatch, isPending] = useActionState(signIn, INITIAL_STATE);
+  const [state, dispatch, isPending] = useActionState(
+    signIn,
+    INITIAL_ACTION_STATE,
+  );
 
   const { fieldErrors, payload } = state;
 

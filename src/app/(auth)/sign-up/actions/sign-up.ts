@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import { hash } from '@node-rs/argon2';
 
-import { InitialState } from '@/app/(root)/ticket/create/constants/initial-create-state';
+import { InitialActionsState } from '@/constants/initial-create-state';
 import { lucia } from '@/lib/lucia';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
@@ -14,7 +14,7 @@ import { signUpSchema } from '../schemas/sign-up';
 export const signUp = async (
   prevState: unknown,
   formData: FormData,
-): Promise<InitialState> => {
+): Promise<InitialActionsState> => {
   try {
     const { username, email, password } = signUpSchema.parse(
       Object.fromEntries(formData),

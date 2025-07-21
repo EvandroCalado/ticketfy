@@ -10,13 +10,13 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { formatErrorMessage } from '@/utils/format-error-message';
 
+import { INITIAL_ACTION_STATE } from '../../../../../constants/initial-create-state';
 import { createTicket } from '../actions/create-ticket';
-import { INITIAL_STATE } from '../constants/initial-create-state';
 
 export const TicketCreateForm = () => {
   const [state, dispatch, isPending] = useActionState(
     createTicket,
-    INITIAL_STATE,
+    INITIAL_ACTION_STATE,
   );
 
   const { fieldErrors, payload } = state;
