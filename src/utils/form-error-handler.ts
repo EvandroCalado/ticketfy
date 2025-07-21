@@ -4,7 +4,7 @@ import { InitialActionsState } from '@/constants/initial-create-state';
 
 export const formErrorHandler = (
   error: unknown,
-  formData: FormData,
+  formData?: FormData,
 ): InitialActionsState => {
   if (error instanceof ZodError) {
     return {
