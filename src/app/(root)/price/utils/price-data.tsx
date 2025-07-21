@@ -20,7 +20,7 @@ export const priceData = [
 
         <div className='flex items-center gap-5'>
           <CircleCheckIcon className='stroke-card fill-foreground' />
-          <span>Acesso a métricas e estatísticas</span>
+          <span>Acesso a métricas</span>
         </div>
       </>
     ),
@@ -42,7 +42,7 @@ export const priceData = [
 
         <div className='flex items-center gap-5'>
           <CircleCheckIcon className='stroke-primary fill-foreground' />
-          <span>Acesso a métricas e estatísticas</span>
+          <span>Acesso a métricas</span>
         </div>
       </>
     ),
@@ -65,7 +65,7 @@ export const priceData = [
 
         <div className='flex items-center gap-5'>
           <CircleCheckIcon className='stroke-card fill-foreground' />
-          <span>Acesso a métricas e estatísticas</span>
+          <span>Acesso a métricas</span>
         </div>
       </>
     ),

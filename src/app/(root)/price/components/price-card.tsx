@@ -28,9 +28,9 @@ export const PriceCard = ({
   return (
     <Card
       className={cn(
-        'animate-fade-from-top relative w-full max-w-xs space-y-10',
+        'animate-fade-from-top relative w-full max-w-xs space-y-5 md:space-y-10',
         {
-          'bg-primary space-y-14 py-10': mostPopular,
+          'bg-primary space-y-5 py-10 md:space-y-14': mostPopular,
         },
       )}
     >
@@ -61,7 +61,7 @@ export const PriceCard = ({
         </CardDescription>
       </CardHeader>
 
-      <CardContent className='space-y-5'>{content}</CardContent>
+      <CardContent className='space-y-2 md:space-y-5'>{content}</CardContent>
 
       <CardFooter className='flex items-center justify-center'>
         <Button
