@@ -2,7 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
+import { User } from 'lucia';
+
+import { getAuth } from '@/actions/get-auth';
+import { signOut } from '@/actions/sign-out';
 import { cn } from '@/lib/utils';
 import { navLinks } from '@/utils/nav-links';
 import { signInPath, signUpPath } from '@/utils/paths';
@@ -12,7 +17,18 @@ import { DarkMode } from './dark-mode';
 import { Logo } from './logo';
 
 export const Header = () => {
+  const [user, setUser] = useState<User | null>(null);
+
   const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { user } = await getAuth();
+      setUser(user);
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <header className='border-border border-b'>
@@ -21,25 +37,38 @@ export const Header = () => {
 
         <nav className='hidden items-center gap-2 md:flex md:gap-5'>
           {navLinks.map(link => (
-            <Button
+            <Link
               key={link.href}
-              asChild
-              variant='ghost'
-              className={cn('w-20', pathname === link.href && 'bg-muted')}
+              href={link.href}
+              className={cn('hover:text-primary w-16 duration-150', {
+                'text-primary': pathname === link.href,
+              })}
             >
-              <Link href={link.href}>{link.label}</Link>
-            </Button>
+              {link.label}
+            </Link>
           ))}
         </nav>
 
         <div className='flex items-center gap-2 md:gap-3'>
           <DarkMode />
-          <Button variant='ghost' className='w-24' asChild>
-            <Link href={signUpPath()}>Cadastrar</Link>
-          </Button>
-          <Button className='w-24' asChild>
-            <Link href={signInPath()}>Entrar</Link>
-          </Button>
+
+          {user ? (
+            <form action={signOut}>
+              <Button type='submit' className='w-24'>
+                Sair
+              </Button>
+            </form>
+          ) : (
+            <>
+              <Button variant='ghost' className='w-24' asChild>
+                <Link href={signUpPath()}>Cadastrar</Link>
+              </Button>
+
+              <Button className='w-24' asChild>
+                <Link href={signInPath()}>Entrar</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
