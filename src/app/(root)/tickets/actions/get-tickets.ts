@@ -2,10 +2,10 @@
 
 import { prisma } from '@/lib/prisma';
 
-import { Ticket } from '/prisma/index';
+import { Prisma } from '/prisma/index';
 
 export type GetTicketsResponse = {
-  tickets: Ticket[];
+  tickets: Prisma.TicketGetPayload<{ include: { user: true } }>[];
   count: number;
 };
 
@@ -13,6 +13,9 @@ export const getTickets = async (): Promise<GetTicketsResponse> => {
   const tickets = await prisma.ticket.findMany({
     orderBy: {
       updatedAt: 'desc',
+    },
+    include: {
+      user: true,
     },
   });
 

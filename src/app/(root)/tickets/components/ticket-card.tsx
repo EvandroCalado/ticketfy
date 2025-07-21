@@ -6,10 +6,10 @@ import { formatDate } from '@/utils/format-date';
 
 import { TICKET_ICONS } from '../constants/ticket-icons';
 import { TICKET_STATUS } from '../constants/ticket-status';
-import { Ticket } from '/prisma/index';
+import { Prisma } from '/prisma/index';
 
 type TicketCardProps = {
-  ticket: Ticket;
+  ticket: Prisma.TicketGetPayload<{ include: { user: true } }>;
 };
 
 export const TicketCard = ({ ticket }: TicketCardProps) => {
@@ -18,7 +18,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
       href={`/ticket/${ticket.id}`}
       className='duration-150 ease-in-out hover:-translate-y-2'
     >
-      <Card className='p-4'>
+      <Card className='min-h-[229px] p-4'>
         <CardHeader className='px-0'>
           <CardTitle className='flex items-center gap-2'>
             {TICKET_ICONS[ticket.status]}
@@ -33,12 +33,17 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
           </span>
         </CardContent>
 
-        <div className='border-border flex items-center justify-between border-t px-0 pt-3'>
-          {TICKET_STATUS[ticket.status]}
-
-          <div className='flex items-center gap-2'>
+        <div className='border-border border-t px-0 pt-3'>
+          <div className='flex items-center justify-between gap-2'>
+            {TICKET_STATUS[ticket.status]}
             <span className='text-xs'>{formatDate(ticket.deadline)}</span>
-            <span className='text-primary text-lg font-semibold'>
+          </div>
+
+          <div className='flex items-center justify-between gap-2'>
+            <span className='text-primary text-xs font-semibold'>
+              {ticket.user.name}
+            </span>
+            <span className='text-lg font-bold'>
               {formatCurrency(ticket.bounty)}
             </span>
           </div>
