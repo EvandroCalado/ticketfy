@@ -5,7 +5,9 @@ import { prisma } from '@/lib/prisma';
 import { Prisma } from '/prisma/index';
 
 export type GetTicketsResponse = {
-  tickets: Prisma.TicketGetPayload<{ include: { user: true } }>[];
+  tickets: Prisma.TicketGetPayload<{
+    include: { user: { select: { name: true } } };
+  }>[];
   count: number;
 };
 
@@ -15,7 +17,11 @@ export const getTickets = async (): Promise<GetTicketsResponse> => {
       updatedAt: 'desc',
     },
     include: {
-      user: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 

@@ -2,12 +2,25 @@
 
 import { prisma } from '@/lib/prisma';
 
-import { Ticket } from '/prisma/index';
+import { Prisma } from '/prisma/index';
 
-export const getTicket = async (ticketId: string): Promise<Ticket | null> => {
+export type GetTicketResponse = Prisma.TicketGetPayload<{
+  include: { user: { select: { name: true } } };
+}>;
+
+export const getTicket = async (
+  ticketId: string,
+): Promise<GetTicketResponse | null> => {
   const ticket = await prisma.ticket.findUnique({
     where: {
       id: ticketId,
+    },
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 

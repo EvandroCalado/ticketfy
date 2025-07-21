@@ -9,7 +9,9 @@ import { TICKET_STATUS } from '../constants/ticket-status';
 import { Prisma } from '/prisma/index';
 
 type TicketCardProps = {
-  ticket: Prisma.TicketGetPayload<{ include: { user: true } }>;
+  ticket: Prisma.TicketGetPayload<{
+    include: { user: { select: { name: true } } };
+  }>;
 };
 
 export const TicketCard = ({ ticket }: TicketCardProps) => {
