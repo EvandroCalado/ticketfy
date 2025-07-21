@@ -26,7 +26,6 @@ const eslintConfig = [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
-    ignorePatterns: ['prisma/generated'],
   },
 ];
 
