@@ -1,3 +1,5 @@
+import { hash } from '@node-rs/argon2';
+
 import { toCent } from '@/utils/format-currency';
 
 import { PrismaClient, TicketStatus } from './generated/prisma';
@@ -15,7 +17,18 @@ type TicketCreateInput = {
 
 const prisma = new PrismaClient();
 
-const Tickets: TicketCreateInput[] = [
+const users = [
+  {
+    name: 'admin',
+    email: 'admin@email.com',
+  },
+  {
+    name: 'user',
+    email: 'user@email.com',
+  },
+];
+
+const tickets: TicketCreateInput[] = [
   {
     title: 'Correção de Bug no Login',
     content:
@@ -107,11 +120,26 @@ const Tickets: TicketCreateInput[] = [
 ];
 
 async function main() {
+  await prisma.user.deleteMany();
   await prisma.ticket.deleteMany();
-  console.log('Deleted all tickets');
+  console.log('Deleted all');
 
-  await prisma.ticket.createMany({ data: Tickets });
-  console.log('Created initial tickets');
+  const passwordHash = await hash('123456');
+
+  const dbUsers = await prisma.user.createManyAndReturn({
+    data: users.map(user => ({
+      ...user,
+      passwordHash,
+    })),
+  });
+
+  await prisma.ticket.createMany({
+    data: tickets.map(ticket => ({
+      ...ticket,
+      userId: dbUsers[0].id,
+    })),
+  });
+  console.log('Created initial data');
 }
 
 main()

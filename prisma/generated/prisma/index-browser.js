@@ -145,7 +145,8 @@ exports.Prisma.TicketScalarFieldEnum = {
   deadline: 'deadline',
   bounty: 'bounty',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
