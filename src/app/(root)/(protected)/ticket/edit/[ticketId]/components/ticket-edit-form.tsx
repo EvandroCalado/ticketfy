@@ -19,6 +19,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
 import { fromCent } from '@/utils/format-currency';
 import { formatErrorMessage } from '@/utils/format-error-message';
+import { ticketPath } from '@/utils/paths';
 
 import { updateTicket } from '../actions/update-ticket';
 import { Ticket } from '/prisma/index';
@@ -37,7 +38,7 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
   const { fieldErrors } = state;
 
   return (
-    <Form state={state} action={dispatch}>
+    <Form state={state} action={dispatch} redirect={ticketPath(ticket.id)}>
       <div className='flex flex-col items-center gap-5 md:flex-row'>
         <div className='relative w-full'>
           <Label htmlFor='title' className='text-muted-foreground mb-2'>
