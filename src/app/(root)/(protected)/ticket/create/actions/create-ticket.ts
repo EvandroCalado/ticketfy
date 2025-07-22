@@ -20,12 +20,7 @@ export const createTicket = async (
   if (!user) redirect(signInPath());
 
   try {
-    const data = createTicketSchema.parse({
-      title: formData.get('title') as string,
-      content: formData.get('content') as string,
-      deadline: formData.get('deadline') as string,
-      bounty: Number(formData.get('bounty')),
-    });
+    const data = createTicketSchema.parse(Object.fromEntries(formData));
 
     const dbData = {
       ...data,

@@ -17,15 +17,17 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { Prisma } from '@/prisma/index';
 import { fromCent } from '@/utils/format-currency';
 import { formatErrorMessage } from '@/utils/format-error-message';
 import { ticketPath } from '@/utils/paths';
 
 import { updateTicket } from '../actions/update-ticket';
-import { Ticket } from '/prisma/index';
 
 type TicketEditFormProps = {
-  ticket: Ticket;
+  ticket: Prisma.TicketGetPayload<{
+    include: { user: { select: { name: true } } };
+  }>;
 };
 
 export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {

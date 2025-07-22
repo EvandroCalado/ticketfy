@@ -1,8 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-
-import { Prisma } from '/prisma/index';
+import { Prisma } from '@/prisma/index';
 
 export type GetTicketResponse = Prisma.TicketGetPayload<{
   include: { user: { select: { name: true } } };

@@ -4,9 +4,8 @@ import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@/prisma/index';
 import { signInPath } from '@/utils/paths';
-
-import { Prisma } from '/prisma/index';
 
 export type GetTicketsResponse = {
   tickets: Prisma.TicketGetPayload<{

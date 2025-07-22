@@ -5,12 +5,12 @@ import { redirect } from 'next/navigation';
 import { getAuth } from '@/actions/get-auth';
 import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
+import { TicketStatus } from '@/prisma/index';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { signInPath } from '@/utils/paths';
 
 import { updateTicketSchema } from '../schemas/update-ticket';
-import { TicketStatus } from '/prisma/index';
 
 export const updateTicket = async (
   id: string,

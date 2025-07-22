@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Prisma } from '@/prisma/index';
 import { formatCurrency } from '@/utils/format-currency';
 import { formatDate } from '@/utils/format-date';
 
 import { TICKET_ICONS } from '../constants/ticket-icons';
 import { TICKET_STATUS } from '../constants/ticket-status';
-import { Prisma } from '/prisma/index';
 
 type TicketCardProps = {
   ticket: Prisma.TicketGetPayload<{

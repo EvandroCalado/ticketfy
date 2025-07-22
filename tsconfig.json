@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "/prisma/*": ["./prisma/generated/prisma/*"]
+      "@/prisma/*": ["./prisma/generated/prisma/*"]
     },
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
