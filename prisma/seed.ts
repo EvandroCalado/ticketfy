@@ -1,7 +1,8 @@
 import { hash } from '@node-rs/argon2';
-import { PrismaClient } from '@prisma/client/edge';
 
 import { toCent } from '@/utils/format-currency';
+
+import { PrismaClient } from './generated/prisma';
 
 const prisma = new PrismaClient();
 
