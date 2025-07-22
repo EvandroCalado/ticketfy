@@ -1,19 +1,7 @@
 import { hash } from '@node-rs/argon2';
+import { PrismaClient } from '@prisma/client/edge';
 
 import { toCent } from '@/utils/format-currency';
-
-import { PrismaClient, TicketStatus } from './generated/prisma';
-
-type TicketCreateInput = {
-  id?: string;
-  title: string;
-  content: string;
-  status?: TicketStatus;
-  deadline: string;
-  bounty: number;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-};
 
 const prisma = new PrismaClient();
 
@@ -28,7 +16,7 @@ const users = [
   },
 ];
 
-const tickets: TicketCreateInput[] = [
+const tickets = [
   {
     title: 'Correção de Bug no Login',
     content:
