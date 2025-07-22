@@ -20,7 +20,10 @@ export const updateTicket = async (
   if (!user) redirect(signInPath());
 
   try {
-    const data = updateTicketSchema.parse(Object.fromEntries(formData));
+    const data = updateTicketSchema.parse({
+      ...Object.fromEntries(formData),
+      bounty: Number(formData.get('bounty')),
+    });
 
     await prisma.ticket.update({
       where: { id, userId: user.id },
