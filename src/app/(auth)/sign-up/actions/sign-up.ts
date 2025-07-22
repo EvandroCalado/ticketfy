@@ -38,14 +38,14 @@ export const signUp = async (
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    return {
+      status: 'success',
+      message: 'Usuário criado com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
+    };
   } catch (error) {
     return formErrorHandler(error, formData);
   }
-
-  return {
-    status: 'success',
-    message: 'Usuário criado com sucesso',
-    fieldErrors: undefined,
-    payload: undefined,
-  };
 };

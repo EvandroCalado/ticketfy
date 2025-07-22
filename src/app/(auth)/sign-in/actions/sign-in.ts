@@ -54,14 +54,14 @@ export const signIn = async (
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    return {
+      status: 'success',
+      message: 'Usuário logado com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
+    };
   } catch (error) {
     return formErrorHandler(error, formData);
   }
-
-  return {
-    status: 'success',
-    message: 'Usuário logado com sucesso',
-    fieldErrors: undefined,
-    payload: undefined,
-  };
 };
