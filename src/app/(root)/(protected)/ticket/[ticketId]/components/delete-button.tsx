@@ -1,7 +1,8 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useActionState } from 'react';
 
+import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,6 +13,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { ticketsPath } from '@/utils/paths';
 
 import { deleteTicket } from '../actions/delete-ticket';
 
@@ -20,7 +23,10 @@ type DeleteButtonProps = {
 };
 
 export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
-  const [isPending, startTransition] = useTransition();
+  const [state, dispatch, isPending] = useActionState(
+    deleteTicket,
+    INITIAL_ACTION_STATE,
+  );
 
   return (
     <Dialog>
@@ -44,15 +50,19 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
         </DialogHeader>
 
         <DialogFooter>
-          <Button
-            variant='destructive'
-            aria-label='Excluir ticket'
-            title='Excluir ticket'
-            disabled={isPending}
-            onClick={() => startTransition(() => deleteTicket(ticketId))}
-          >
-            {isPending ? 'Excluindo...' : 'Excluir'}
-          </Button>
+          <Form state={state} action={dispatch} redirect={ticketsPath()}>
+            <input type='hidden' name='ticketId' value={ticketId} />
+
+            <Button
+              type='submit'
+              variant='destructive'
+              disabled={isPending}
+              title='Excluir ticket'
+              aria-label='Excluir ticket'
+            >
+              {isPending ? 'Excluindo...' : 'Confirmar'}
+            </Button>
+          </Form>
         </DialogFooter>
       </DialogContent>
     </Dialog>
