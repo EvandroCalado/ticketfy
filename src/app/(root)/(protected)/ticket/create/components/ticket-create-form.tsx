@@ -8,9 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
 import { formatErrorMessage } from '@/utils/format-error-message';
+import { ticketsPath } from '@/utils/paths';
 
-import { INITIAL_ACTION_STATE } from '../../../../../../constants/initial-create-state';
 import { createTicket } from '../actions/create-ticket';
 
 export const TicketCreateForm = () => {
@@ -22,7 +23,7 @@ export const TicketCreateForm = () => {
   const { fieldErrors, payload } = state;
 
   return (
-    <Form state={state} action={dispatch}>
+    <Form state={state} action={dispatch} redirect={ticketsPath()}>
       <div className='relative'>
         <Label htmlFor='title' className='text-muted-foreground mb-2'>
           Título
