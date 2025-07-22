@@ -1,13 +1,13 @@
 'use server';
 
-import { cookies } from 'next/headers';
-
 import { verify } from '@node-rs/argon2';
 
+import { setSessionCookie } from '@/actions/set-session-cookie';
 import { InitialActionsState } from '@/constants/initial-create-state';
-import { lucia } from '@/lib/lucia';
+import { createSession } from '@/lib/oslo';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
+import { generateRandomToken } from '@/utils/generate-random-token';
 
 import { signInSchema } from '../schemas/sign-in';
 
@@ -46,14 +46,10 @@ export const signIn = async (
       };
     }
 
-    const session = await lucia.createSession(user.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    const sessionToken = generateRandomToken();
+    const sessionCookie = await createSession(sessionToken, user.id);
 
-    (await cookies()).set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
+    await setSessionCookie(sessionToken, sessionCookie.expiresAt);
 
     return {
       status: 'success',
