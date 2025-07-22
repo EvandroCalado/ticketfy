@@ -168,6 +168,14 @@ const config = {
       {
         "fromEnvVar": null,
         "value": "rhel-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -194,8 +202,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nenum TicketStatus {\n  OPEN\n  IN_PROGRESS\n  DONE\n}\n\nmodel User {\n  id           String   @id @default(cuid())\n  name         String\n  email        String   @unique\n  passwordHash String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  session Session[]\n  ticket  Ticket[]\n}\n\nmodel Session {\n  id        String   @id @default(cuid())\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n}\n\nmodel Ticket {\n  id        String       @id @default(cuid())\n  title     String\n  content   String       @db.VarChar(1024)\n  status    TicketStatus @default(OPEN)\n  deadline  String\n  bounty    Int\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n}\n",
-  "inlineSchemaHash": "d486fe22a80b37d592295eb3cf0796b0fc7ae003e9cbf72031fa8b69ebdcbad2",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\", \"debian-openssl-3.0.x\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nenum TicketStatus {\n  OPEN\n  IN_PROGRESS\n  DONE\n}\n\nmodel User {\n  id           String   @id @default(cuid())\n  name         String\n  email        String   @unique\n  passwordHash String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  session Session[]\n  ticket  Ticket[]\n}\n\nmodel Session {\n  id        String   @id @default(cuid())\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n}\n\nmodel Ticket {\n  id        String       @id @default(cuid())\n  title     String\n  content   String       @db.VarChar(1024)\n  status    TicketStatus @default(OPEN)\n  deadline  String\n  bounty    Int\n  createdAt DateTime     @default(now())\n  updatedAt DateTime     @updatedAt\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n}\n",
+  "inlineSchemaHash": "a4b355248eeafde708fa8eb2e466902691937c910764b60d7733936436cf84ce",
   "copyEngine": true
 }
 
@@ -240,6 +248,10 @@ path.join(process.cwd(), "prisma/generated/prisma/libquery_engine-debian-openssl
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
 path.join(process.cwd(), "prisma/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "prisma/generated/prisma/libquery_engine-linux-musl-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/generated/prisma/schema.prisma")
