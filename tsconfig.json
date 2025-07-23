@@ -29,7 +29,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "vitest.config.mts",
-    ".test/vitest.setup.ts"
+    ".test/vitest.setup.ts",
+    "next.config.ts",
+    "types/**/*.ts"
   ],
   "exclude": ["node_modules", "prisma/generated"]
 }
