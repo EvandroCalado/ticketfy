@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/generated/*": ["./prisma/generated/*"]
     },
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },

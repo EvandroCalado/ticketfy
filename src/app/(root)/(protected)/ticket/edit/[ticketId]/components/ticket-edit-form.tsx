@@ -17,11 +17,11 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { Prisma } from '@/generated/prisma';
 import { fromCent } from '@/utils/format-currency';
 import { formatErrorMessage } from '@/utils/format-error-message';
 import { ticketPath } from '@/utils/paths';
 
-import { Prisma } from '../../../../../../../../prisma/generated/prisma';
 import { updateTicket } from '../actions/update-ticket';
 
 type TicketEditFormProps = {

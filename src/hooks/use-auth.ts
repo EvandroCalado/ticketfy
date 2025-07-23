@@ -2,8 +2,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getAuth } from '@/actions/get-auth';
-
-import { User } from '../../prisma/generated/prisma';
+import { User } from '@/generated/prisma';
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
