@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
+import { Sidebar } from '@/components/shared/sidebar';
 import { signInPath } from '@/utils/paths';
 
 const ProtectedLayout = async ({
@@ -12,7 +13,14 @@ const ProtectedLayout = async ({
 
   if (!user) redirect(signInPath());
 
-  return <>{children}</>;
+  return (
+    <div className='flex flex-1'>
+      <div className='flex items-center justify-center p-5'>
+        <Sidebar user={user} />
+      </div>
+      <div className='flex-1'>{children}</div>
+    </div>
+  );
 };
 
 export default ProtectedLayout;

@@ -43,6 +43,7 @@
   /* animations */
   --animate-fade-from-top: fade-from-top 0.5s ease-in-out;
   --animate-header-from-top: header-from-top 0.5s ease-in-out;
+  --animate-sidebar-from-left: sidebar-from-left 0.5s ease-in-out;
 
   @keyframes fade-from-top {
     from {
@@ -61,6 +62,15 @@
     }
     to {
       transform: translateY(0);
+    }
+  }
+
+  @keyframes sidebar-from-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 }
