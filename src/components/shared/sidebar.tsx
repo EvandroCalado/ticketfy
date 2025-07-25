@@ -7,6 +7,7 @@ import { useSidebarStore } from '@/stores/sidebar';
 import { Card } from '../ui/card';
 import { SidebarAvatar } from './sidebar-avatar';
 import { SidebarLinks } from './sidebar-links';
+import { SidebarLogout } from './sidebar-logout';
 import { SidebarToggle } from './sidebar-toggle';
 
 type SidebarProps = {
@@ -34,6 +35,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
       <SidebarToggle />
       <SidebarAvatar user={user} />
       <SidebarLinks />
+      <SidebarLogout />
     </Card>
   );
 };
