@@ -4,38 +4,26 @@ import Link from 'next/link';
 
 import { signOut } from '@/actions/sign-out';
 import { useAuth } from '@/hooks/use-auth';
-import { cn } from '@/lib/utils';
-import { navLinks } from '@/utils/nav-links';
 import { signInPath, signUpPath } from '@/utils/paths';
 
 import { Button } from '../ui/button';
+import { Card } from '../ui/card';
 import { DarkMode } from './dark-mode';
+import { HeaderLinks } from './header-links';
 import { Logo } from './logo';
 import { SubmitButton } from './submit-button';
 
 export const Header = () => {
-  const [user, isFetchUser, pathname] = useAuth();
+  const [user, isFetchUser] = useAuth();
 
   if (!isFetchUser) return null;
 
   return (
-    <header className='border-border animate-header-from-top bg-background absolute top-0 right-0 left-0 z-50 border-b'>
-      <div className='container mx-auto flex items-center justify-between p-5'>
+    <header className='border-border animate-header-from-top bg-background absolute top-0 right-0 left-0 z-50 m-5'>
+      <Card className='mx-auto flex max-w-3xl flex-row items-center justify-between p-3'>
         <Logo />
 
-        <nav className='hidden items-center gap-2 md:flex md:gap-5'>
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn('hover:text-primary w-16 duration-150', {
-                'text-primary': pathname === link.href,
-              })}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <HeaderLinks />
 
         <div className='flex items-center gap-2 md:gap-3'>
           <DarkMode />
@@ -56,7 +44,7 @@ export const Header = () => {
             </>
           )}
         </div>
-      </div>
+      </Card>
     </header>
   );
 };
