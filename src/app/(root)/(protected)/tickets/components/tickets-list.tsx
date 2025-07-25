@@ -9,7 +9,7 @@ export const TicketsList = async () => {
   const { tickets, count } = await getTickets();
 
   return (
-    <div className='animate-fade-from-top flex flex-1 flex-col space-y-10 p-5'>
+    <div className='animate-fade-from-top mx-auto flex max-w-7xl flex-1 flex-col space-y-10 p-5'>
       <div className='border-border flex items-center justify-between border-b pb-5'>
         <div className='text-xs'>
           <span className='mr-1 font-semibold'>{count}</span>
@@ -21,7 +21,7 @@ export const TicketsList = async () => {
         </Button>
       </div>
 
-      <div className='grid h-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='grid h-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3'>
         {tickets.map(ticket => (
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
