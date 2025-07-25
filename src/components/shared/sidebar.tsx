@@ -3,8 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { ChevronRightIcon } from 'lucide-react';
-
 import { User } from '@/generated/prisma';
 import { cn } from '@/lib/utils';
 import { useSidebarStore } from '@/stores/sidebar';
@@ -14,14 +12,14 @@ import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import { Separator } from '../ui/separator';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { SidebarToggle } from './sidebar-toggle';
 
 type SidebarProps = {
   user: User;
 };
 
 export const Sidebar = ({ user }: SidebarProps) => {
-  const { isOpen, toggle } = useSidebarStore(state => state);
+  const { isOpen } = useSidebarStore(state => state);
 
   const pathname = usePathname();
 
@@ -40,25 +38,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
         },
       )}
     >
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            aria-label='Abre/fecha menu'
-            title='Abre/fecha menu'
-            className='absolute top-4 -right-[18px] z-40 size-6 rounded-full md:hidden'
-            onClick={() => toggle()}
-          >
-            <ChevronRightIcon
-              className={cn({
-                'rotate-180 transition-transform duration-200': isOpen,
-              })}
-            />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side='right'>
-          <span>Abre/Fecha Menu</span>
-        </TooltipContent>
-      </Tooltip>
+      <SidebarToggle />
 
       <div className='flex items-center gap-2 p-3'>
         <Avatar className='size-[38px]'>
