@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 
 import { ChevronRightIcon } from 'lucide-react';
 
 import { User } from '@/generated/prisma';
 import { cn } from '@/lib/utils';
+import { useSidebarStore } from '@/stores/sidebar';
 import { sidebarLinks } from '@/utils/sidebar-links';
 
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -21,7 +21,7 @@ type SidebarProps = {
 };
 
 export const Sidebar = ({ user }: SidebarProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle } = useSidebarStore(state => state);
 
   const pathname = usePathname();
 
@@ -46,7 +46,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
             aria-label='Abre/fecha menu'
             title='Abre/fecha menu'
             className='absolute top-4 -right-[18px] z-40 size-6 rounded-full md:hidden'
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => toggle()}
           >
             <ChevronRightIcon
               className={cn({
