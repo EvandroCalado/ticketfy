@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 
 import { InitialActionsState } from '@/constants/initial-create-state';
 import { useStateFeedback } from '@/hooks/use-state-feedback';
+import { cn } from '@/lib/utils';
 
 type FormProps = ComponentProps<'form'> & {
   state: InitialActionsState;
@@ -30,7 +31,11 @@ export const Form = ({ state, action, redirect, ...props }: FormProps) => {
   });
 
   return (
-    <form {...props} className='space-y-6' action={action}>
+    <form
+      {...props}
+      className={cn('space-y-6', props.className)}
+      action={action}
+    >
       {props.children}
     </form>
   );
