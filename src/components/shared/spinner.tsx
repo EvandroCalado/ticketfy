@@ -11,7 +11,7 @@ type SpinnerProps = {
 
 export const Spinner = ({ className, size = '8' }: SpinnerProps) => {
   return (
-    <div className={cn('flex flex-1 items-center justify-center', className)}>
+    <div className={cn(className)}>
       <Loader2 className={cn(`size-${size} animate-spin`)} />
     </div>
   );

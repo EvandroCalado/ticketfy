@@ -44,7 +44,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
   if (!ticket) notFound();
 
   return (
-    <div className='container mx-auto max-w-4xl flex-1 space-y-10 p-5'>
+    <main className='mx-auto max-w-3xl space-y-10 p-5'>
       <div className='flex items-center justify-between'>
         <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
 
@@ -135,7 +135,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
 
         <DeleteButton ticketId={ticketId} />
       </div>
-    </div>
+    </main>
   );
 };
 

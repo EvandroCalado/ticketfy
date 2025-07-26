@@ -14,7 +14,14 @@ const TicketsPage = async () => {
   return (
     <>
       <TicketsTitle />
-      <Suspense fallback={<Spinner size='16' />}>
+      <Suspense
+        fallback={
+          <Spinner
+            size='16'
+            className='absolute inset-0 flex items-center justify-center'
+          />
+        }
+      >
         <TicketsList />
       </Suspense>
     </>
