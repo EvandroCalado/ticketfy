@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { CalendarIcon, SquareCheckBigIcon } from 'lucide-react';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Prisma } from '@/generated/prisma';
 import { formatCurrency } from '@/utils/format-currency';
@@ -29,20 +31,21 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className='grow px-0'>
-          <span className='text-muted-foreground line-clamp-2'>
-            {ticket.content}
-          </span>
+        <CardContent className='grow space-y-2 px-0'>
+          <div className='flex items-center gap-2'>
+            <SquareCheckBigIcon className='size-5' />
+            {TICKET_STATUS[ticket.status]}
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <CalendarIcon className='size-5' />
+            <span className='text-xs'>{formatDate(ticket.deadline)}</span>
+          </div>
         </CardContent>
 
         <div className='border-border border-t px-0 pt-3'>
           <div className='flex items-center justify-between gap-2'>
-            {TICKET_STATUS[ticket.status]}
-            <span className='text-xs'>{formatDate(ticket.deadline)}</span>
-          </div>
-
-          <div className='flex items-center justify-between gap-2'>
-            <span className='text-primary text-xs font-semibold'>
+            <span className='text-primary text-xs font-semibold capitalize'>
               {ticket.user.name}
             </span>
             <span className='text-lg font-bold'>
