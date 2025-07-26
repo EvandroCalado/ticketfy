@@ -5,13 +5,13 @@ import { GithubIcon, LinkedinIcon } from 'lucide-react';
 export const Footer = () => {
   return (
     <footer>
-      <div className='text-muted-foreground container mx-auto flex flex-col items-center justify-between gap-3 p-5 md:flex-row'>
+      <div className='text-muted-foreground relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 p-5 md:flex-row'>
         <span className='text-sm'>
           © {new Date().getFullYear()} Evandro Calado. Todos os direitos
           reservados.
         </span>
 
-        <span className='flex items-center gap-4'>
+        <div className='right-1/2 flex translate-x-1/2 items-center gap-4 md:absolute'>
           <Link
             aria-label='Github'
             title='Github'
@@ -32,7 +32,7 @@ export const Footer = () => {
           >
             <LinkedinIcon className='size-5' />
           </Link>
-        </span>
+        </div>
 
         <span className='text-muted-foreground flex items-center gap-4 text-xs'>
           <Link
