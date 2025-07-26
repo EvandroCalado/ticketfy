@@ -1,9 +1,6 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 
-import { MoveLeftIcon } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
+import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
 
 import { TicketCreateForm } from './components/ticket-create-form';
@@ -13,22 +10,20 @@ export const metadata: Metadata = {
 };
 
 const TicketCreatePage = () => {
+  const breadcrumbs = [
+    {
+      title: 'Tickets',
+      href: ticketsPath(),
+    },
+    {
+      title: 'Criar ticket',
+    },
+  ];
+
   return (
-    <main className='mx-auto w-full max-w-3xl space-y-10 p-5'>
-      <h1 className='text-xl font-semibold md:text-3xl'>Criar ticket</h1>
-
-      <TicketCreateForm />
-
-      <Button
-        asChild
-        variant='outline'
-        aria-label='Voltar para tickets'
-        title='Voltar para tickets'
-      >
-        <Link href={ticketsPath()}>
-          <MoveLeftIcon /> Voltar
-        </Link>
-      </Button>
+    <main className='space-y-10'>
+      <PageTitle title='Criar ticket' breadcrumbs={breadcrumbs} />
+      <TicketCreateForm className='mx-auto w-full max-w-3xl space-y-10 p-5' />
     </main>
   );
 };

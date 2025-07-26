@@ -28,9 +28,10 @@ type TicketEditFormProps = {
   ticket: Prisma.TicketGetPayload<{
     include: { user: { select: { name: true } } };
   }>;
+  className?: string;
 };
 
-export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
+export const TicketEditForm = ({ ticket, className }: TicketEditFormProps) => {
   const [state, dispatch, isPending] = useActionState(
     (_prevState: unknown, formData: FormData) =>
       updateTicket(ticket.id, formData),
@@ -40,7 +41,12 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
   const { fieldErrors } = state;
 
   return (
-    <Form state={state} action={dispatch} redirect={ticketPath(ticket.id)}>
+    <Form
+      state={state}
+      action={dispatch}
+      redirect={ticketPath(ticket.id)}
+      className={className}
+    >
       <div className='flex flex-col items-center gap-5 md:flex-row'>
         <div className='relative w-full'>
           <Label htmlFor='title' className='text-muted-foreground mb-2'>

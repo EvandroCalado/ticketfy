@@ -1,19 +1,27 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
+import { PageTitle } from '@/components/shared/page-title';
 import { Spinner } from '@/components/shared/spinner';
+import { ticketsPath } from '@/utils/paths';
 
 import { TicketsList } from './components/tickets-list';
-import { TicketsTitle } from './components/tickets-title';
 
 export const metadata: Metadata = {
   title: 'Tickets',
 };
 
 const TicketsPage = async () => {
+  const breadcrumbs = [
+    {
+      title: 'Tickets',
+      href: ticketsPath(),
+    },
+  ];
+
   return (
     <>
-      <TicketsTitle />
+      <PageTitle title='Tickets' breadcrumbs={breadcrumbs} />
       <Suspense
         fallback={
           <Spinner

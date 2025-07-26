@@ -1,11 +1,8 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { MoveLeftIcon } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-import { ticketPath } from '@/utils/paths';
+import { PageTitle } from '@/components/shared/page-title';
+import { ticketPath, ticketsPath } from '@/utils/paths';
 
 import { getTicket } from '../../[ticketId]/actions/get-ticket';
 import { TicketEditForm } from './components/ticket-edit-form';
@@ -25,22 +22,27 @@ const TicketEditPage = async ({ params }: TicketEditPageParams) => {
 
   if (!ticket) notFound();
 
+  const breadcrumbs = [
+    {
+      title: 'Tickets',
+      href: ticketsPath(),
+    },
+    {
+      title: 'Ticket',
+      href: ticketPath(ticketId),
+    },
+    {
+      title: ticket.title,
+    },
+  ];
+
   return (
-    <main className='mx-auto w-full max-w-3xl space-y-10 p-5'>
-      <h1 className='text-xl font-semibold md:text-3xl'>Editar ticket</h1>
-
-      <TicketEditForm ticket={ticket} />
-
-      <Button
-        asChild
-        variant='outline'
-        aria-label='Voltar para tickets'
-        title='Voltar para tickets'
-      >
-        <Link href={ticketPath(ticketId)}>
-          <MoveLeftIcon /> Voltar
-        </Link>
-      </Button>
+    <main className='space-y-10'>
+      <PageTitle title='Editar ticket' breadcrumbs={breadcrumbs} />
+      <TicketEditForm
+        ticket={ticket}
+        className='mx-auto w-full max-w-3xl space-y-10 p-5'
+      />
     </main>
   );
 };

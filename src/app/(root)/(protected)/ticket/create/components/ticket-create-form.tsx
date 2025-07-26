@@ -14,7 +14,11 @@ import { ticketsPath } from '@/utils/paths';
 
 import { createTicket } from '../actions/create-ticket';
 
-export const TicketCreateForm = () => {
+type TicketCreateFormProps = {
+  className?: string;
+};
+
+export const TicketCreateForm = ({ className }: TicketCreateFormProps) => {
   const [state, dispatch, isPending] = useActionState(
     createTicket,
     INITIAL_ACTION_STATE,
@@ -23,7 +27,12 @@ export const TicketCreateForm = () => {
   const { fieldErrors, payload } = state;
 
   return (
-    <Form state={state} action={dispatch} redirect={ticketsPath()}>
+    <Form
+      state={state}
+      action={dispatch}
+      redirect={ticketsPath()}
+      className={className}
+    >
       <div className='relative'>
         <Label htmlFor='title' className='text-muted-foreground mb-2'>
           Título
