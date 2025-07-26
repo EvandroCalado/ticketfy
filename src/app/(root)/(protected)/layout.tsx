@@ -14,12 +14,10 @@ const ProtectedLayout = async ({
   if (!user) redirect(signInPath());
 
   return (
-    <div className='flex flex-1'>
-      <div className='relative flex items-center justify-center md:p-5'>
-        <Sidebar user={user} />
-      </div>
-      <div className='flex-1'>{children}</div>
-    </div>
+    <>
+      <Sidebar user={user} />
+      {children}
+    </>
   );
 };
 

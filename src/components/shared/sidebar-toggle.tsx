@@ -15,7 +15,7 @@ export const SidebarToggle = () => {
         <Button
           aria-label='Abre/fecha menu'
           title='Abre/fecha menu'
-          className='absolute top-4 -right-[18px] z-40 size-6 rounded-full md:hidden'
+          className='absolute top-4 -right-[18px] z-40 size-6 rounded-full lg:hidden'
           onClick={() => toggle()}
         >
           <ChevronRightIcon

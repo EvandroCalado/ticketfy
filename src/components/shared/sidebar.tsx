@@ -22,13 +22,13 @@ export const Sidebar = ({ user }: SidebarProps) => {
       className={cn(
         [
           'animate-sidebar-from-left',
-          'group h-full max-h-[775px] w-[64px] gap-2 py-0 max-md:w-52',
+          'group m-5 h-[750px] w-[64px] gap-2 py-0 max-lg:w-52',
           'transition-all duration-200',
-          'absolute top-5 -left-52 z-20',
-          'md:static md:hover:w-52',
+          'absolute top-20 -left-[229px] z-20 lg:left-5',
+          'lg:hover:w-52',
         ],
         {
-          'left-5': isOpen,
+          'max-lg:left-5': isOpen,
         },
       )}
     >

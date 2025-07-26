@@ -29,7 +29,7 @@ export const SidebarLinks = () => {
         >
           <Link href={ticket.href}>
             <ticket.icon />
-            <span className='pointer-events-none text-left transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100'>
+            <span className='pointer-events-none text-left transition-opacity duration-200 lg:opacity-0 lg:group-hover:opacity-100'>
               {ticket.label}
             </span>
           </Link>
