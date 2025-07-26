@@ -23,10 +23,9 @@ export const SidebarLogout = () => {
 
       <Form state={state} action={dispatch} className='p-3'>
         <Button
-          variant='ghost'
           type='submit'
           disabled={isPending}
-          className='text-destructive hover:text-destructive w-full justify-start'
+          className='text-destructive hover:text-destructive hover:bg-destructive/10 w-full justify-start bg-transparent'
         >
           {isPending ? (
             <Loader2Icon className='animate-spin' />
