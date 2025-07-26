@@ -3,12 +3,11 @@ import Link from 'next/link';
 import { CalendarIcon, SquareCheckBigIcon } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TICKET_ICONS } from '@/constants/ticket-icons';
+import { TICKET_STATUS } from '@/constants/ticket-status';
 import { Prisma } from '@/generated/prisma';
 import { formatCurrency } from '@/utils/format-currency';
 import { formatDate } from '@/utils/format-date';
-
-import { TICKET_ICONS } from '../constants/ticket-icons';
-import { TICKET_STATUS } from '../constants/ticket-status';
 
 type TicketCardProps = {
   ticket: Prisma.TicketGetPayload<{

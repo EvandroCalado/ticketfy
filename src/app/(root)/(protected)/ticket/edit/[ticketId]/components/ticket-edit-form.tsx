@@ -2,7 +2,6 @@
 
 import { useActionState } from 'react';
 
-import { TICKET_STATUS } from '@/app/(root)/(protected)/tickets/constants/ticket-status';
 import { DatePicker } from '@/components/shared/date-picker';
 import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
@@ -17,6 +16,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { TICKET_STATUS } from '@/constants/ticket-status';
 import { Prisma } from '@/generated/prisma';
 import { fromCent } from '@/utils/format-currency';
 import { formatErrorMessage } from '@/utils/format-error-message';
