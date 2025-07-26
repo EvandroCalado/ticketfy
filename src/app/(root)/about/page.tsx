@@ -6,7 +6,7 @@ export const metadata = {
 
 const AboutPage = () => {
   return (
-    <main className='container mx-auto flex flex-1 flex-col items-center gap-5 p-5 md:gap-28'>
+    <main className='container mx-auto flex flex-1 flex-col items-center gap-5 p-5 md:gap-24'>
       <h1 className='text-xl font-bold tracking-tighter sm:text-4xl'>
         Então <span className='text-primary'>quem</span> é o Ticketfy?
       </h1>

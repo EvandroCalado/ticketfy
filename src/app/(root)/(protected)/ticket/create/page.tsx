@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const TicketCreatePage = () => {
   return (
-    <main className='mx-auto max-w-3xl space-y-10 p-5'>
+    <main className='mx-auto w-full max-w-3xl space-y-10 p-5'>
       <h1 className='text-xl font-semibold md:text-3xl'>Criar ticket</h1>
 
       <TicketCreateForm />
