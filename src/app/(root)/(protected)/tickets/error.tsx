@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { HomeIcon, MessageSquareWarningIcon } from 'lucide-react';
+import { HomeIcon } from 'lucide-react';
 
 import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,6 @@ const TicketsErrorPage = ({ error }: { error: Error }) => {
     <div className='flex h-full flex-1 items-center justify-center p-5'>
       <EmptyError
         label={error.message || 'Erro ao carregar tickets'}
-        icon={MessageSquareWarningIcon}
         button={
           <Button asChild>
             <Link href='/'>
