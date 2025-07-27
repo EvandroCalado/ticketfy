@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { ticketCreatePath } from '@/utils/paths';
 
 import { getTickets } from '../actions/get-tickets';
 import { TicketCard } from './ticket-card';
@@ -17,7 +18,7 @@ export const TicketsList = async () => {
         </div>
 
         <Button asChild>
-          <Link href='/ticket/create'>Adicionar</Link>
+          <Link href={ticketCreatePath()}>Adicionar</Link>
         </Button>
       </div>
 
