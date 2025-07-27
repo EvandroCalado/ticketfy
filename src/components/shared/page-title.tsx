@@ -23,7 +23,7 @@ type PageTitleProps = {
 
 export const PageTitle = ({ title, breadcrumbs }: PageTitleProps) => {
   return (
-    <div className='mx-auto w-full max-w-7xl space-y-2 p-5'>
+    <div className='mx-auto w-full max-w-7xl space-y-2'>
       <h1 className='text-4xl font-semibold tracking-tighter'>{title}</h1>
 
       <Breadcrumb>

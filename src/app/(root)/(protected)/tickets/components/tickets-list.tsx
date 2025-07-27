@@ -10,7 +10,7 @@ export const TicketsList = async () => {
   const { tickets, count } = await getTickets();
 
   return (
-    <div className='animate-fade-from-top mx-auto flex w-full max-w-7xl flex-1 flex-col space-y-10 p-5'>
+    <div className='animate-fade-from-top mx-auto flex w-full max-w-7xl flex-1 flex-col space-y-10'>
       <div className='border-border flex items-center justify-between border-b pb-5'>
         <div className='text-xs'>
           <span className='mr-1 font-semibold'>{count}</span>

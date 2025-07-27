@@ -38,7 +38,7 @@ const TicketPage = async ({ params }: TicketPageParams) => {
     <main className='mx-auto w-full max-w-7xl space-y-10'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
-      <div className='mx-auto w-full space-y-10 p-5 lg:max-w-3xl'>
+      <div className='mx-auto w-full space-y-10 lg:max-w-3xl'>
         <div className='flex items-center justify-between'>
           <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
 

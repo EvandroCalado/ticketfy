@@ -23,7 +23,7 @@ const TicketCreatePage = () => {
   return (
     <main className='space-y-10'>
       <PageTitle title='Criar ticket' breadcrumbs={breadcrumbs} />
-      <TicketCreateForm className='mx-auto w-full max-w-3xl space-y-10 p-5' />
+      <TicketCreateForm className='mx-auto w-full max-w-3xl space-y-10' />
     </main>
   );
 };
