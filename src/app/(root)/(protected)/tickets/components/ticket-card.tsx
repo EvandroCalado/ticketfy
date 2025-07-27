@@ -8,6 +8,7 @@ import { TICKET_STATUS } from '@/constants/ticket-status';
 import { Prisma } from '@/generated/prisma';
 import { formatCurrency } from '@/utils/format-currency';
 import { formatDate } from '@/utils/format-date';
+import { ticketPath } from '@/utils/paths';
 
 type TicketCardProps = {
   ticket: Prisma.TicketGetPayload<{
@@ -18,7 +19,7 @@ type TicketCardProps = {
 export const TicketCard = ({ ticket }: TicketCardProps) => {
   return (
     <Link
-      href={`/ticket/${ticket.id}`}
+      href={ticketPath(ticket.id)}
       className='duration-150 ease-in-out hover:-translate-y-2'
     >
       <Card className='min-h-[229px] p-4'>
