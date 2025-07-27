@@ -1,17 +1,26 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
+import { SearchParams } from 'nuqs/server';
+
 import { PageTitle } from '@/components/shared/page-title';
 import { Spinner } from '@/components/shared/spinner';
 import { ticketsPath } from '@/utils/paths';
 
 import { TicketsList } from './components/tickets-list';
+import { searchParamsCache } from './search-params';
 
 export const metadata: Metadata = {
   title: 'Tickets',
 };
 
-const TicketsPage = async () => {
+type TicketsPageParams = {
+  searchParams: Promise<SearchParams>;
+};
+
+const TicketsPage = async ({ searchParams }: TicketsPageParams) => {
+  const parsedSearchParams = await searchParamsCache.parse(searchParams);
+
   const breadcrumbs = [
     {
       title: 'Tickets',
@@ -30,7 +39,7 @@ const TicketsPage = async () => {
           />
         }
       >
-        <TicketsList />
+        <TicketsList searchParams={parsedSearchParams} />
       </Suspense>
     </>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { Toaster } from '@/components/ui/sonner';
 
@@ -32,16 +33,18 @@ const RootLayout = ({
     <html lang='pt-BR' suppressHydrationWarning>
       {/* <ReactScan /> */}
       <body className={`${primary.variable} antialiased`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-        <Toaster position='top-right' invert richColors />
-        <SpeedInsights />
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster position='top-right' invert richColors />
+          <SpeedInsights />
+        </NuqsAdapter>
       </body>
     </html>
   );

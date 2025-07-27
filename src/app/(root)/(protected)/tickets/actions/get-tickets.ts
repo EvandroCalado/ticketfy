@@ -1,11 +1,9 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { SearchParams } from 'nuqs';
 
-import { getAuth } from '@/actions/get-auth';
 import { Prisma } from '@/generated/prisma';
 import { prisma } from '@/lib/prisma';
-import { signInPath } from '@/utils/paths';
 
 export type GetTicketsResponse = {
   tickets: Prisma.TicketGetPayload<{
@@ -14,17 +12,23 @@ export type GetTicketsResponse = {
   count: number;
 };
 
-export const getTickets = async (): Promise<GetTicketsResponse> => {
-  const { user } = await getAuth();
-
-  if (!user) redirect(signInPath());
-
+export const getTickets = async (
+  userId: string | undefined,
+  searchParams?: SearchParams,
+): Promise<GetTicketsResponse> => {
   const tickets = await prisma.ticket.findMany({
     where: {
-      userId: user.id,
+      userId,
+      ...(typeof searchParams?.search === 'string' && {
+        title: {
+          contains: searchParams.search,
+          mode: 'insensitive',
+        },
+      }),
     },
     orderBy: {
-      updatedAt: 'desc',
+      ...(searchParams?.sort === 'newest' && { createdAt: 'desc' }),
+      ...(searchParams?.sort === 'bounty' && { bounty: 'desc' }),
     },
     include: {
       user: {
@@ -37,7 +41,13 @@ export const getTickets = async (): Promise<GetTicketsResponse> => {
 
   const count = await prisma.ticket.count({
     where: {
-      userId: user.id,
+      userId,
+      ...(typeof searchParams?.search === 'string' && {
+        title: {
+          contains: searchParams.search,
+          mode: 'insensitive',
+        },
+      }),
     },
   });
 
