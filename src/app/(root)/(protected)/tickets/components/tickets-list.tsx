@@ -18,7 +18,7 @@ type TicketsListProps = {
 };
 
 export const TicketsList = async ({ searchParams }: TicketsListProps) => {
-  const { tickets, count } = await getTickets(undefined, searchParams);
+  const { tickets, metadata } = await getTickets(undefined, searchParams);
 
   return (
     <div className='animate-fade-from-top mx-auto mt-5 flex w-full max-w-7xl flex-1 flex-col space-y-10'>
@@ -33,20 +33,20 @@ export const TicketsList = async ({ searchParams }: TicketsListProps) => {
         </Button>
       </div>
 
-      <div className='text-xs'>
-        <span className='mr-1 font-semibold'>{count}</span>
-        <span className='text-muted-foreground/60'>Tickets encontrados</span>
-      </div>
+      {tickets.length === 0 && (
+        <EmptyError
+          label='Nenhum ticket encontrado'
+          description='Não há tickets para exibir'
+        />
+      )}
 
-      {tickets.length === 0 && <EmptyError label='Nenhum ticket encontrado' />}
-
-      <div className='grid h-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid h-full flex-1 grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {tickets.map(ticket => (
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
       </div>
 
-      <TicketsPagination />
+      <TicketsPagination metadata={metadata} />
     </div>
   );
 };

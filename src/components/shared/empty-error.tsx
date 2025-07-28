@@ -2,12 +2,14 @@ import { CircleXIcon, LucideIcon, PanelTopIcon } from 'lucide-react';
 
 type TicketListEmptyProps = {
   label: string;
+  description?: string;
   icon?: LucideIcon;
   button?: React.ReactNode;
 };
 
 export const EmptyError = ({
   label,
+  description = ' A página que você está tentando acessar não existe ou foi movida.',
   icon: Icon = PanelTopIcon,
   button = null,
 }: TicketListEmptyProps) => {
@@ -21,9 +23,7 @@ export const EmptyError = ({
         {label}
       </h2>
 
-      <p className='text-muted-foreground/40'>
-        A página que você está tentando acessar não existe ou foi movida.
-      </p>
+      <p className='text-muted-foreground/40'>{description}</p>
       <div className='mt-5'>{button}</div>
     </div>
   );

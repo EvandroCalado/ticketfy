@@ -9,7 +9,10 @@ export type GetTicketsResponse = {
   tickets: Prisma.TicketGetPayload<{
     include: { user: { select: { name: true } } };
   }>[];
-  count: number;
+  metadata: {
+    count: number;
+    hasNextPage: boolean;
+  };
 };
 
 export const getTickets = async (
@@ -49,9 +52,13 @@ export const getTickets = async (
 
   const count = await prisma.ticket.count({
     where,
-    skip,
-    take,
   });
 
-  return { tickets, count };
+  return {
+    tickets,
+    metadata: {
+      count,
+      hasNextPage: count > skip + take,
+    },
+  };
 };

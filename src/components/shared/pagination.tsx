@@ -10,13 +10,22 @@ type Pagination = {
 type PaginationProps = {
   pagination: Pagination;
   setPagination: (pagination: Pagination) => void;
+  metadata: {
+    count: number;
+    hasNextPage: boolean;
+  };
 };
 
-export const Pagination = ({ pagination, setPagination }: PaginationProps) => {
+export const Pagination = ({
+  pagination,
+  setPagination,
+  metadata,
+}: PaginationProps) => {
   const startOffset = Number(pagination.page) * Number(pagination.size) + 1;
   const endOffset = startOffset - 1 + Number(pagination.size);
+  const currentOffSet = Math.min(endOffset, metadata.count);
 
-  const label = `${startOffset} - ${endOffset} of X`;
+  const label = `${startOffset} - ${currentOffSet} de ${metadata.count}`;
 
   const handleNextPage = () => {
     setPagination({
@@ -36,7 +45,7 @@ export const Pagination = ({ pagination, setPagination }: PaginationProps) => {
     <Button
       size='icon'
       variant='outline'
-      disabled={false}
+      disabled={!metadata.hasNextPage}
       onClick={handleNextPage}
     >
       <ChevronRightIcon />
@@ -58,7 +67,7 @@ export const Pagination = ({ pagination, setPagination }: PaginationProps) => {
     <div className='ml-auto flex items-center gap-2'>
       {prevButton}
 
-      <p className='w-24 text-center'>{label}</p>
+      <p className='text-muted-foreground w-24 text-center'>{label}</p>
 
       {nextButton}
     </div>

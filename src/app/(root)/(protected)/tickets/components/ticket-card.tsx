@@ -20,9 +20,9 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
   return (
     <Link
       href={ticketPath(ticket.id)}
-      className='duration-150 ease-in-out hover:-translate-y-2'
+      className='max-h-60 duration-150 ease-in-out hover:-translate-y-2'
     >
-      <Card className='min-h-[229px] p-4'>
+      <Card className='h-full p-4'>
         <CardHeader className='px-0'>
           <CardTitle className='flex items-center gap-2'>
             {TICKET_ICONS[ticket.status]}

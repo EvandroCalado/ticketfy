@@ -6,11 +6,24 @@ import { Pagination } from '@/components/shared/pagination';
 
 import { paginationOptions, paginationParse } from '../search-params';
 
-export const TicketsPagination = () => {
+type TicketsPaginationProps = {
+  metadata: {
+    count: number;
+    hasNextPage: boolean;
+  };
+};
+
+export const TicketsPagination = ({ metadata }: TicketsPaginationProps) => {
   const [pagination, setPagination] = useQueryStates(
     paginationParse,
     paginationOptions,
   );
 
-  return <Pagination pagination={pagination} setPagination={setPagination} />;
+  return (
+    <Pagination
+      pagination={pagination}
+      setPagination={setPagination}
+      metadata={metadata}
+    />
+  );
 };
