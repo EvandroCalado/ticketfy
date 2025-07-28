@@ -26,13 +26,7 @@ export const validateSession = async (sessionToken: string) => {
       id: sessionId,
     },
     include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-        },
-      },
+      user: true,
     },
   });
 
