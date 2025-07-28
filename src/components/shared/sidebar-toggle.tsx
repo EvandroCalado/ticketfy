@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export const SidebarToggle = () => {
-  const { isOpen, toggle } = useSidebarStore(state => state);
+  const { isOpen, toggle } = useSidebarStore();
 
   return (
     <Tooltip>

@@ -5,7 +5,7 @@ type SidebarStore = {
   toggle: () => void;
 };
 
-export const useSidebarStore = create<SidebarStore>(set => ({
+export const useSidebarStore = create<SidebarStore>()(set => ({
   isOpen: false,
   toggle: () => set(state => ({ isOpen: !state.isOpen })),
 }));
