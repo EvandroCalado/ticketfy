@@ -32,7 +32,7 @@ export const TicketsSelect = ({ options }: TicketsSelectProps) => {
       </SelectTrigger>
       <SelectContent>
         {options.map(option => (
-          <SelectItem key={option.sortKey} value={option.sortValue}>
+          <SelectItem key={option.sortValue} value={option.sortValue}>
             {option.label}
           </SelectItem>
         ))}

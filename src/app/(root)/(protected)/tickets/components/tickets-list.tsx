@@ -6,22 +6,10 @@ import { Button } from '@/components/ui/button';
 import { ticketCreatePath } from '@/utils/paths';
 
 import { getTickets } from '../actions/get-tickets';
+import { ticketSelectOptions } from '../constants/ticket-select-options';
 import { TicketCard } from './ticket-card';
 import { TicketsSearch } from './tickets-search';
 import { TicketsSelect } from './tickets-select';
-
-const options = [
-  {
-    sortKey: 'createdAt',
-    sortValue: 'newest',
-    label: 'Data',
-  },
-  {
-    sortKey: 'bounty',
-    sortValue: 'bounty',
-    label: 'Bônus',
-  },
-];
 
 type TicketsListProps = {
   searchParams: SearchParams;
@@ -35,7 +23,7 @@ export const TicketsList = async ({ searchParams }: TicketsListProps) => {
       <div className='border-border flex items-center justify-between gap-2 border-b pb-5'>
         <div className='flex items-center gap-2'>
           <TicketsSearch placeholder='Procurar ticket...' />
-          <TicketsSelect options={options} />
+          <TicketsSelect options={ticketSelectOptions} />
         </div>
 
         <Button asChild>

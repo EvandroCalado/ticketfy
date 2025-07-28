@@ -28,6 +28,7 @@ export const getTickets = async (
     },
     orderBy: {
       ...(searchParams?.sort === 'newest' && { createdAt: 'desc' }),
+      ...(searchParams?.sort === 'oldest' && { createdAt: 'asc' }),
       ...(searchParams?.sort === 'bounty' && { bounty: 'desc' }),
     },
     include: {
