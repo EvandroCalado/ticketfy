@@ -1,0 +1,66 @@
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+
+import { Button } from '../ui/button';
+
+type Pagination = {
+  page: string;
+  size: string;
+};
+
+type PaginationProps = {
+  pagination: Pagination;
+  setPagination: (pagination: Pagination) => void;
+};
+
+export const Pagination = ({ pagination, setPagination }: PaginationProps) => {
+  const startOffset = Number(pagination.page) * Number(pagination.size) + 1;
+  const endOffset = startOffset - 1 + Number(pagination.size);
+
+  const label = `${startOffset} - ${endOffset} of X`;
+
+  const handleNextPage = () => {
+    setPagination({
+      ...pagination,
+      page: String(Number(pagination.page) + 1),
+    });
+  };
+
+  const handlePreviousPage = () => {
+    setPagination({
+      ...pagination,
+      page: String(Number(pagination.page) - 1),
+    });
+  };
+
+  const nextButton = (
+    <Button
+      size='icon'
+      variant='outline'
+      disabled={false}
+      onClick={handleNextPage}
+    >
+      <ChevronRightIcon />
+    </Button>
+  );
+
+  const prevButton = (
+    <Button
+      size='icon'
+      variant='outline'
+      disabled={Number(pagination.page) < 1}
+      onClick={handlePreviousPage}
+    >
+      <ChevronLeftIcon />
+    </Button>
+  );
+
+  return (
+    <div className='ml-auto flex items-center gap-2'>
+      {prevButton}
+
+      <p className='w-24 text-center'>{label}</p>
+
+      {nextButton}
+    </div>
+  );
+};

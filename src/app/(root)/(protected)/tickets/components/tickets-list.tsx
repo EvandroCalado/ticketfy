@@ -2,12 +2,14 @@ import Link from 'next/link';
 
 import { SearchParams } from 'nuqs';
 
+import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
 import { ticketCreatePath } from '@/utils/paths';
 
 import { getTickets } from '../actions/get-tickets';
 import { ticketSelectOptions } from '../constants/ticket-select-options';
 import { TicketCard } from './ticket-card';
+import { TicketsPagination } from './tickets-pagination';
 import { TicketsSearch } from './tickets-search';
 import { TicketsSelect } from './tickets-select';
 
@@ -36,11 +38,15 @@ export const TicketsList = async ({ searchParams }: TicketsListProps) => {
         <span className='text-muted-foreground/60'>Tickets encontrados</span>
       </div>
 
+      {tickets.length === 0 && <EmptyError label='Nenhum ticket encontrado' />}
+
       <div className='grid h-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {tickets.map(ticket => (
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
       </div>
+
+      <TicketsPagination />
     </div>
   );
 };
