@@ -26,13 +26,22 @@ export const TicketsSelect = ({ options }: TicketsSelectProps) => {
   const [sort, setSort] = useQueryState('sort', sortParse);
 
   return (
-    <Select onValueChange={value => setSort(value)} defaultValue={sort}>
+    <Select
+      onValueChange={value => setSort(value)}
+      defaultValue={sort}
+      aria-label='Ordenar'
+    >
       <SelectTrigger className='w-[120px]'>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {options.map(option => (
-          <SelectItem key={option.sortValue} value={option.sortValue}>
+          <SelectItem
+            key={option.sortValue}
+            value={option.sortValue}
+            title={option.label}
+            aria-label={option.label}
+          >
             {option.label}
           </SelectItem>
         ))}

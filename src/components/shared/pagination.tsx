@@ -43,6 +43,8 @@ export const Pagination = ({
 
   const nextButton = (
     <Button
+      aria-label='Próxima página'
+      title='Próxima página'
       size='icon'
       variant='outline'
       disabled={!metadata.hasNextPage}
@@ -54,6 +56,8 @@ export const Pagination = ({
 
   const prevButton = (
     <Button
+      aria-label='Página anterior'
+      title='Página anterior'
       size='icon'
       variant='outline'
       disabled={Number(pagination.page) < 1}
