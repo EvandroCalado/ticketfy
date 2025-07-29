@@ -32,27 +32,28 @@ export const getTickets = async (
   const skip = Number(searchParams?.page) * Number(searchParams?.size);
   const take = Number(searchParams?.size);
 
-  const tickets = await prisma.ticket.findMany({
-    where,
-    orderBy: {
-      ...(searchParams?.sort === 'newest' && { createdAt: 'desc' }),
-      ...(searchParams?.sort === 'oldest' && { createdAt: 'asc' }),
-      ...(searchParams?.sort === 'bounty' && { bounty: 'desc' }),
-    },
-    skip,
-    take,
-    include: {
-      user: {
-        select: {
-          name: true,
+  const [tickets, count] = await prisma.$transaction([
+    prisma.ticket.findMany({
+      where,
+      orderBy: {
+        ...(searchParams?.sort === 'newest' && { createdAt: 'desc' }),
+        ...(searchParams?.sort === 'oldest' && { createdAt: 'asc' }),
+        ...(searchParams?.sort === 'bounty' && { bounty: 'desc' }),
+      },
+      skip,
+      take,
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
         },
       },
-    },
-  });
-
-  const count = await prisma.ticket.count({
-    where,
-  });
+    }),
+    prisma.ticket.count({
+      where,
+    }),
+  ]);
 
   return {
     tickets,
