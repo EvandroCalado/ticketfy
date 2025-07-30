@@ -6,7 +6,7 @@ import { useAvatarStore } from '@/stores/avatars';
 import { avatarOptions } from '@/utils/avatar-options';
 
 export const AccountAvatars = () => {
-  const { setOption } = useAvatarStore(state => state);
+  const { option: selectedOption, setOption } = useAvatarStore(state => state);
 
   return (
     <div>
@@ -22,6 +22,9 @@ export const AccountAvatars = () => {
               'border-muted hover:border-primary h-12 w-12 cursor-pointer rounded-md border-4 font-semibold transition-colors duration-150 ease-in-out',
               option.bg,
               option.text,
+              {
+                'border-primary': option.bg === selectedOption.bg,
+              },
             )}
           >
             A
