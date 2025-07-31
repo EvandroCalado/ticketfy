@@ -5,8 +5,9 @@ import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
 
 import { getTicket } from './actions/get-ticket';
-import { DeleteButton } from './components/delete-button';
+import { TicketComments } from './components/ticket-comments';
 import { TicketContent } from './components/ticket-content';
+import { DeleteButton } from './components/ticket-delete-button';
 import { TicketDropdown } from './components/ticket-dropdown';
 
 export const metadata: Metadata = {
@@ -51,6 +52,8 @@ const TicketPage = async ({ params }: TicketPageParams) => {
           <DeleteButton ticketId={ticketId} />
         </div>
       </div>
+
+      <TicketComments ticketId={ticketId} />
     </main>
   );
 };
