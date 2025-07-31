@@ -108,7 +108,14 @@ const tickets = [
   },
 ];
 
+const comments = [
+  { content: 'Comentário 1 sobre o ticket 1' },
+  { content: 'Comentário 2 sobre o ticket 2' },
+  { content: 'Comentário 3 sobre o ticket 3' },
+];
+
 async function main() {
+  await prisma.comment.deleteMany();
   await prisma.user.deleteMany();
   await prisma.ticket.deleteMany();
   console.log('Deleted all');
@@ -122,10 +129,18 @@ async function main() {
     })),
   });
 
-  await prisma.ticket.createMany({
+  const dbTickets = await prisma.ticket.createManyAndReturn({
     data: tickets.map(ticket => ({
       ...ticket,
       userId: dbUsers[0].id,
+    })),
+  });
+
+  await prisma.comment.createMany({
+    data: comments.map(comment => ({
+      ...comment,
+      userId: dbUsers[0].id,
+      ticketId: dbTickets[0].id,
     })),
   });
   console.log('Created initial data');
