@@ -5,6 +5,7 @@ import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
 
 import { getTicket } from './actions/get-ticket';
+import { CommentCreateForm } from './components/comment-create-form';
 import { TicketComments } from './components/ticket-comments';
 import { TicketContent } from './components/ticket-content';
 import { DeleteButton } from './components/ticket-delete-button';
@@ -36,10 +37,10 @@ const TicketPage = async ({ params }: TicketPageParams) => {
   ];
 
   return (
-    <main className='mx-auto w-full max-w-7xl space-y-10'>
+    <main className='mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
-      <div className='mx-auto w-full space-y-10 lg:max-w-3xl'>
+      <div className='mx-auto w-full space-y-10'>
         <div className='flex items-center justify-between'>
           <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
 
@@ -53,6 +54,10 @@ const TicketPage = async ({ params }: TicketPageParams) => {
         </div>
       </div>
 
+      <h3 className='border-border border-b pb-2 text-xl font-semibold'>
+        Comentários
+      </h3>
+      <CommentCreateForm ticketId={ticketId} />
       <TicketComments ticketId={ticketId} />
     </main>
   );
