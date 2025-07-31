@@ -42,7 +42,7 @@ const RootLayout = ({
           >
             {children}
           </ThemeProvider>
-          <Toaster position='top-right' invert richColors />
+          <Toaster position='top-right' invert visibleToasts={1} />
           <SpeedInsights />
         </NuqsAdapter>
       </body>
