@@ -37,12 +37,9 @@ const TicketEditPage = async ({ params }: TicketEditPageParams) => {
   ];
 
   return (
-    <main className='space-y-10'>
+    <main className='mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Editar ticket' breadcrumbs={breadcrumbs} />
-      <TicketEditForm
-        ticket={ticket}
-        className='mx-auto w-full max-w-3xl space-y-10'
-      />
+      <TicketEditForm ticket={ticket} className='space-y-10' />
     </main>
   );
 };

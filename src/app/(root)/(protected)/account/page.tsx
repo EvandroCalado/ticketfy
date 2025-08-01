@@ -11,10 +11,10 @@ const AccountPage = () => {
   ];
 
   return (
-    <main className='space-y-10'>
+    <main className='mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Minha conta' breadcrumbs={breadcrumbs} />
 
-      <div className='mx-auto grid w-full max-w-3xl gap-8 md:grid-cols-2'>
+      <div className='grid gap-8 md:grid-cols-2'>
         <AccountAvatars />
         <AccountInfo />
       </div>

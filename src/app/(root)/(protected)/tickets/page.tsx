@@ -29,7 +29,7 @@ const TicketsPage = async ({ searchParams }: TicketsPageParams) => {
   ];
 
   return (
-    <>
+    <main className='mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Tickets' breadcrumbs={breadcrumbs} />
       <Suspense
         fallback={
@@ -41,7 +41,7 @@ const TicketsPage = async ({ searchParams }: TicketsPageParams) => {
       >
         <TicketsList searchParams={parsedSearchParams} />
       </Suspense>
-    </>
+    </main>
   );
 };
 
