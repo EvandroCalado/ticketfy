@@ -22,7 +22,7 @@ export const deleteComment = async (
   if (!comment) {
     return {
       status: 'error' as const,
-      message: 'Comentário não encontrado',
+      message: 'Você não tem permissão para excluir este comentário',
       fieldErrors: undefined,
       payload: undefined,
     };

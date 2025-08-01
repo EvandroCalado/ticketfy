@@ -1,12 +1,9 @@
 'use client';
 
-import { useActionState } from 'react';
+import { TrashIcon } from 'lucide-react';
 
-import { Loader2Icon, TrashIcon } from 'lucide-react';
-
-import { Form } from '@/components/shared/form';
 import { Button } from '@/components/ui/button';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 import { deleteComment } from '../actions/delete-comment';
 
@@ -17,21 +14,19 @@ type CommentDeleteButtonProps = {
 export const CommentDeleteButton = ({
   commentId,
 }: CommentDeleteButtonProps) => {
-  const [state, dispatch, isPending] = useActionState(
-    deleteComment.bind(null, commentId),
-    INITIAL_ACTION_STATE,
-  );
+  const [trigger, dialog] = useConfirmDialog({
+    action: deleteComment.bind(null, commentId),
+    trigger: (
+      <Button variant='destructive' size='icon'>
+        <TrashIcon />
+      </Button>
+    ),
+  });
 
   return (
-    <Form state={state} action={dispatch}>
-      <Button
-        type='submit'
-        variant='destructive'
-        size='icon'
-        disabled={isPending}
-      >
-        {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
-      </Button>
-    </Form>
+    <>
+      {trigger}
+      {dialog}
+    </>
   );
 };
