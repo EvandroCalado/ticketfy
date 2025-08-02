@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
@@ -7,7 +8,7 @@ import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
-import { signInPath } from '@/utils/paths';
+import { signInPath, ticketPath, ticketsPath } from '@/utils/paths';
 
 import { updateTicketSchema } from '../schemas/update-ticket';
 
@@ -25,13 +26,28 @@ export const updateTicket = async (
       bounty: Number(formData.get('bounty')),
     });
 
-    await prisma.ticket.update({
+    const isTicketOwner = await prisma.ticket.findFirst({
       where: { id, userId: user.id },
+    });
+
+    if (!isTicketOwner)
+      return {
+        status: 'error',
+        message: 'Você não tem permissão para atualizar este ticket',
+        fieldErrors: undefined,
+        payload: undefined,
+      };
+
+    await prisma.ticket.update({
+      where: { id },
       data: {
         ...data,
         bounty: toCent(data.bounty),
       },
     });
+
+    revalidatePath(ticketPath(id));
+    revalidatePath(ticketsPath());
 
     return {
       status: 'success',
