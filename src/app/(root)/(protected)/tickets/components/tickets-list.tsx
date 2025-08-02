@@ -21,7 +21,7 @@ export const TicketsList = async ({ searchParams }: TicketsListProps) => {
   const { tickets, metadata } = await getTickets(undefined, searchParams);
 
   return (
-    <div className='animate-fade-from-top mt-5 flex flex-1 flex-col space-y-10'>
+    <div className='animate-fade-from-top mt-5 flex h-full flex-1 flex-col space-y-10'>
       <div className='border-border flex items-center justify-between gap-2 border-b pb-5'>
         <div className='flex items-center gap-2'>
           <TicketsSearch placeholder='Procurar ticket...' />
@@ -40,7 +40,7 @@ export const TicketsList = async ({ searchParams }: TicketsListProps) => {
         />
       )}
 
-      <div className='grid h-full flex-1 grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid h-full flex-1 grow grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {tickets.map(ticket => (
           <TicketCard key={ticket.id} ticket={ticket} />
         ))}
