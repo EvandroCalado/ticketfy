@@ -1,26 +1,13 @@
 export const avatarOptions = [
-  {
-    bg: 'bg-gradient-to-br from-yellow-300 to-orange-300',
-    text: 'text-yellow-800',
-  },
-  {
-    bg: 'bg-gradient-to-br from-green-300 to-lime-300',
-    text: 'text-green-800',
-  },
-  {
-    bg: 'bg-gradient-to-br from-red-300 to-orange-300',
-    text: 'text-red-800',
-  },
-  {
-    bg: 'bg-gradient-to-br from-blue-300 to-cyan-300',
-    text: 'text-blue-800',
-  },
-  {
-    bg: 'bg-gradient-to-br from-purple-300 to-pink-300',
-    text: 'text-purple-800',
-  },
-  {
-    bg: 'bg-gradient-to-br from-pink-300 to-orange-300',
-    text: 'text-pink-800',
-  },
+  { image: '/avatars/alien.svg' },
+  { image: '/avatars/clown.svg' },
+  { image: '/avatars/jack.svg' },
+  { image: '/avatars/mummy.svg' },
+  { image: '/avatars/prisoner.svg' },
+  { image: '/avatars/reaper.svg' },
+  { image: '/avatars/valak.svg' },
+  { image: '/avatars/werewolf.svg' },
+  { image: '/avatars/witch_girl.svg' },
+  { image: '/avatars/zack.svg' },
+  { image: '/avatars/zombie_girl.svg' },
 ];

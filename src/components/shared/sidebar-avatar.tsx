@@ -1,7 +1,8 @@
 'use client';
 
+import { AvatarImage } from '@radix-ui/react-avatar';
+
 import { User } from '@/generated/prisma';
-import { cn } from '@/lib/utils';
 import { useAvatarStore } from '@/stores/avatars';
 
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -13,7 +14,7 @@ type SidebarAvatarProps = {
 };
 
 export const SidebarAvatar = ({ user }: SidebarAvatarProps) => {
-  const { option, hasHydrated } = useAvatarStore();
+  const { image, hasHydrated } = useAvatarStore();
 
   return (
     <>
@@ -22,9 +23,12 @@ export const SidebarAvatar = ({ user }: SidebarAvatarProps) => {
           {!hasHydrated ? (
             <Skeleton className='h-[38px] w-[38px] animate-pulse' />
           ) : (
-            <AvatarFallback className={cn('uppercase', option.text, option.bg)}>
-              {user.name[0]}
-            </AvatarFallback>
+            <>
+              <AvatarImage src={image} />
+              <AvatarFallback className='uppercase'>
+                {user.name[0]}
+              </AvatarFallback>
+            </>
           )}
         </Avatar>
         <div className='pointer-events-none text-left text-xs font-semibold transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100'>

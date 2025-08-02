@@ -2,11 +2,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type AvatarStore = {
-  option: {
-    bg: string;
-    text: string;
-  };
-  setOption: (option: { bg: string; text: string }) => void;
+  image: string;
+  setImage: (image: string) => void;
   hasHydrated: boolean;
   setHasHydrated: (hasHydrated: boolean) => void;
 };
@@ -14,11 +11,8 @@ type AvatarStore = {
 export const useAvatarStore = create<AvatarStore>()(
   persist(
     set => ({
-      option: {
-        bg: 'bg-gradient-to-br from-gray-300 to-slate-300',
-        text: 'text-gray-800',
-      },
-      setOption: option => set({ option }),
+      image: '/avatars/alien.svg',
+      setImage: image => set({ image }),
       hasHydrated: false,
       setHasHydrated: state => set({ hasHydrated: state }),
     }),
