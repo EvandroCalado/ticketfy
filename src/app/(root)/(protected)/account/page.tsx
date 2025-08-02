@@ -1,9 +1,21 @@
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+
+import { getAuth } from '@/actions/get-auth';
 import { PageTitle } from '@/components/shared/page-title';
 
 import { AccountAvatars } from './components/account-avatars';
 import { AccountInfo } from './components/account-info';
 
-const AccountPage = () => {
+export const metadata: Metadata = {
+  title: 'Minha conta',
+};
+
+const AccountPage = async () => {
+  const { user } = await getAuth();
+
+  if (!user) notFound();
+
   const breadcrumbs = [
     {
       title: 'Conta',
@@ -16,7 +28,7 @@ const AccountPage = () => {
 
       <div className='grid gap-8 md:grid-cols-2'>
         <AccountAvatars />
-        <AccountInfo />
+        <AccountInfo user={user} />
       </div>
     </main>
   );
