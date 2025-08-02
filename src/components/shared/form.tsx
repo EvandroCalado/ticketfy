@@ -21,12 +21,14 @@ export const Form = ({ state, action, redirect, ...props }: FormProps) => {
   useStateFeedback(state, {
     onSuccess: ({ state }) => {
       toast.success(state.message);
+      toast.dismiss();
       if (redirect) {
         router.push(redirect);
       }
     },
     onError: ({ state }) => {
       toast.error(state.message);
+      toast.dismiss();
     },
   });
 
