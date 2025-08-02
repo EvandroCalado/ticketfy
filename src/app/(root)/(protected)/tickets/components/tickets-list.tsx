@@ -15,10 +15,17 @@ import { TicketsSelect } from './tickets-select';
 
 type TicketsListProps = {
   searchParams: SearchParams;
+  userId?: string;
 };
 
-export const TicketsList = async ({ searchParams }: TicketsListProps) => {
-  const { tickets, metadata } = await getTickets(undefined, searchParams);
+export const TicketsList = async ({
+  searchParams,
+  userId,
+}: TicketsListProps) => {
+  const { tickets, metadata } = await getTickets(
+    userId ? userId : undefined,
+    searchParams,
+  );
 
   return (
     <div className='animate-fade-from-top mt-5 flex h-full flex-1 flex-col space-y-10'>

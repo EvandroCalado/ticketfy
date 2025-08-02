@@ -17,7 +17,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     label: 'Meus tickets',
-    href: '/my-tickets',
+    href: '/tickets/my',
     icon: BookIcon,
   },
   {

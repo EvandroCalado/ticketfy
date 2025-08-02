@@ -27,7 +27,7 @@ export const SidebarLinks = () => {
               'hover:bg-muted text-foreground w-full justify-start bg-transparent',
               {
                 'bg-primary hover:bg-primary/80 text-primary-foreground':
-                  pathname.includes(ticket.href),
+                  pathname === ticket.href,
               },
             )}
           >
