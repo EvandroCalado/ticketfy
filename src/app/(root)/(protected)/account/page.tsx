@@ -23,7 +23,7 @@ const AccountPage = async () => {
   ];
 
   return (
-    <main className='mx-auto w-full max-w-5xl space-y-10'>
+    <main className='animate-fade-from-top mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Minha conta' breadcrumbs={breadcrumbs} />
 
       <div className='grid gap-8 md:grid-cols-2'>
