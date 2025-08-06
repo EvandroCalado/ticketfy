@@ -21,7 +21,7 @@ const TicketCreatePage = () => {
   ];
 
   return (
-    <main className='mx-auto w-full max-w-5xl space-y-10'>
+    <main className='animate-fade-from-top mx-auto w-full max-w-5xl space-y-10'>
       <PageTitle title='Criar ticket' breadcrumbs={breadcrumbs} />
       <TicketCreateForm className='space-y-10' />
     </main>

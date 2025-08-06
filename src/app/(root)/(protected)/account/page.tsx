@@ -1,35 +1,27 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
-import { getAuth } from '@/actions/get-auth';
-import { PageTitle } from '@/components/shared/page-title';
+import { Spinner } from '@/components/shared/spinner';
 
-import { AccountAvatars } from './components/account-avatars';
-import { AccountInfo } from './components/account-info';
+import { Account } from './components/account';
 
 export const metadata: Metadata = {
   title: 'Minha conta',
 };
 
-const AccountPage = async () => {
-  const { user } = await getAuth();
-
-  if (!user) notFound();
-
-  const breadcrumbs = [
-    {
-      title: 'Conta',
-    },
-  ];
-
+const AccountPage = () => {
   return (
-    <main className='animate-fade-from-top mx-auto w-full max-w-5xl space-y-10'>
-      <PageTitle title='Minha conta' breadcrumbs={breadcrumbs} />
-
-      <div className='grid gap-8 md:grid-cols-2'>
-        <AccountAvatars />
-        <AccountInfo user={user} />
-      </div>
+    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
+      <Suspense
+        fallback={
+          <Spinner
+            size='16'
+            className='flex h-full flex-1 items-center justify-center'
+          />
+        }
+      >
+        <Account />
+      </Suspense>
     </main>
   );
 };

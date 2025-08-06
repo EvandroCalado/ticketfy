@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
-import { PageTitle } from '@/components/shared/page-title';
-import { ticketPath, ticketsPath } from '@/utils/paths';
+import { Spinner } from '@/components/shared/spinner';
 
-import { getTicket } from '../../[ticketId]/actions/get-ticket';
-import { TicketEditForm } from './components/ticket-edit-form';
+import { TicketEdit } from './components/ticket-edit';
 
 export const metadata: Metadata = {
   title: 'Editar ticket',
@@ -18,28 +16,18 @@ type TicketEditPageParams = {
 const TicketEditPage = async ({ params }: TicketEditPageParams) => {
   const { ticketId } = await params;
 
-  const ticket = await getTicket(ticketId);
-
-  if (!ticket) notFound();
-
-  const breadcrumbs = [
-    {
-      title: 'Tickets',
-      href: ticketsPath(),
-    },
-    {
-      title: 'Ticket',
-      href: ticketPath(ticketId),
-    },
-    {
-      title: ticket.title,
-    },
-  ];
-
   return (
-    <main className='mx-auto w-full max-w-5xl space-y-10'>
-      <PageTitle title='Editar ticket' breadcrumbs={breadcrumbs} />
-      <TicketEditForm ticket={ticket} className='space-y-10' />
+    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
+      <Suspense
+        fallback={
+          <Spinner
+            size='16'
+            className='flex h-full flex-1 items-center justify-center'
+          />
+        }
+      >
+        <TicketEdit ticketId={ticketId} />
+      </Suspense>
     </main>
   );
 };
