@@ -37,7 +37,7 @@ export const TicketDetails = async ({ ticketId }: TicketDetailsProps) => {
   ];
 
   return (
-    <div className='animate-fade-from-top'>
+    <div className='animate-fade-from-top space-y-4'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
       <div className='mx-auto w-full space-y-10'>
