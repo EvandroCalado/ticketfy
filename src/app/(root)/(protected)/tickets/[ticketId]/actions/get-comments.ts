@@ -21,5 +21,5 @@ export const getComments = async (ticketId: GetCommentsProps) => {
     },
   });
 
-  return { comments };
+  return comments;
 };

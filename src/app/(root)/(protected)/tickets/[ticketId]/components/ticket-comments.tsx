@@ -1,13 +1,14 @@
-import { getComments } from '../actions/get-comments';
+import { Prisma } from '@/generated/prisma';
+
 import { CommentCard } from './comment-card';
 
 type TicketCommentsProps = {
-  ticketId: string;
+  comments: Prisma.CommentGetPayload<{
+    include: { user: { select: { name: true } } };
+  }>[];
 };
 
-export const TicketComments = async ({ ticketId }: TicketCommentsProps) => {
-  const { comments } = await getComments(ticketId);
-
+export const TicketComments = async ({ comments }: TicketCommentsProps) => {
   return (
     <div className='space-y-2'>
       {comments.map(comment => (
