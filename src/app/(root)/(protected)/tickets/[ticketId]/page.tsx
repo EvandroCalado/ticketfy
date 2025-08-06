@@ -1,16 +1,9 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
-import { PageTitle } from '@/components/shared/page-title';
-import { ticketsPath } from '@/utils/paths';
+import { Spinner } from '@/components/shared/spinner';
 
-import { getComments } from './actions/get-comments';
-import { getTicket } from './actions/get-ticket';
-import { CommentCreateForm } from './components/comment-create-form';
-import { TicketComments } from './components/ticket-comments';
-import { TicketContent } from './components/ticket-content';
-import { DeleteButton } from './components/ticket-delete-button';
-import { TicketDropdown } from './components/ticket-dropdown';
+import { TicketDetails } from './components/ticket-details';
 
 export const metadata: Metadata = {
   title: 'Ticket',
@@ -23,50 +16,18 @@ type TicketPageParams = {
 const TicketPage = async ({ params }: TicketPageParams) => {
   const { ticketId } = await params;
 
-  const ticketPromise = getTicket(ticketId);
-  const commentsPromise = getComments(ticketId);
-
-  const [ticket, comments] = await Promise.all([
-    ticketPromise,
-    commentsPromise,
-  ]);
-
-  if (!ticket) notFound();
-
-  const breadcrumbs = [
-    {
-      title: 'Tickets',
-      href: ticketsPath(),
-    },
-    {
-      title: ticket.title,
-    },
-  ];
-
   return (
-    <main className='animate-fade-from-top mx-auto w-full max-w-5xl space-y-10'>
-      <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
-
-      <div className='mx-auto w-full space-y-10'>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
-
-          <TicketDropdown ticketId={ticketId} />
-        </div>
-
-        <TicketContent ticket={ticket} />
-
-        <div className='flex items-center justify-end'>
-          <DeleteButton ticketId={ticketId} />
-        </div>
-      </div>
-
-      <h3 className='border-border border-b pb-2 text-xl font-semibold'>
-        Comentários
-      </h3>
-
-      <CommentCreateForm ticketId={ticketId} />
-      <TicketComments comments={comments} />
+    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
+      <Suspense
+        fallback={
+          <Spinner
+            size='16'
+            className='flex h-full flex-1 items-center justify-center'
+          />
+        }
+      >
+        <TicketDetails ticketId={ticketId} />
+      </Suspense>
     </main>
   );
 };
