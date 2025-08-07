@@ -3,22 +3,21 @@
 import { verify } from '@node-rs/argon2';
 
 import { setSessionCookie } from '@/actions/set-session-cookie';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { createSession } from '@/lib/oslo';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { generateRandomToken } from '@/utils/generate-random-token';
 
-import { signInSchema } from '../schemas/sign-in';
+import { SignInSchema, signInSchema } from '../schemas/sign-in';
 
-export const signIn = async (
-  prevState: unknown,
-  formData: FormData,
-): Promise<InitialActionsState> => {
+export type SignInResult = {
+  success: boolean;
+  message: string;
+};
+
+export const signIn = async (data: SignInSchema): Promise<SignInResult> => {
   try {
-    const { email, password } = signInSchema.parse(
-      Object.fromEntries(formData),
-    );
+    const { email, password } = signInSchema.parse(data);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -28,10 +27,8 @@ export const signIn = async (
 
     if (!user) {
       return {
-        status: 'error',
+        success: false,
         message: 'Usuário não encontrado',
-        fieldErrors: undefined,
-        payload: undefined,
       };
     }
 
@@ -39,10 +36,8 @@ export const signIn = async (
 
     if (!isPasswordValid) {
       return {
-        status: 'error',
+        success: false,
         message: 'Credenciais inválidas',
-        fieldErrors: undefined,
-        payload: undefined,
       };
     }
 
@@ -52,12 +47,10 @@ export const signIn = async (
     await setSessionCookie(sessionToken, sessionCookie.expiresAt);
 
     return {
-      status: 'success',
+      success: true,
       message: 'Usuário logado com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };

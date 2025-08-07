@@ -1,33 +1,20 @@
-import { ZodError, flattenError } from 'zod';
-
-import { InitialActionsState } from '@/constants/initial-create-state';
-
-export const formErrorHandler = (
-  error: unknown,
-  formData?: FormData,
-): InitialActionsState => {
-  if (error instanceof ZodError) {
-    return {
-      status: 'error',
-      message: undefined,
-      fieldErrors: flattenError(error).fieldErrors,
-      payload: formData,
-    };
-  }
+export const formErrorHandler = (error: unknown) => {
+  // if (error instanceof ZodError) {
+  //   return {
+  //     success: false,
+  //     message: 'Algo deu errado',
+  //   };
+  // }
 
   if (error instanceof Error) {
     return {
-      status: 'error',
+      success: false,
       message: error.message,
-      fieldErrors: undefined,
-      payload: formData,
     };
   }
 
   return {
-    status: 'error',
+    success: false,
     message: 'Algo deu errado',
-    fieldErrors: undefined,
-    payload: formData,
   };
 };
