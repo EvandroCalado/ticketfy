@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 export const signUpSchema = z
   .object({
-    username: z
+    name: z
       .string()
-      .min(3, 'Usuário deve ter pelo menos 3 caracteres')
+      .min(3, 'Nome deve ter pelo menos 3 caracteres')
       .refine(value => !value.includes(' '), 'Usuário não pode ter espaços'),
     email: z.email('Email inválido'),
     password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
@@ -14,3 +14,5 @@ export const signUpSchema = z
     message: 'As senhas não coincidem',
     path: ['confirmPassword'],
   });
+
+export type SignUpSchema = z.infer<typeof signUpSchema>;

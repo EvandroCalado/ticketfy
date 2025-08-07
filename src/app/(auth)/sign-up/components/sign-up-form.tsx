@@ -1,102 +1,176 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
-import { Form } from '@/components/shared/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
-import { formatErrorMessage } from '@/utils/format-error-message';
 import { ticketsPath } from '@/utils/paths';
 
 import { signUp } from '../actions/sign-up';
+import { SignUpSchema, signUpSchema } from '../schemas/sign-up';
 
 export const SignUpForm = () => {
-  const [state, dispatch, isPending] = useActionState(
-    signUp,
-    INITIAL_ACTION_STATE,
-  );
+  const router = useRouter();
 
-  const { fieldErrors, payload } = state;
+  const form = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    mode: 'onChange',
+  });
+
+  const onSubmit = async (data: SignUpSchema) => {
+    const result = await signUp(data);
+
+    if (result.success) {
+      toast.success(result.message);
+    }
+
+    if (!result.success) {
+      toast.error(result.message);
+      return;
+    }
+
+    router.push(ticketsPath());
+  };
 
   return (
-    <Form state={state} action={dispatch} redirect={ticketsPath()}>
-      <div className='relative'>
-        <Label htmlFor='username' className='mb-1'>
-          Usuário
-        </Label>
-        <Input
-          id='username'
-          name='username'
-          type='text'
-          defaultValue={(payload?.get('username') as string) || ''}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem className='relative'>
+              <FormLabel htmlFor='name'>Nome</FormLabel>
+              <FormControl>
+                <Input id='name' type='text' {...field} />
+              </FormControl>
+              <FormMessage className='absolute -bottom-5 text-xs' />
+            </FormItem>
+          )}
         />
 
-        {fieldErrors?.username && (
-          <p className='text-destructive absolute -bottom-5 text-xs'>
-            {formatErrorMessage(fieldErrors.username)}
-          </p>
-        )}
-      </div>
-
-      <div className='relative'>
-        <Label htmlFor='email' className='mb-1'>
-          Email
-        </Label>
-        <Input
-          id='email'
+        <FormField
+          control={form.control}
           name='email'
-          type='email'
-          defaultValue={(payload?.get('email') as string) || ''}
+          render={({ field }) => (
+            <FormItem className='relative'>
+              <FormLabel htmlFor='name'>Email</FormLabel>
+              <FormControl>
+                <Input id='email' type='email' {...field} />
+              </FormControl>
+              <FormMessage className='absolute -bottom-5 text-xs' />
+            </FormItem>
+          )}
         />
 
-        {fieldErrors?.email && (
-          <p className='text-destructive absolute -bottom-5 text-xs'>
-            {formatErrorMessage(fieldErrors.email)}
-          </p>
-        )}
-      </div>
-
-      <div className='relative'>
-        <Label htmlFor='password' className='mb-1'>
-          Senha
-        </Label>
-        <Input
-          id='password'
+        <FormField
+          control={form.control}
           name='password'
-          type='password'
-          defaultValue={(payload?.get('password') as string) || ''}
+          render={({ field }) => (
+            <FormItem className='relative'>
+              <FormLabel htmlFor='password'>Senha</FormLabel>
+              <FormControl>
+                <Input id='password' type='password' {...field} />
+              </FormControl>
+              <FormMessage className='absolute -bottom-5 text-xs' />
+            </FormItem>
+          )}
         />
 
-        {fieldErrors?.password && (
-          <p className='text-destructive absolute -bottom-5 text-xs'>
-            {formatErrorMessage(fieldErrors.password)}
-          </p>
-        )}
-      </div>
-
-      <div className='relative'>
-        <Label htmlFor='confirmPassword' className='mb-1'>
-          Confirmar Senha
-        </Label>
-        <Input
-          id='confirmPassword'
+        <FormField
+          control={form.control}
           name='confirmPassword'
-          type='password'
-          defaultValue={(payload?.get('confirmPassword') as string) || ''}
+          render={({ field }) => (
+            <FormItem className='relative'>
+              <FormLabel htmlFor='confirmPassword'>Confirme Senha</FormLabel>
+              <FormControl>
+                <Input id='confirmPassword' type='password' {...field} />
+              </FormControl>
+              <FormMessage className='absolute -bottom-5 text-xs' />
+            </FormItem>
+          )}
         />
 
-        {fieldErrors?.confirmPassword && (
-          <p className='text-destructive absolute -bottom-5 text-xs'>
-            {formatErrorMessage(fieldErrors.confirmPassword)}
-          </p>
-        )}
-      </div>
+        {/* <div className='relative'>
+          <Label htmlFor='email' className='mb-1'>
+            Email
+          </Label>
+          <Input
+            id='email'
+            name='email'
+            type='email'
+            defaultValue={(payload?.get('email') as string) || ''}
+          />
 
-      <Button type='submit' className='mt-4 w-full' disabled={isPending}>
-        {isPending ? 'Cadastrando...' : 'Cadastrar'}
-      </Button>
+          {fieldErrors?.email && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {formatErrorMessage(fieldErrors.email)}
+            </p>
+          )}
+        </div>
+
+        <div className='relative'>
+          <Label htmlFor='password' className='mb-1'>
+            Senha
+          </Label>
+          <Input
+            id='password'
+            name='password'
+            type='password'
+            defaultValue={(payload?.get('password') as string) || ''}
+          />
+
+          {fieldErrors?.password && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {formatErrorMessage(fieldErrors.password)}
+            </p>
+          )}
+        </div>
+
+        <div className='relative'>
+          <Label htmlFor='confirmPassword' className='mb-1'>
+            Confirmar Senha
+          </Label>
+          <Input
+            id='confirmPassword'
+            name='confirmPassword'
+            type='password'
+            defaultValue={(payload?.get('confirmPassword') as string) || ''}
+          />
+
+          {fieldErrors?.confirmPassword && (
+            <p className='text-destructive absolute -bottom-5 text-xs'>
+              {formatErrorMessage(fieldErrors.confirmPassword)}
+            </p>
+          )}
+        </div> */}
+
+        <Button
+          type='submit'
+          className='mt-4 w-full'
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
+        </Button>
+      </form>
     </Form>
   );
 };
