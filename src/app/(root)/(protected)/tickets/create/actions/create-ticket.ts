@@ -4,31 +4,27 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { signInPath, ticketsPath } from '@/utils/paths';
 
-import { createTicketSchema } from '../schemas/create-ticket';
+import {
+  CreateTicketSchema,
+  createTicketSchema,
+} from '../schemas/create-ticket';
 
-export const createTicket = async (
-  prevState: unknown,
-  formData: FormData,
-): Promise<InitialActionsState> => {
+export const createTicket = async (data: CreateTicketSchema) => {
   const { user } = await getAuth();
 
   if (!user) redirect(signInPath());
 
   try {
-    const data = createTicketSchema.parse({
-      ...Object.fromEntries(formData),
-      bounty: Number(formData.get('bounty')),
-    });
+    const insertedData = createTicketSchema.parse(data);
 
     const dbData = {
-      ...data,
-      bounty: toCent(data.bounty),
+      ...insertedData,
+      bounty: toCent(insertedData.bounty),
       userId: user.id,
     };
 
@@ -37,12 +33,10 @@ export const createTicket = async (
     revalidatePath(ticketsPath());
 
     return {
-      status: 'success',
+      success: true,
       message: 'Ticket criado com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };
