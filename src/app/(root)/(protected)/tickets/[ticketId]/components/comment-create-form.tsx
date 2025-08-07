@@ -7,15 +7,24 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { Prisma } from '@/generated/prisma';
 import { formatErrorMessage } from '@/utils/format-error-message';
 
 import { createComment } from '../actions/create-comment';
 
 type CommentCreateFormProps = {
   ticketId: string;
+  onCreate: (
+    comment: Prisma.CommentGetPayload<{
+      include: { user: { select: { name: true } } };
+    }>,
+  ) => void;
 };
 
-export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
+export const CommentCreateForm = ({
+  ticketId,
+  onCreate,
+}: CommentCreateFormProps) => {
   const [fieldErrors, setFieldErrors] = useState(
     INITIAL_ACTION_STATE.fieldErrors,
   );
@@ -36,6 +45,14 @@ export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
       if (result.status === 'success' && result.message) {
         toast.success(result.message);
         form.reset();
+
+        if (result.payload) {
+          onCreate(
+            result.payload as Prisma.CommentGetPayload<{
+              include: { user: { select: { name: true } } };
+            }>,
+          );
+        }
       }
 
       if (result.status === 'error' && result.fieldErrors) {

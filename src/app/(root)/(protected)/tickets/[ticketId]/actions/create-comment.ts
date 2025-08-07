@@ -20,7 +20,7 @@ export const createComment = async (
   try {
     const data = createCommentSchema.parse(Object.fromEntries(formData));
 
-    await prisma.comment.create({
+    const comment = await prisma.comment.create({
       data: {
         userId: user?.id,
         ticketId,
@@ -34,7 +34,7 @@ export const createComment = async (
       status: 'success' as const,
       message: 'Comentário criado com sucesso',
       fieldErrors: undefined,
-      payload: undefined,
+      payload: comment,
     };
   } catch (error) {
     return formErrorHandler(error, formData);

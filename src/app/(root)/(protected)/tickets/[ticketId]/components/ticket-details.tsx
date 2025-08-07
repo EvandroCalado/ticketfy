@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 
+import { getAuth } from '@/actions/get-auth';
 import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
 
 import { getComments } from '../actions/get-comments';
 import { getTicket } from '../actions/get-ticket';
-import { CommentCreateForm } from './comment-create-form';
 import { TicketComments } from './ticket-comments';
 import { TicketContent } from './ticket-content';
 import { DeleteButton } from './ticket-delete-button';
@@ -16,10 +16,12 @@ type TicketDetailsProps = {
 };
 
 export const TicketDetails = async ({ ticketId }: TicketDetailsProps) => {
+  const { user } = await getAuth();
+
   const ticketPromise = getTicket(ticketId);
   const commentsPromise = getComments(ticketId);
 
-  const [ticket, comments] = await Promise.all([
+  const [ticket, paginatedComments] = await Promise.all([
     ticketPromise,
     commentsPromise,
   ]);
@@ -37,7 +39,7 @@ export const TicketDetails = async ({ ticketId }: TicketDetailsProps) => {
   ];
 
   return (
-    <div className='animate-fade-from-top space-y-4'>
+    <div className='animate-fade-from-top'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
       <div className='mx-auto w-full space-y-10'>
@@ -54,12 +56,11 @@ export const TicketDetails = async ({ ticketId }: TicketDetailsProps) => {
         </div>
       </div>
 
-      <h3 className='border-border border-b pb-2 text-xl font-semibold'>
-        Comentários
-      </h3>
-
-      <CommentCreateForm ticketId={ticketId} />
-      <TicketComments comments={comments} />
+      <TicketComments
+        ticketId={ticketId}
+        paginatedComments={paginatedComments}
+        user={user}
+      />
     </div>
   );
 };

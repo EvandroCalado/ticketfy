@@ -12,10 +12,12 @@ import { deleteComment } from '../actions/delete-comment';
 
 type CommentDeleteButtonProps = {
   commentId: string;
+  onDelete: (commentId: string) => void;
 };
 
 export const CommentDeleteButton = ({
   commentId,
+  onDelete,
 }: CommentDeleteButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
@@ -41,7 +43,10 @@ export const CommentDeleteButton = ({
       variant='destructive'
       size='icon'
       disabled={isPending}
-      onClick={handleDeleteComment}
+      onClick={() => {
+        handleDeleteComment();
+        onDelete(commentId);
+      }}
     >
       {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
     </Button>
