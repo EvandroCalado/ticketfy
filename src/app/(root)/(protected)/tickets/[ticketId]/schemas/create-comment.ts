@@ -6,3 +6,5 @@ export const createCommentSchema = z.object({
     .min(1, 'Conteúdo obrigatório')
     .max(1024, 'Máximo de 1024 caracteres'),
 });
+
+export type CreateCommentSchema = z.infer<typeof createCommentSchema>;
