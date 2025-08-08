@@ -14,7 +14,7 @@ import { formatCurrency } from '@/utils/format-currency';
 
 type PriceCardProps = {
   title: string;
-  price: number;
+  price: string;
   content: React.ReactNode;
   mostPopular?: boolean;
 };
@@ -57,7 +57,7 @@ export const PriceCard = ({
             'text-background': mostPopular,
           })}
         >
-          {formatCurrency(price)}
+          {formatCurrency(price.toString())}
         </CardDescription>
       </CardHeader>
 
