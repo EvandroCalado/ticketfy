@@ -31,7 +31,6 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang='pt-BR' suppressHydrationWarning>
-      {/* <ReactScan /> */}
       <body className={`${primary.variable} antialiased`}>
         <NuqsAdapter>
           <ThemeProvider
