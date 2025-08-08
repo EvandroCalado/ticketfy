@@ -1,8 +1,11 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
+import { SearchParams } from 'nuqs/server';
+
 import { Spinner } from '@/components/shared/spinner';
 
+import { searchParamsCache } from '../search-params';
 import { TicketDetails } from './components/ticket-details';
 
 export const metadata: Metadata = {
@@ -11,10 +14,12 @@ export const metadata: Metadata = {
 
 type TicketPageParams = {
   params: Promise<{ ticketId: string }>;
+  searchParams: Promise<SearchParams>;
 };
 
-const TicketPage = async ({ params }: TicketPageParams) => {
+const TicketPage = async ({ params, searchParams }: TicketPageParams) => {
   const { ticketId } = await params;
+  const parsedSearchParams = await searchParamsCache.parse(searchParams);
 
   return (
     <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
@@ -26,7 +31,10 @@ const TicketPage = async ({ params }: TicketPageParams) => {
           />
         }
       >
-        <TicketDetails ticketId={ticketId} />
+        <TicketDetails
+          ticketId={ticketId}
+          parsedSearchParams={parsedSearchParams}
+        />
       </Suspense>
     </main>
   );

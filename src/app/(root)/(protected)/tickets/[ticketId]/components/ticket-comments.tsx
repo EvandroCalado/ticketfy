@@ -5,6 +5,7 @@ import { Prisma, User } from '@/generated/prisma';
 import { CommentCard } from './comment-card';
 import { CommentCreateForm } from './comment-create-form';
 import { CommentDeleteButton } from './comment-delete-button';
+import { CommentsPagination } from './comments-pagination';
 
 type TicketCommentsProps = {
   ticketId: string;
@@ -31,9 +32,9 @@ export const TicketComments = ({
 
   return (
     <div className='space-y-4'>
-      <h3 className='border-border border-b pb-2 text-xl font-semibold'>
+      <span className='border-border border-b pb-2 text-xl font-semibold'>
         Comentários
-      </h3>
+      </span>
 
       <CommentCreateForm ticketId={ticketId} />
 
@@ -46,20 +47,9 @@ export const TicketComments = ({
         </div>
       ))}
 
-      {/* <div className='mt-5 flex items-center justify-center'>
-        <Button
-          size='lg'
-          variant='ghost'
-          onClick={handleMoreComments}
-          disabled={!metadata.hasNextPage || isLoading}
-        >
-          {isLoading
-            ? 'Carregando...'
-            : !metadata.hasNextPage
-              ? 'Sem mais'
-              : 'Carregar mais'}
-        </Button>
-      </div> */}
+      <div className='flex justify-end'>
+        <CommentsPagination metadata={paginatedComments.metadata} />
+      </div>
     </div>
   );
 };

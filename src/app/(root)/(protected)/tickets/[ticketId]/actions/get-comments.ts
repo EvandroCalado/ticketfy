@@ -1,19 +1,21 @@
 'use server';
 
+import { SearchParams } from 'nuqs';
+
 import { prisma } from '@/lib/prisma';
 
 type GetCommentsProps = string;
 
 export const getComments = async (
   ticketId: GetCommentsProps,
-  offset?: number,
+  searchParams?: SearchParams,
 ) => {
-  const skip = offset ?? 0;
-  const take = 2;
-
   const where = {
     ticketId,
   };
+
+  const skip = Number(searchParams?.page) * Number(searchParams?.size);
+  const take = Number(searchParams?.size);
 
   const [comments, count] = await prisma.$transaction([
     prisma.comment.findMany({
