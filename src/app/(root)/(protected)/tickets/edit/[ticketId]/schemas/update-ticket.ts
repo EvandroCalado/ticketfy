@@ -8,5 +8,9 @@ export const updateTicketSchema = z.object({
     .max(1024, 'Conteúdo deve ter no máximo 1024 caracteres'),
   status: z.enum(['OPEN', 'IN_PROGRESS', 'DONE']),
   deadline: z.string().regex(/\d{4}-\d{2}-\d{2}/, 'Data inválida'),
-  bounty: z.number().positive('Bônus deve ser maior que 0'),
+  bounty: z
+    .string()
+    .refine(value => Number(value) > 0, 'Bônus deve ser maior que 0'),
 });
+
+export type UpdateTicketSchema = z.infer<typeof updateTicketSchema>;

@@ -4,27 +4,23 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { signInPath, ticketPath, ticketsPath } from '@/utils/paths';
 
-import { updateTicketSchema } from '../schemas/update-ticket';
+import {
+  UpdateTicketSchema,
+  updateTicketSchema,
+} from '../schemas/update-ticket';
 
-export const updateTicket = async (
-  id: string,
-  formData: FormData,
-): Promise<InitialActionsState> => {
+export const updateTicket = async (id: string, data: UpdateTicketSchema) => {
   const { user } = await getAuth();
 
   if (!user) redirect(signInPath());
 
   try {
-    const data = updateTicketSchema.parse({
-      ...Object.fromEntries(formData),
-      bounty: Number(formData.get('bounty')),
-    });
+    const updatedData = updateTicketSchema.parse(data);
 
     const isTicketOwner = await prisma.ticket.findFirst({
       where: { id, userId: user.id },
@@ -32,17 +28,15 @@ export const updateTicket = async (
 
     if (!isTicketOwner)
       return {
-        status: 'error',
+        success: false,
         message: 'Você não tem permissão para atualizar este ticket',
-        fieldErrors: undefined,
-        payload: undefined,
       };
 
     await prisma.ticket.update({
       where: { id },
       data: {
-        ...data,
-        bounty: toCent(data.bounty),
+        ...updatedData,
+        bounty: Number(toCent(updatedData.bounty)),
       },
     });
 
@@ -50,12 +44,10 @@ export const updateTicket = async (
     revalidatePath(ticketsPath());
 
     return {
-      status: 'success',
+      success: true,
       message: 'Ticket atualizado com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };
