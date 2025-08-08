@@ -1,8 +1,11 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
-import { Form } from '@/components/shared/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -13,20 +16,44 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { Form } from '@/components/ui/form';
 import { ticketsPath } from '@/utils/paths';
 
 import { deleteTicket } from '../actions/delete-ticket';
+import {
+  DeleteTicketSchema,
+  deleteTicketSchema,
+} from '../schemas/delete-ticket';
 
 type DeleteButtonProps = {
   ticketId: string;
 };
 
 export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
-  const [state, dispatch, isPending] = useActionState(
-    deleteTicket,
-    INITIAL_ACTION_STATE,
-  );
+  const router = useRouter();
+
+  const form = useForm<DeleteTicketSchema>({
+    resolver: zodResolver(deleteTicketSchema),
+    defaultValues: {
+      ticketId,
+    },
+    mode: 'onChange',
+  });
+
+  const onsubmit = async (data: DeleteTicketSchema) => {
+    const result = await deleteTicket(data.ticketId);
+
+    if (result.success) {
+      toast.success(result.message);
+    }
+
+    if (!result.success) {
+      toast.error(result.message);
+      return;
+    }
+
+    router.push(ticketsPath());
+  };
 
   return (
     <Dialog>
@@ -50,18 +77,20 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
         </DialogHeader>
 
         <DialogFooter>
-          <Form state={state} action={dispatch} redirect={ticketsPath()}>
-            <input type='hidden' name='ticketId' value={ticketId} />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onsubmit)}>
+              <input type='hidden' name='ticketId' value={ticketId} />
 
-            <Button
-              type='submit'
-              variant='destructive'
-              disabled={isPending}
-              title='Excluir ticket'
-              aria-label='Excluir ticket'
-            >
-              {isPending ? 'Excluindo...' : 'Confirmar'}
-            </Button>
+              <Button
+                type='submit'
+                variant='destructive'
+                disabled={form.formState.isSubmitting}
+                title='Excluir ticket'
+                aria-label='Excluir ticket'
+              >
+                {form.formState.isSubmitting ? 'Excluindo...' : 'Confirmar'}
+              </Button>
+            </form>
           </Form>
         </DialogFooter>
       </DialogContent>

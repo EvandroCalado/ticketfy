@@ -3,45 +3,32 @@
 import { redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { signInPath } from '@/utils/paths';
 
-export const deleteTicket = async (
-  prevState: unknown,
-  formData: FormData,
-): Promise<InitialActionsState> => {
+import { deleteTicketSchema } from '../schemas/delete-ticket';
+
+export const deleteTicket = async (ticketId: string) => {
   const { user } = await getAuth();
 
   if (!user) redirect(signInPath());
 
-  const ticketId = formData.get('ticketId') as string;
-
-  if (!ticketId) {
-    return {
-      status: 'error',
-      message: 'Ticket ID não encontrado',
-      fieldErrors: undefined,
-      payload: undefined,
-    };
-  }
+  const data = deleteTicketSchema.parse({ ticketId });
 
   try {
     await prisma.ticket.delete({
       where: {
-        id: ticketId,
+        id: data.ticketId,
         userId: user.id,
       },
     });
 
     return {
-      status: 'success',
+      success: true,
       message: 'Ticket excluído com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };
