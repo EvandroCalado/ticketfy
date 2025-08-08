@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
+import { SearchParams } from 'nuqs';
+
 import { getAuth } from '@/actions/get-auth';
 import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
@@ -13,13 +15,17 @@ import { TicketDropdown } from './ticket-dropdown';
 
 type TicketDetailsProps = {
   ticketId: string;
+  parsedSearchParams: SearchParams;
 };
 
-export const TicketDetails = async ({ ticketId }: TicketDetailsProps) => {
+export const TicketDetails = async ({
+  ticketId,
+  parsedSearchParams,
+}: TicketDetailsProps) => {
   const { user } = await getAuth();
 
   const ticketPromise = getTicket(ticketId);
-  const commentsPromise = getComments(ticketId);
+  const commentsPromise = getComments(ticketId, parsedSearchParams);
 
   const [ticket, paginatedComments] = await Promise.all([
     ticketPromise,

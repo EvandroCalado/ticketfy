@@ -26,6 +26,8 @@ export const SidebarLogout = () => {
           type='submit'
           disabled={isPending}
           className='text-destructive hover:text-destructive hover:bg-destructive/10 w-full justify-start bg-transparent'
+          title='Sair'
+          aria-label='Sair'
         >
           {isPending ? (
             <Loader2Icon className='animate-spin' />

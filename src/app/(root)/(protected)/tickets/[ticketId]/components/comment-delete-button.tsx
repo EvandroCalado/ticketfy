@@ -49,6 +49,8 @@ export const CommentDeleteButton = ({
           variant='destructive'
           size='icon'
           disabled={form.formState.isSubmitting}
+          title='Apagar comentário'
+          aria-label='Apagar comentário'
         >
           {form.formState.isSubmitting ? (
             <Loader2Icon className='animate-spin' />
