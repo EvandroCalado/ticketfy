@@ -24,7 +24,7 @@ export const createTicket = async (data: CreateTicketSchema) => {
 
     const dbData = {
       ...insertedData,
-      bounty: toCent(insertedData.bounty),
+      bounty: Number(toCent(insertedData.bounty)),
       userId: user.id,
     };
 
