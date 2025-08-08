@@ -49,7 +49,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
               {ticket.user.name}
             </span>
             <span className='text-lg font-bold'>
-              {formatCurrency(ticket.bounty)}
+              {formatCurrency(ticket.bounty.toString())}
             </span>
           </div>
         </div>
