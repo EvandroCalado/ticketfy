@@ -5,7 +5,7 @@ import { toCent } from '@/utils/format-currency';
 export const priceData = [
   {
     title: 'Individual',
-    price: toCent(49),
+    price: toCent('49'),
     content: (
       <>
         <div className='flex items-center gap-5'>
@@ -27,7 +27,7 @@ export const priceData = [
   },
   {
     title: 'Startup',
-    price: toCent(99),
+    price: toCent('99'),
     content: (
       <>
         <div className='flex items-center gap-5'>
@@ -50,7 +50,7 @@ export const priceData = [
   },
   {
     title: 'Empresa',
-    price: toCent(199),
+    price: toCent('199'),
     content: (
       <>
         <div className='flex items-center gap-5'>
