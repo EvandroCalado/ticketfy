@@ -1,54 +1,62 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useForm } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { Form } from '@/components/ui/form';
 
 import { deleteComment } from '../actions/delete-comment';
+import {
+  DeleteCommentSchema,
+  deleteCommentSchema,
+} from '../schemas/delete-comment';
 
 type CommentDeleteButtonProps = {
   commentId: string;
-  onDelete: (commentId: string) => void;
 };
 
 export const CommentDeleteButton = ({
   commentId,
-  onDelete,
 }: CommentDeleteButtonProps) => {
-  const [isPending, startTransition] = useTransition();
+  const form = useForm<DeleteCommentSchema>({
+    resolver: zodResolver(deleteCommentSchema),
+    defaultValues: { commentId },
+  });
 
-  const handleDeleteComment = () => {
-    startTransition(async () => {
-      const result = await deleteComment(
-        commentId,
-        INITIAL_ACTION_STATE,
-        new FormData(),
-      );
-      if (result.status === 'success' && result.message) {
-        toast.success(result.message);
-      }
+  const onSubmit = async (data: DeleteCommentSchema) => {
+    const result = await deleteComment(data);
 
-      if (result.status === 'error' && result.message) {
-        toast.error(result.message);
-      }
-    });
+    if (result.success) {
+      toast.success(result.message);
+    }
+
+    if (!result.success) {
+      toast.error(result.message);
+      return;
+    }
   };
 
   return (
-    <Button
-      variant='destructive'
-      size='icon'
-      disabled={isPending}
-      onClick={() => {
-        handleDeleteComment();
-        onDelete(commentId);
-      }}
-    >
-      {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
-    </Button>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <input type='hidden' {...form.register('commentId')} />
+
+        <Button
+          variant='destructive'
+          size='icon'
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? (
+            <Loader2Icon className='animate-spin' />
+          ) : (
+            <TrashIcon />
+          )}
+        </Button>
+      </form>
+    </Form>
   );
 };

@@ -3,16 +3,13 @@
 import { revalidatePath } from 'next/cache';
 
 import { getAuth } from '@/actions/get-auth';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { ticketPath } from '@/utils/paths';
 
-export const deleteComment = async (
-  commentId: string,
-  prevState: InitialActionsState,
-  formData: FormData,
-) => {
+import { DeleteCommentSchema } from '../schemas/delete-comment';
+
+export const deleteComment = async ({ commentId }: DeleteCommentSchema) => {
   const { user } = await getAuth();
 
   const comment = await prisma.comment.findUnique({
@@ -21,10 +18,8 @@ export const deleteComment = async (
 
   if (!comment) {
     return {
-      status: 'error' as const,
+      success: false,
       message: 'Você não tem permissão para excluir este comentário',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   }
 
@@ -36,12 +31,10 @@ export const deleteComment = async (
     revalidatePath(ticketPath(comment.ticketId));
 
     return {
-      status: 'success' as const,
+      success: true,
       message: 'Comentário excluído com sucesso',
-      fieldErrors: undefined,
-      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };

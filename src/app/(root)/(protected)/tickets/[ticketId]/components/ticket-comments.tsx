@@ -1,11 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-
-import { Button } from '@/components/ui/button';
 import { Prisma, User } from '@/generated/prisma';
 
-import { getComments } from '../actions/get-comments';
 import { CommentCard } from './comment-card';
 import { CommentCreateForm } from './comment-create-form';
 import { CommentDeleteButton } from './comment-delete-button';
@@ -29,35 +25,9 @@ export const TicketComments = ({
   paginatedComments,
   user,
 }: TicketCommentsProps) => {
-  const [comments, setComments] = useState(paginatedComments.comments);
-  const [metadata, setMetadata] = useState(paginatedComments.metadata);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleMoreComments = async () => {
-    setIsLoading(true);
-
-    const morePaginatedComments = await getComments(ticketId, comments.length);
-    const moreComments = morePaginatedComments.comments;
-
-    setComments([...comments, ...moreComments]);
-    setMetadata(morePaginatedComments.metadata);
-
-    setIsLoading(false);
-  };
-
-  const handleAddComment = (
-    comment: Prisma.CommentGetPayload<{
-      include: { user: { select: { name: true } } };
-    }>,
-  ) => {
-    setComments(prevComments => [comment, ...prevComments]);
-  };
-
-  const handleDeleteComment = (commentId: string) => {
-    setComments(comments.filter(comment => comment.id !== commentId));
-  };
-
   if (!user) return;
+
+  const { comments } = paginatedComments;
 
   return (
     <div className='space-y-4'>
@@ -65,21 +35,18 @@ export const TicketComments = ({
         Comentários
       </h3>
 
-      <CommentCreateForm ticketId={ticketId} onCreate={handleAddComment} />
+      <CommentCreateForm ticketId={ticketId} />
 
       {comments.map(comment => (
         <div key={comment.id} className='flex w-full gap-2'>
           <CommentCard comment={comment} />
           {comment.userId === user.id && (
-            <CommentDeleteButton
-              commentId={comment.id}
-              onDelete={handleDeleteComment}
-            />
+            <CommentDeleteButton commentId={comment.id} />
           )}
         </div>
       ))}
 
-      <div className='mt-5 flex items-center justify-center'>
+      {/* <div className='mt-5 flex items-center justify-center'>
         <Button
           size='lg'
           variant='ghost'
@@ -92,7 +59,7 @@ export const TicketComments = ({
               ? 'Sem mais'
               : 'Carregar mais'}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
