@@ -1,92 +1,80 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
-import { Prisma } from '@/generated/prisma';
-import { formatErrorMessage } from '@/utils/format-error-message';
 
 import { createComment } from '../actions/create-comment';
+import {
+  CreateCommentSchema,
+  createCommentSchema,
+} from '../schemas/create-comment';
 
 type CommentCreateFormProps = {
   ticketId: string;
-  onCreate: (
-    comment: Prisma.CommentGetPayload<{
-      include: { user: { select: { name: true } } };
-    }>,
-  ) => void;
 };
 
-export const CommentCreateForm = ({
-  ticketId,
-  onCreate,
-}: CommentCreateFormProps) => {
-  const [fieldErrors, setFieldErrors] = useState(
-    INITIAL_ACTION_STATE.fieldErrors,
-  );
-  const [isPending, startTransition] = useTransition();
+export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
+  const form = useForm<CreateCommentSchema>({
+    resolver: zodResolver(createCommentSchema),
+    defaultValues: {
+      content: '',
+    },
+    mode: 'onChange',
+  });
 
-  const handleCreateComment = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (data: CreateCommentSchema) => {
+    const result = await createComment(ticketId, data);
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    if (result.success) {
+      toast.success(result.message);
+    }
 
-    startTransition(async () => {
-      const result = await createComment(
-        ticketId,
-        INITIAL_ACTION_STATE,
-        formData,
-      );
-      if (result.status === 'success' && result.message) {
-        toast.success(result.message);
-        form.reset();
+    if (!result.success) {
+      toast.error(result.message);
+      return;
+    }
 
-        if (result.payload) {
-          onCreate(
-            result.payload as Prisma.CommentGetPayload<{
-              include: { user: { select: { name: true } } };
-            }>,
-          );
-        }
-      }
-
-      if (result.status === 'error' && result.fieldErrors) {
-        setFieldErrors(result.fieldErrors);
-      }
-
-      if (result.status === 'error' && result.message) {
-        toast.error(result.message);
-      }
-    });
+    form.reset();
   };
-
   return (
-    <form
-      className='flex flex-col items-end gap-2'
-      onSubmit={handleCreateComment}
-    >
-      <div className='relative w-full'>
-        <Textarea
+    <Form {...form}>
+      <form
+        className='flex flex-col items-end gap-2'
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <FormField
+          control={form.control}
           name='content'
-          placeholder='Deixe seu comentário...'
-          disabled={isPending}
+          render={({ field }) => (
+            <FormItem className='relative w-full'>
+              <FormControl>
+                <Textarea id='content' {...field} />
+              </FormControl>
+              <FormMessage className='absolute -bottom-5 text-xs' />
+            </FormItem>
+          )}
         />
 
-        {fieldErrors?.content && (
-          <p className='text-destructive absolute -bottom-5 text-xs'>
-            {formatErrorMessage(fieldErrors.content)}
-          </p>
-        )}
-      </div>
-
-      <Button type='submit' disabled={isPending} className='w-fit'>
-        {isPending ? 'Enviando...' : 'Enviar'}
-      </Button>
-    </form>
+        <Button
+          type='submit'
+          disabled={form.formState.isSubmitting}
+          className='w-fit'
+        >
+          {form.formState.isSubmitting ? 'Enviando...' : 'Enviar'}
+        </Button>
+      </form>
+    </Form>
   );
 };

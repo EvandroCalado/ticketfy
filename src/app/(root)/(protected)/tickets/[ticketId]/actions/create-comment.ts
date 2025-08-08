@@ -3,40 +3,43 @@
 import { revalidatePath } from 'next/cache';
 
 import { getAuth } from '@/actions/get-auth';
-import { InitialActionsState } from '@/constants/initial-create-state';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { ticketPath } from '@/utils/paths';
 
-import { createCommentSchema } from '../schemas/create-comment';
+import {
+  CreateCommentSchema,
+  createCommentSchema,
+} from '../schemas/create-comment';
 
 export const createComment = async (
   ticketId: string,
-  prevState: InitialActionsState,
-  formData: FormData,
+  data: CreateCommentSchema,
 ) => {
   const { user } = await getAuth();
 
   try {
-    const data = createCommentSchema.parse(Object.fromEntries(formData));
+    const insertedData = createCommentSchema.parse(data);
 
-    const comment = await prisma.comment.create({
+    await prisma.comment.create({
       data: {
         userId: user?.id,
         ticketId,
-        ...data,
+        ...insertedData,
+      },
+      include: {
+        user: true,
+        ticket: true,
       },
     });
 
     revalidatePath(ticketPath(ticketId));
 
     return {
-      status: 'success' as const,
+      success: true,
       message: 'Comentário criado com sucesso',
-      fieldErrors: undefined,
-      payload: comment,
     };
   } catch (error) {
-    return formErrorHandler(error, formData);
+    return formErrorHandler(error);
   }
 };
