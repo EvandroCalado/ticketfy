@@ -32,7 +32,7 @@ export const TicketEdit = async ({ ticketId }: TicketEditPageProps) => {
   return (
     <div className='animate-fade-from-top'>
       <PageTitle title='Editar ticket' breadcrumbs={breadcrumbs} />
-      <TicketEditForm ticket={ticket} className='space-y-10' />
+      <TicketEditForm ticket={ticket} />
     </div>
   );
 };

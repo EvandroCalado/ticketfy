@@ -59,7 +59,7 @@ export const TicketContent = ({ ticket }: TicketContentProps) => {
           title='Bônus do ticket'
         >
           <CreditCardIcon className='size-5' />
-          {formatCurrency(ticket.bounty)}
+          {formatCurrency(ticket.bounty.toString())}
         </span>
       </div>
     </>
