@@ -9,16 +9,15 @@ import { ACTION_STATE } from '@/constants/action-state';
 
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-import { Form } from './form';
 
 export const SidebarLogout = () => {
-  const [state, dispatch, isPending] = useActionState(signOut, ACTION_STATE);
+  const [, formAction, isPending] = useActionState(signOut, ACTION_STATE);
 
   return (
     <div className='mt-auto'>
       <Separator />
 
-      <Form state={state} action={dispatch} className='p-3'>
+      <form action={formAction} className='p-3'>
         <Button
           type='submit'
           disabled={isPending}
@@ -35,7 +34,7 @@ export const SidebarLogout = () => {
             {isPending ? 'Saindo...' : 'Sair'}
           </span>
         </Button>
-      </Form>
+      </form>
     </div>
   );
 };
