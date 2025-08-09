@@ -1,127 +1,117 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useActionState, useEffect } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ACTION_STATE } from '@/constants/action-state';
 import { ticketsPath } from '@/utils/paths';
 
 import { createTicket } from '../actions/create-ticket';
-import {
-  CreateTicketSchema,
-  createTicketSchema,
-} from '../schemas/create-ticket';
 
 export const TicketCreateForm = () => {
+  const [state, formAction, isPending] = useActionState(
+    createTicket,
+    ACTION_STATE,
+  );
+
   const router = useRouter();
 
-  const form = useForm<CreateTicketSchema>({
-    resolver: zodResolver(createTicketSchema),
-    defaultValues: {
-      title: '',
-      content: '',
-      deadline: '',
-      bounty: '',
-    },
-    mode: 'onChange',
-  });
-
-  const onSubmit = async (data: CreateTicketSchema) => {
-    const result = await createTicket(data);
-
-    if (result.success) {
-      toast.success(result.message);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
+      router.push(ticketsPath());
     }
 
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+    if (!state.success && state.message) {
+      toast.error(state.message);
+      router.refresh();
     }
+  }, [router, state.message, state.success]);
 
-    router.push(ticketsPath());
-  };
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <FormField
-          control={form.control}
+    <form action={formAction} className='space-y-6'>
+      <div className='relative'>
+        <Label htmlFor='title' className='mb-1'>
+          Título
+        </Label>
+        <Input
+          id='title'
+          type='text'
           name='title'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='title'>Título</FormLabel>
-              <FormControl>
-                <Input id='title' type='text' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('title') as string) || ''}
         />
 
-        <FormField
-          control={form.control}
+        {state.fieldErrors?.title && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.title}
+          </span>
+        )}
+      </div>
+
+      <div className='relative'>
+        <Label htmlFor='content' className='mb-1'>
+          Conteúdo
+        </Label>
+        <Textarea
+          id='content'
           name='content'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='content'>Conteúdo</FormLabel>
-              <FormControl>
-                <Textarea id='content' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('content') as string) || ''}
         />
 
-        <div className='flex items-center gap-4'>
-          <FormField
-            control={form.control}
+        {state.fieldErrors?.content && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.content}
+          </span>
+        )}
+      </div>
+
+      <div className='flex items-center gap-4'>
+        <div className='relative w-full'>
+          <Label htmlFor='deadline' className='mb-1'>
+            Data
+          </Label>
+          <Input
+            id='deadline'
+            type='date'
             name='deadline'
-            render={({ field }) => (
-              <FormItem className='relative w-full'>
-                <FormLabel htmlFor='deadline'>Data</FormLabel>
-                <FormControl>
-                  <Input id='deadline' type='date' {...field} />
-                </FormControl>
-                <FormMessage className='absolute -bottom-5 text-xs' />
-              </FormItem>
-            )}
+            defaultValue={(state.payload?.get('deadline') as string) || ''}
           />
 
-          <FormField
-            control={form.control}
-            name='bounty'
-            render={({ field }) => (
-              <FormItem className='relative w-full'>
-                <FormLabel htmlFor='bounty'>Bônus</FormLabel>
-                <FormControl>
-                  <Input id='bounty' type='number' {...field} />
-                </FormControl>
-                <FormMessage className='absolute -bottom-5 text-xs' />
-              </FormItem>
-            )}
-          />
+          {state.fieldErrors?.deadline && (
+            <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+              {state.fieldErrors.deadline}
+            </span>
+          )}
         </div>
 
-        <Button
-          type='submit'
-          disabled={form.formState.isSubmitting}
-          className='mt-4 w-full'
-        >
-          {form.formState.isSubmitting ? 'Criando...' : 'Criar'}
-        </Button>
-      </form>
-    </Form>
+        <div className='relative w-full'>
+          <Label htmlFor='bounty' className='mb-1'>
+            Bônus
+          </Label>
+          <Input
+            id='bounty'
+            type='number'
+            name='bounty'
+            defaultValue={(state.payload?.get('bounty') as string) || ''}
+          />
+
+          {state.fieldErrors?.bounty && (
+            <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+              {state.fieldErrors.bounty}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <Button type='submit' disabled={isPending} className='mt-4 w-full'>
+        {isPending ? 'Criando...' : 'Criar'}
+      </Button>
+    </form>
   );
 };

@@ -9,18 +9,15 @@ import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
 import { signInPath, ticketsPath } from '@/utils/paths';
 
-import {
-  CreateTicketSchema,
-  createTicketSchema,
-} from '../schemas/create-ticket';
+import { createTicketSchema } from '../schemas/create-ticket';
 
-export const createTicket = async (data: CreateTicketSchema) => {
+export const createTicket = async (prevState: unknown, formData: FormData) => {
   const { user } = await getAuth();
 
   if (!user) redirect(signInPath());
 
   try {
-    const insertedData = createTicketSchema.parse(data);
+    const insertedData = createTicketSchema.parse(Object.fromEntries(formData));
 
     const dbData = {
       ...insertedData,
@@ -35,8 +32,10 @@ export const createTicket = async (data: CreateTicketSchema) => {
     return {
       success: true,
       message: 'Ticket criado com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error);
+    return formErrorHandler(error, formData);
   }
 };

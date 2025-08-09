@@ -11,5 +11,3 @@ export const createTicketSchema = z.object({
     .string()
     .refine(value => Number(value) > 0, 'Bônus deve ser maior que 0'),
 });
-
-export type CreateTicketSchema = z.infer<typeof createTicketSchema>;
