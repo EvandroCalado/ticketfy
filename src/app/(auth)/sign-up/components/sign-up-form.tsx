@@ -1,122 +1,112 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useActionState, useEffect } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ticketsPath } from '@/utils/paths';
+import { Label } from '@/components/ui/label';
+import { ACTION_STATE } from '@/constants/action-state';
+import { homePath } from '@/utils/paths';
 
 import { signUp } from '../actions/sign-up';
-import { SignUpSchema, signUpSchema } from '../schemas/sign-up';
 
 export const SignUpForm = () => {
+  const [state, formAction, isPending] = useActionState(signUp, ACTION_STATE);
+
   const router = useRouter();
 
-  const form = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    mode: 'onChange',
-  });
-
-  const onSubmit = async (data: SignUpSchema) => {
-    const result = await signUp(data);
-
-    if (result.success) {
-      toast.success(result.message);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
+      router.push(homePath());
     }
 
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+    if (!state.success && state.message) {
+      toast.error(state.message);
+      router.refresh();
     }
-
-    router.push(ticketsPath());
-  };
+  }, [router, state.message, state.success]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <FormField
-          control={form.control}
+    <form action={formAction} className='space-y-6'>
+      <div className='relative'>
+        <Label htmlFor='name' className='mb-1'>
+          Nome
+        </Label>
+        <Input
+          id='name'
+          type='text'
           name='name'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='name'>Nome</FormLabel>
-              <FormControl>
-                <Input id='name' type='text' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('name') as string) || ''}
         />
 
-        <FormField
-          control={form.control}
+        {state.fieldErrors?.email && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.email}
+          </span>
+        )}
+      </div>
+
+      <div className='relative'>
+        <Label htmlFor='email' className='mb-1'>
+          Email
+        </Label>
+        <Input
+          id='email'
+          type='email'
           name='email'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='name'>Email</FormLabel>
-              <FormControl>
-                <Input id='email' type='email' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('email') as string) || ''}
         />
 
-        <FormField
-          control={form.control}
+        {state.fieldErrors?.email && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.email}
+          </span>
+        )}
+      </div>
+
+      <div className='relative'>
+        <Label htmlFor='password' className='mb-1'>
+          Senha
+        </Label>
+        <Input
+          id='password'
+          type='password'
           name='password'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='password'>Senha</FormLabel>
-              <FormControl>
-                <Input id='password' type='password' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('password') as string) || ''}
         />
 
-        <FormField
-          control={form.control}
+        {state.fieldErrors?.password && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.password}
+          </span>
+        )}
+      </div>
+
+      <div className='relative'>
+        <Label htmlFor='confirmPassword' className='mb-1'>
+          Confirme a senha
+        </Label>
+        <Input
+          id='confirmPassword'
+          type='password'
           name='confirmPassword'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='confirmPassword'>Confirme Senha</FormLabel>
-              <FormControl>
-                <Input id='confirmPassword' type='password' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('confirmPassword') as string) || ''}
         />
 
-        <Button
-          type='submit'
-          className='mt-4 w-full'
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
-        </Button>
-      </form>
-    </Form>
+        {state.fieldErrors?.confirmPassword && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.confirmPassword}
+          </span>
+        )}
+      </div>
+
+      <Button type='submit' className='mt-4 w-full' disabled={isPending}>
+        {isPending ? 'Cadastrando...' : 'Cadastrar'}
+      </Button>
+    </form>
   );
 };

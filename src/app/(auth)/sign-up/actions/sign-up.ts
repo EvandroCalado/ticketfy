@@ -3,17 +3,18 @@
 import { hash } from '@node-rs/argon2';
 
 import { setSessionCookie } from '@/actions/set-session-cookie';
-import { Prisma } from '@/generated/prisma';
 import { createSession } from '@/lib/oslo';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { generateRandomToken } from '@/utils/generate-random-token';
 
-import { SignUpSchema, signUpSchema } from '../schemas/sign-up';
+import { signUpSchema } from '../schemas/sign-up';
 
-export const signUp = async (data: SignUpSchema) => {
+export const signUp = async (prevState: unknown, formData: FormData) => {
   try {
-    const { name, email, password } = signUpSchema.parse(data);
+    const { name, email, password } = signUpSchema.parse(
+      Object.fromEntries(formData),
+    );
 
     const passwordHash = await hash(password);
 
@@ -33,18 +34,19 @@ export const signUp = async (data: SignUpSchema) => {
     return {
       success: true,
       message: 'Usuário criado com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
     };
   } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === 'P2002'
-    ) {
+    if ((error as { code: string })['code'] === 'P2002') {
       return {
         success: false,
         message: 'Email já cadastrado',
+        fieldErrors: undefined,
+        payload: undefined,
       };
     }
 
-    return formErrorHandler(error);
+    return formErrorHandler(error, formData);
   }
 };
