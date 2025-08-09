@@ -1,19 +1,14 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useActionState, useEffect } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
+import { ACTION_STATE } from '@/constants/action-state';
 
 import { deleteComment } from '../actions/delete-comment';
-import {
-  DeleteCommentSchema,
-  deleteCommentSchema,
-} from '../schemas/delete-comment';
 
 type CommentDeleteButtonProps = {
   commentId: string;
@@ -22,43 +17,32 @@ type CommentDeleteButtonProps = {
 export const CommentDeleteButton = ({
   commentId,
 }: CommentDeleteButtonProps) => {
-  const form = useForm<DeleteCommentSchema>({
-    resolver: zodResolver(deleteCommentSchema),
-    defaultValues: { commentId },
-  });
+  const [state, formAction, isPending] = useActionState(
+    deleteComment.bind(null, commentId),
+    ACTION_STATE,
+  );
 
-  const onSubmit = async (data: DeleteCommentSchema) => {
-    const result = await deleteComment(data);
-
-    if (result.success) {
-      toast.success(result.message);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
     }
 
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+    if (!state.success && state.message) {
+      toast.error(state.message);
     }
-  };
+  }, [state.message, state.success]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <input type='hidden' {...form.register('commentId')} />
-
-        <Button
-          variant='destructive'
-          size='icon'
-          disabled={form.formState.isSubmitting}
-          title='Apagar comentário'
-          aria-label='Apagar comentário'
-        >
-          {form.formState.isSubmitting ? (
-            <Loader2Icon className='animate-spin' />
-          ) : (
-            <TrashIcon />
-          )}
-        </Button>
-      </form>
-    </Form>
+    <form action={formAction}>
+      <Button
+        variant='destructive'
+        size='icon'
+        disabled={isPending}
+        title='Apagar comentário'
+        aria-label='Apagar comentário'
+      >
+        {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
+      </Button>
+    </form>
   );
 };
