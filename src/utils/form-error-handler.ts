@@ -8,7 +8,7 @@ const formatZodError = (error: ZodError) => {
 
 export const formErrorHandler = (
   error: unknown,
-  formData: FormData,
+  formData?: FormData,
 ): ActionState => {
   if (error instanceof ZodError) {
     return {
