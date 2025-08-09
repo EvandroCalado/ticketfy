@@ -45,12 +45,12 @@ export const TicketDetails = async ({
   ];
 
   return (
-    <div className='animate-fade-from-top'>
+    <div className='animate-fade-from-top space-y-10'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
       <div className='mx-auto w-full space-y-10'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h1>
+          <h2 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h2>
 
           <TicketDropdown ticketId={ticketId} />
         </div>

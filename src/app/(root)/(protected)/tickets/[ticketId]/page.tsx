@@ -22,7 +22,7 @@ const TicketPage = async ({ params, searchParams }: TicketPageParams) => {
   const parsedSearchParams = await searchParamsCache.parse(searchParams);
 
   return (
-    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
+    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col'>
       <Suspense
         fallback={
           <Spinner

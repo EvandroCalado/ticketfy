@@ -1,80 +1,56 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { ACTION_STATE } from '@/constants/action-state';
+import { ticketPath } from '@/utils/paths';
 
 import { createComment } from '../actions/create-comment';
-import {
-  CreateCommentSchema,
-  createCommentSchema,
-} from '../schemas/create-comment';
 
 type CommentCreateFormProps = {
   ticketId: string;
 };
 
 export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
-  const form = useForm<CreateCommentSchema>({
-    resolver: zodResolver(createCommentSchema),
-    defaultValues: {
-      content: '',
-    },
-    mode: 'onChange',
-  });
+  const [state, formAction, isPending] = useActionState(
+    createComment.bind(null, ticketId),
+    ACTION_STATE,
+  );
 
-  const onSubmit = async (data: CreateCommentSchema) => {
-    const result = await createComment(ticketId, data);
+  const router = useRouter();
 
-    if (result.success) {
-      toast.success(result.message);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
+      router.push(ticketPath(ticketId));
     }
 
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+    if (!state.success && state.message) {
+      toast.error(state.message);
+      router.refresh();
     }
+  }, [router, state.message, state.success, ticketId]);
 
-    form.reset();
-  };
   return (
-    <Form {...form}>
-      <form
-        className='flex flex-col items-end gap-2'
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <FormField
-          control={form.control}
-          name='content'
-          render={({ field }) => (
-            <FormItem className='relative w-full'>
-              <FormControl>
-                <Textarea id='content' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
-        />
+    <form action={formAction} className='flex flex-col items-end gap-2'>
+      <div className='relative w-full'>
+        <Textarea id='content' name='content' />
 
-        <Button
-          type='submit'
-          disabled={form.formState.isSubmitting}
-          className='w-fit'
-        >
-          {form.formState.isSubmitting ? 'Enviando...' : 'Enviar'}
-        </Button>
-      </form>
-    </Form>
+        {state.fieldErrors?.content && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.content}
+          </span>
+        )}
+      </div>
+
+      <Button type='submit' disabled={isPending} className='w-fit'>
+        {isPending ? 'Enviando...' : 'Enviar'}
+      </Button>
+    </form>
   );
 };
