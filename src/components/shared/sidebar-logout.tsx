@@ -5,17 +5,14 @@ import { useActionState } from 'react';
 import { Loader2Icon, LogOutIcon } from 'lucide-react';
 
 import { signOut } from '@/actions/sign-out';
-import { INITIAL_ACTION_STATE } from '@/constants/initial-create-state';
+import { ACTION_STATE } from '@/constants/action-state';
 
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { Form } from './form';
 
 export const SidebarLogout = () => {
-  const [state, dispatch, isPending] = useActionState(
-    signOut,
-    INITIAL_ACTION_STATE,
-  );
+  const [state, dispatch, isPending] = useActionState(signOut, ACTION_STATE);
 
   return (
     <div className='mt-auto'>

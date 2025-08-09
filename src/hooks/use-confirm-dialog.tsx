@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import {
   INITIAL_ACTION_STATE,
   InitialActionsState,
-} from '@/constants/initial-create-state';
+} from '@/constants/action-state';
 
 type ConfirmDialogProps = {
   title?: string;
