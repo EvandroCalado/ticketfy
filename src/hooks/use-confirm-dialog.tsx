@@ -1,6 +1,8 @@
-import { cloneElement, useActionState, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { cloneElement, useActionState, useEffect, useState } from 'react';
 
-import { Form } from '@/components/shared/form';
+import { toast } from 'sonner';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,18 +14,13 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import {
-  INITIAL_ACTION_STATE,
-  InitialActionsState,
-} from '@/constants/action-state';
+import { ACTION_STATE, ActionState } from '@/constants/action-state';
+import { ticketsPath } from '@/utils/paths';
 
 type ConfirmDialogProps = {
   title?: string;
   description?: string;
-  action: (
-    prevState: InitialActionsState,
-    formData: FormData,
-  ) => Promise<InitialActionsState>;
+  action: (prevState: ActionState, formData: FormData) => Promise<ActionState>;
   trigger: React.ReactElement<{ onClick?: React.MouseEventHandler }>;
 };
 
@@ -33,11 +30,22 @@ export const useConfirmDialog = ({
   action,
   trigger,
 }: ConfirmDialogProps) => {
-  const [state, dispatch, isPending] = useActionState(
-    action,
-    INITIAL_ACTION_STATE,
-  );
+  const [state, formAction, isPending] = useActionState(action, ACTION_STATE);
   const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
+      router.push(ticketsPath());
+    }
+
+    if (!state.success && state.message) {
+      toast.error(state.message);
+      router.refresh();
+    }
+  }, [router, state.message, state.success]);
 
   const dialogTrigger = cloneElement(trigger, {
     onClick: () => setIsOpen(prev => !prev),
@@ -52,13 +60,13 @@ export const useConfirmDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <Form state={state} action={dispatch}>
+          <form action={formAction}>
             <AlertDialogAction asChild>
               <Button type='submit' variant='destructive' disabled={isPending}>
                 {isPending ? 'Excluindo...' : 'Confirmar'}
               </Button>
             </AlertDialogAction>
-          </Form>
+          </form>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
