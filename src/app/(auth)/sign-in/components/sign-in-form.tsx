@@ -2,99 +2,83 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useActionState, useEffect } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ticketsPath } from '@/utils/paths';
+import { Label } from '@/components/ui/label';
+import { ACTION_STATE } from '@/constants/action-state';
+import { homePath } from '@/utils/paths';
 
 import { signIn } from '../actions/sign-in';
-import { SignInSchema, signInSchema } from '../schemas/sign-in';
 
 export const SignInForm = () => {
+  const [state, formAction, isPending] = useActionState(signIn, ACTION_STATE);
+
   const router = useRouter();
 
-  const form = useForm<SignInSchema>({
-    resolver: zodResolver(signInSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    mode: 'onChange',
-  });
-
-  const onSubmit = async (data: SignInSchema) => {
-    const result = await signIn(data);
-
-    if (result.success) {
-      toast.success(result.message);
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message);
+      router.push(homePath());
     }
 
-    if (!result.success) {
-      toast.error(result.message);
-      return;
+    if (!state.success) {
+      toast.error(state.message);
+      router.refresh();
     }
-
-    router.push(ticketsPath());
-  };
+  }, [router, state.message, state.success]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <FormField
-          control={form.control}
+    <form action={formAction} className='space-y-6'>
+      <div className='relative'>
+        <Label htmlFor='email' className='mb-1'>
+          Email
+        </Label>
+        <Input
+          id='email'
+          type='email'
           name='email'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='email'>Email</FormLabel>
-              <FormControl>
-                <Input id='email' type='email' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('email') as string) || ''}
         />
 
-        <FormField
-          control={form.control}
+        {state.fieldErrors?.email && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.email}
+          </span>
+        )}
+      </div>
+
+      <div className='relative'>
+        <Label htmlFor='password' className='mb-1'>
+          Senha
+        </Label>
+        <Input
+          id='password'
+          type='password'
           name='password'
-          render={({ field }) => (
-            <FormItem className='relative'>
-              <FormLabel htmlFor='password'>Senha</FormLabel>
-              <FormControl>
-                <Input id='password' type='password' {...field} />
-              </FormControl>
-              <FormMessage className='absolute -bottom-5 text-xs' />
-            </FormItem>
-          )}
+          defaultValue={(state.payload?.get('password') as string) || ''}
         />
 
-        <Link
-          href='/forgot-password'
-          className='text-primary block text-right text-sm hover:underline hover:underline-offset-4'
-        >
-          Esqueceu a senha?
-        </Link>
+        {state.fieldErrors?.password && (
+          <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
+            {state.fieldErrors.password}
+          </span>
+        )}
+      </div>
 
-        <Button
-          type='submit'
-          className='mt-4 w-full'
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? 'Entrando...' : 'Entrar'}
-        </Button>
-      </form>
-    </Form>
+      <Link
+        href='/forgot-password'
+        className='text-primary block text-right text-sm hover:underline hover:underline-offset-4'
+      >
+        Esqueceu a senha?
+      </Link>
+
+      <Button type='submit' className='mt-4 w-full' disabled={isPending}>
+        {isPending ? 'Entrando...' : 'Entrar'}
+      </Button>
+    </form>
   );
 };

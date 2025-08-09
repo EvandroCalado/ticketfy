@@ -5,7 +5,7 @@ import { ComponentProps, FormHTMLAttributes } from 'react';
 
 import { toast } from 'sonner';
 
-import { InitialActionsState } from '@/constants/initial-create-state';
+import { InitialActionsState } from '@/constants/action-state';
 import { useStateFeedback } from '@/hooks/use-state-feedback';
 import { cn } from '@/lib/utils';
 
