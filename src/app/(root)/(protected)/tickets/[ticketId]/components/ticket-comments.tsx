@@ -32,9 +32,9 @@ export const TicketComments = ({
 
   return (
     <div className='space-y-4'>
-      <h4 className='border-border border-b pb-2 text-xl font-semibold'>
+      <h3 className='border-border border-b pb-2 text-xl font-semibold'>
         Comentários
-      </h4>
+      </h3>
 
       <CommentCreateForm ticketId={ticketId} />
 
