@@ -29,12 +29,20 @@ export const TicketsSelect = ({ options }: TicketsSelectProps) => {
     <Select
       onValueChange={value => setSort(value)}
       defaultValue={sort}
-      aria-label='Ordenar'
+      aria-label='Ordenar tickets'
     >
-      <SelectTrigger className='w-[120px]'>
+      <SelectTrigger
+        className='w-[120px]'
+        title='Ordenar tickets'
+        aria-label='Ordenar tickets'
+      >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        title='Ordenar tickets'
+        aria-label='Ordenar tickets'
+        className='w-[120px]'
+      >
         {options.map(option => (
           <SelectItem
             key={option.sortValue}
