@@ -17,7 +17,7 @@ export const CommentsPagination = ({ metadata }: CommentsPaginationProps) => {
     paginationOptions,
   );
 
-  if (metadata.count <= 2) return null;
+  if (metadata.count <= 6) return null;
 
   return (
     <Pagination
