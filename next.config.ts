@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
 
     config.optimization.concatenateModules = true;
 
-    // Otimizações adicionais para reduzir bundle
     config.optimization.splitChunks = {
       chunks: 'all',
       cacheGroups: {
