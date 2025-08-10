@@ -1,13 +1,14 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
 import { getAuth } from '@/actions/get-auth';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
-import { ticketPath } from '@/utils/paths';
 
-export const deleteComment = async (commentId: string) => {
+export const deleteComment = async (
+  commentId: string,
+  prevState: unknown,
+  formData: FormData,
+) => {
   const { user } = await getAuth();
 
   const comment = await prisma.comment.findUnique({
@@ -28,8 +29,6 @@ export const deleteComment = async (commentId: string) => {
       where: { id: commentId },
     });
 
-    revalidatePath(ticketPath(comment.ticketId));
-
     return {
       success: true,
       message: 'Comentário excluído com sucesso',
@@ -37,6 +36,6 @@ export const deleteComment = async (commentId: string) => {
       payload: undefined,
     };
   } catch (error) {
-    return formErrorHandler(error);
+    return formErrorHandler(error, formData);
   }
 };

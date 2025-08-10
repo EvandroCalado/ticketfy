@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 
 import { Loader2Icon, TrashIcon } from 'lucide-react';
@@ -17,6 +18,8 @@ type CommentDeleteButtonProps = {
 export const CommentDeleteButton = ({
   commentId,
 }: CommentDeleteButtonProps) => {
+  const router = useRouter();
+
   const [state, formAction, isPending] = useActionState(
     deleteComment.bind(null, commentId),
     ACTION_STATE,
@@ -25,16 +28,19 @@ export const CommentDeleteButton = ({
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
+      router.refresh();
     }
 
     if (!state.success && state.message) {
       toast.error(state.message);
+      router.refresh();
     }
-  }, [state.message, state.success]);
+  }, [state, router]);
 
   return (
     <form action={formAction}>
       <Button
+        type='submit'
         variant='destructive'
         size='icon'
         disabled={isPending}
