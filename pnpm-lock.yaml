@@ -21,8 +21,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@prisma/client':
-        specifier: 6.11.1
-        version: 6.11.1(prisma@6.13.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2)
+        specifier: 6.13.0
+        version: 6.13.0(prisma@6.13.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2)
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^6.12.0
         version: 6.13.0
@@ -923,8 +923,8 @@ packages:
     peerDependencies:
       preact: 10.x
 
-  '@prisma/client@6.11.1':
-    resolution: {integrity: sha512-5CLFh8QP6KxRm83pJ84jaVCeSVPQr8k0L2SEtOJHwdkS57/VQDcI/wQpGmdyOZi+D9gdNabdo8tj1Uk+w+upsQ==}
+  '@prisma/client@6.13.0':
+    resolution: {integrity: sha512-8m2+I3dQovkV8CkDMluiwEV1TxV9EXdT6xaCz39O6jYw7mkf5gwfmi+cL4LJsEPwz5tG7sreBwkRpEMJedGYUQ==}
     engines: {node: '>=18.18'}
     peerDependencies:
       prisma: '*'
@@ -4756,7 +4756,7 @@ snapshots:
       '@preact/signals-core': 1.11.0
       preact: 10.27.0
 
-  '@prisma/client@6.11.1(prisma@6.13.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2)':
+  '@prisma/client@6.13.0(prisma@6.13.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2)':
     optionalDependencies:
       prisma: 6.13.0(magicast@0.3.5)(typescript@5.9.2)
       typescript: 5.9.2
