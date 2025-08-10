@@ -121,7 +121,7 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
             id='deadline'
             type='date'
             name='deadline'
-            defaultValue={ticket.deadline}
+            defaultValue={ticket.deadline.split('T')[0]}
           />
 
           {state.fieldErrors?.deadline && (
