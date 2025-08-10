@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ACTION_STATE } from '@/constants/action-state';
-import { ticketPath } from '@/utils/paths';
 
 import { createComment } from '../actions/create-comment';
 
@@ -27,14 +26,14 @@ export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
-      router.push(ticketPath(ticketId));
+      router.refresh();
     }
 
     if (!state.success && state.message) {
       toast.error(state.message);
       router.refresh();
     }
-  }, [router, state.message, state.success, ticketId]);
+  }, [router, state]);
 
   return (
     <form action={formAction} className='flex flex-col items-end gap-2'>
