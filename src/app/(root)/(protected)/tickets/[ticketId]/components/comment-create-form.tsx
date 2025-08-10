@@ -1,13 +1,13 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
 
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ACTION_STATE } from '@/constants/action-state';
-import { useFeedbackState } from '@/hooks/use-feedback-state';
 
 import { createComment } from '../actions/create-comment';
 
@@ -21,14 +21,18 @@ export const CommentCreateForm = ({ ticketId }: CommentCreateFormProps) => {
     ACTION_STATE,
   );
 
-  useFeedbackState(state, {
-    onSuccess: () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.success) {
       toast.success(state.message);
-    },
-    onError: () => {
+      router.refresh();
+    }
+
+    if (!state.success && state.message) {
       toast.error(state.message);
-    },
-  });
+    }
+  }, [router, state]);
 
   return (
     <form action={formAction} className='flex flex-col items-end gap-2'>
