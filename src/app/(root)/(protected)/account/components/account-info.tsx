@@ -12,10 +12,10 @@ export const AccountInfo = ({ user }: AccountInfoProps) => {
       <Separator className='my-4' />
 
       <div className='space-y-2'>
-        <h4 className='flex items-center gap-2'>
+        <h3 className='flex items-center gap-2'>
           <span>Usuário:</span>
           <span className='font-semibold capitalize'>{user.name}</span>
-        </h4>
+        </h3>
         <h4 className='flex items-center gap-2'>
           <span>Email:</span>
           <span className='font-semibold'>{user.email}</span>
