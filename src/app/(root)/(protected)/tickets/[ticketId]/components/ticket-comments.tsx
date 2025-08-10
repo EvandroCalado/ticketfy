@@ -42,7 +42,7 @@ export const TicketComments = ({
         <div key={comment.id} className='flex w-full gap-2'>
           <CommentCard comment={comment} />
           {comment.userId === user.id && (
-            <CommentDeleteButton commentId={comment.id} />
+            <CommentDeleteButton ticketId={ticketId} commentId={comment.id} />
           )}
         </div>
       ))}

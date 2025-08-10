@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { ACTION_STATE, ActionState } from '@/constants/action-state';
-import { ticketsPath } from '@/utils/paths';
 
 import { useFeedbackState } from './use-feedback-state';
 
@@ -23,6 +22,7 @@ type ConfirmDialogProps = {
   description?: string;
   action: (prevState: ActionState, formData: FormData) => Promise<ActionState>;
   trigger: React.ReactElement<{ onClick?: React.MouseEventHandler }>;
+  onSuccessRedirect?: string;
 };
 
 export const useConfirmDialog = ({
@@ -30,6 +30,7 @@ export const useConfirmDialog = ({
   description = 'Esta ação não pode ser desfeita.',
   action,
   trigger,
+  onSuccessRedirect,
 }: ConfirmDialogProps) => {
   const [state, formAction, isPending] = useActionState(action, ACTION_STATE);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export const useConfirmDialog = ({
     onError: () => {
       toast.error(state.message);
     },
-    onSuccessRedirect: ticketsPath(),
+    onSuccessRedirect,
   });
 
   const dialogTrigger = cloneElement(trigger, {

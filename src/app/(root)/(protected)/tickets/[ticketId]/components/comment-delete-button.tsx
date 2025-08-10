@@ -1,49 +1,42 @@
 'use client';
 
-import { useActionState } from 'react';
-
-import { Loader2Icon, TrashIcon } from 'lucide-react';
-import { toast } from 'sonner';
+import { TrashIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { ACTION_STATE } from '@/constants/action-state';
-import { useFeedbackState } from '@/hooks/use-feedback-state';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
+import { ticketPath } from '@/utils/paths';
 
 import { deleteComment } from '../actions/delete-comment';
 
 type CommentDeleteButtonProps = {
+  ticketId: string;
   commentId: string;
 };
 
 export const CommentDeleteButton = ({
+  ticketId,
   commentId,
 }: CommentDeleteButtonProps) => {
-  const [state, formAction, isPending] = useActionState(
-    deleteComment.bind(null, commentId),
-    ACTION_STATE,
-  );
-
-  useFeedbackState(state, {
-    onSuccess: () => {
-      toast.success(state.message);
-    },
-    onError: () => {
-      toast.error(state.message);
-    },
+  const [dialogTrigger, dialog] = useConfirmDialog({
+    action: deleteComment.bind(null, commentId),
+    onSuccessRedirect: ticketPath(ticketId),
+    trigger: (
+      <Button
+        type='button'
+        size='icon'
+        variant='destructive'
+        aria-label='Apagar comentário'
+        title='Apagar comentário'
+      >
+        <TrashIcon />
+      </Button>
+    ),
   });
 
   return (
-    <form action={formAction}>
-      <Button
-        type='submit'
-        variant='destructive'
-        size='icon'
-        disabled={isPending}
-        title='Apagar comentário'
-        aria-label='Apagar comentário'
-      >
-        {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
-      </Button>
-    </form>
+    <>
+      {dialogTrigger}
+      {dialog}
+    </>
   );
 };
