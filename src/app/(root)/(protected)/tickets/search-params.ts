@@ -15,11 +15,6 @@ export const paginationParse = {
   size: parseAsString.withDefault('6'),
 };
 
-export const commentsPaginationParse = {
-  page: parseAsString.withDefault('0'),
-  size: parseAsString.withDefault('2'),
-};
-
 export const paginationOptions = {
   shallow: false,
   clearOnDefault: true,
@@ -29,5 +24,4 @@ export const searchParamsCache = createSearchParamsCache({
   search: searchParse,
   sort: sortParse,
   ...paginationParse,
-  ...commentsPaginationParse,
 });
