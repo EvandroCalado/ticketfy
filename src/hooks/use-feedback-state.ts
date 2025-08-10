@@ -26,7 +26,6 @@ export const useFeedbackState = (
 
     if (!state.success && state.message) {
       options?.onError?.(state);
-      router.refresh();
     }
   }, [state, options, router]);
 };
