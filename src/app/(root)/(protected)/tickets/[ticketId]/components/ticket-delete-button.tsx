@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useActionState, useEffect } from 'react';
+import { useActionState } from 'react';
 
 import { toast } from 'sonner';
 
@@ -16,6 +15,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { ACTION_STATE } from '@/constants/action-state';
+import { useFeedbackState } from '@/hooks/use-feedback-state';
 import { ticketsPath } from '@/utils/paths';
 
 import { deleteTicket } from '../actions/delete-ticket';
@@ -30,19 +30,15 @@ export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
     ACTION_STATE,
   );
 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state.success) {
+  useFeedbackState(state, {
+    onSuccess: () => {
       toast.success(state.message);
-      router.push(ticketsPath());
-    }
-
-    if (!state.success && state.message) {
+    },
+    onError: () => {
       toast.error(state.message);
-      router.refresh();
-    }
-  }, [router, state.message, state.success]);
+    },
+    onSuccessRedirect: ticketsPath(),
+  });
 
   return (
     <Dialog>

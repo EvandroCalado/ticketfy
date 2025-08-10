@@ -1,13 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useActionState, useEffect } from 'react';
+import { useActionState } from 'react';
 
 import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { ACTION_STATE } from '@/constants/action-state';
+import { useFeedbackState } from '@/hooks/use-feedback-state';
 
 import { deleteComment } from '../actions/delete-comment';
 
@@ -18,24 +18,19 @@ type CommentDeleteButtonProps = {
 export const CommentDeleteButton = ({
   commentId,
 }: CommentDeleteButtonProps) => {
-  const router = useRouter();
-
   const [state, formAction, isPending] = useActionState(
     deleteComment.bind(null, commentId),
     ACTION_STATE,
   );
 
-  useEffect(() => {
-    if (state.success) {
+  useFeedbackState(state, {
+    onSuccess: () => {
       toast.success(state.message);
-      router.refresh();
-    }
-
-    if (!state.success && state.message) {
+    },
+    onError: () => {
       toast.error(state.message);
-      router.refresh();
-    }
-  }, [state, router]);
+    },
+  });
 
   return (
     <form action={formAction}>

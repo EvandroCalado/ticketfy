@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useActionState, useEffect } from 'react';
+import { useActionState } from 'react';
 
 import { toast } from 'sonner';
 
@@ -19,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ACTION_STATE } from '@/constants/action-state';
 import { TICKET_STATUS } from '@/constants/ticket-status';
 import { Prisma } from '@/generated/prisma';
+import { useFeedbackState } from '@/hooks/use-feedback-state';
 import { fromCent } from '@/utils/format-currency';
 import { ticketPath } from '@/utils/paths';
 
@@ -36,19 +36,15 @@ export const TicketEditForm = ({ ticket }: TicketEditFormProps) => {
     ACTION_STATE,
   );
 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state.success) {
+  useFeedbackState(state, {
+    onSuccess: () => {
       toast.success(state.message);
-      router.push(ticketPath(ticket.id));
-    }
-
-    if (!state.success && state.message) {
+    },
+    onError: () => {
       toast.error(state.message);
-      router.refresh();
-    }
-  }, [router, state.message, state.success, ticket.id]);
+    },
+    onSuccessRedirect: ticketPath(ticket.id),
+  });
 
   return (
     <form action={formAction} className='space-y-6'>
