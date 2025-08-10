@@ -1,21 +1,7 @@
 'use client';
 
-import { useActionState } from 'react';
-
-import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { ACTION_STATE } from '@/constants/action-state';
-import { useFeedbackState } from '@/hooks/use-feedback-state';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 import { ticketsPath } from '@/utils/paths';
 
 import { deleteTicket } from '../actions/delete-ticket';
@@ -24,59 +10,25 @@ type DeleteButtonProps = {
   ticketId: string;
 };
 
-export const DeleteButton = ({ ticketId }: DeleteButtonProps) => {
-  const [state, formAction, isPending] = useActionState(
-    deleteTicket.bind(null, ticketId),
-    ACTION_STATE,
-  );
-
-  useFeedbackState(state, {
-    onSuccess: () => {
-      toast.success(state.message);
-    },
-    onError: () => {
-      toast.error(state.message);
-    },
+export const TicketDeleteButton = ({ ticketId }: DeleteButtonProps) => {
+  const [dialogTrigger, dialog] = useConfirmDialog({
+    action: deleteTicket.bind(null, ticketId),
     onSuccessRedirect: ticketsPath(),
+    trigger: (
+      <Button
+        aria-label='Excluir ticket'
+        title='Excluir ticket'
+        className='text-destructive hover:bg-destructive/10 w-full justify-start bg-transparent p-2'
+      >
+        Excluir
+      </Button>
+    ),
   });
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          variant='destructive'
-          aria-label='Excluir ticket'
-          title='Excluir ticket'
-          className='w-24'
-        >
-          Excluir
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Tem certeza?</DialogTitle>
-          <DialogDescription>
-            Esta ação não pode ser desfeita. Este ticket será permanentemente
-            excluído e não poderá ser recuperado.
-          </DialogDescription>
-        </DialogHeader>
-
-        <DialogFooter>
-          <form action={formAction}>
-            <input type='hidden' name='ticketId' value={ticketId} />
-
-            <Button
-              type='submit'
-              variant='destructive'
-              disabled={isPending}
-              title='Excluir ticket'
-              aria-label='Excluir ticket'
-            >
-              {isPending ? 'Excluindo...' : 'Confirmar'}
-            </Button>
-          </form>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <>
+      {dialogTrigger}
+      {dialog}
+    </>
   );
 };

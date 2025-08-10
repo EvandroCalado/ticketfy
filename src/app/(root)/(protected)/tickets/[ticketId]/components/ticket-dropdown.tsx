@@ -13,6 +13,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ticketEditPath } from '@/utils/paths';
 
+import { TicketDeleteButton } from './ticket-delete-button';
+
 type TicketDropdownProps = {
   ticketId: string;
 };
@@ -41,6 +43,9 @@ export const TicketDropdown = ({ ticketId }: TicketDropdownProps) => {
           >
             Editar
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <TicketDeleteButton ticketId={ticketId} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

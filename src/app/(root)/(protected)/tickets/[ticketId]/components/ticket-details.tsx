@@ -10,7 +10,6 @@ import { getComments } from '../actions/get-comments';
 import { getTicket } from '../actions/get-ticket';
 import { TicketComments } from './ticket-comments';
 import { TicketContent } from './ticket-content';
-import { DeleteButton } from './ticket-delete-button';
 import { TicketDropdown } from './ticket-dropdown';
 
 type TicketDetailsProps = {
@@ -48,19 +47,13 @@ export const TicketDetails = async ({
     <div className='animate-fade-from-top space-y-10'>
       <PageTitle title='Ticket' breadcrumbs={breadcrumbs} />
 
-      <div className='mx-auto w-full space-y-10'>
-        <div className='flex items-center justify-between'>
-          <h2 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h2>
+      <div className='flex items-center justify-between'>
+        <h2 className='text-xl font-semibold md:text-3xl'>{ticket.title}</h2>
 
-          <TicketDropdown ticketId={ticketId} />
-        </div>
-
-        <TicketContent ticket={ticket} />
-
-        <div className='flex items-center justify-end'>
-          <DeleteButton ticketId={ticketId} />
-        </div>
+        <TicketDropdown ticketId={ticketId} />
       </div>
+
+      <TicketContent ticket={ticket} />
 
       <TicketComments
         ticketId={ticketId}
