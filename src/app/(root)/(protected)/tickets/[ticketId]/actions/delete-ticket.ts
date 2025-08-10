@@ -27,8 +27,19 @@ export const deleteTicket = async (ticketId: string) => {
     return {
       success: true,
       message: 'Ticket excluído com sucesso',
+      fieldErrors: undefined,
+      payload: undefined,
     };
   } catch (error) {
+    if ((error as { code: string })['code'] === 'P2025') {
+      return {
+        success: false,
+        message: 'Você não tem permissão para excluir este ticket',
+        fieldErrors: undefined,
+        payload: undefined,
+      };
+    }
+
     return formErrorHandler(error);
   }
 };
