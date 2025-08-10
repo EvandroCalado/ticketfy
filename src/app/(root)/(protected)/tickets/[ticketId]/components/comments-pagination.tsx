@@ -2,7 +2,10 @@ import { useQueryStates } from 'nuqs';
 
 import { Pagination } from '@/components/shared/pagination';
 
-import { paginationOptions, paginationParse } from '../../search-params';
+import {
+  commentsPaginationParse,
+  paginationOptions,
+} from '../../search-params';
 
 type CommentsPaginationProps = {
   metadata: {
@@ -13,11 +16,11 @@ type CommentsPaginationProps = {
 
 export const CommentsPagination = ({ metadata }: CommentsPaginationProps) => {
   const [pagination, setPagination] = useQueryStates(
-    paginationParse,
+    commentsPaginationParse,
     paginationOptions,
   );
 
-  if (metadata.count <= 6) return null;
+  if (metadata.count <= 2) return null;
 
   return (
     <Pagination
