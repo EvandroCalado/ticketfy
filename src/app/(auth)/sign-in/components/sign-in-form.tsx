@@ -27,7 +27,6 @@ export const SignInForm = () => {
 
     if (!state.success && state.message) {
       toast.error(state.message);
-      router.refresh();
     }
   }, [router, state.message, state.success]);
 

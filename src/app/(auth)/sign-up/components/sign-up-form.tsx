@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ACTION_STATE } from '@/constants/action-state';
-import { homePath } from '@/utils/paths';
+import { ticketsPath } from '@/utils/paths';
 
 import { signUp } from '../actions/sign-up';
 
@@ -21,7 +21,7 @@ export const SignUpForm = () => {
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
-      router.push(homePath());
+      router.push(ticketsPath());
     }
 
     if (!state.success && state.message) {

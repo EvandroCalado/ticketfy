@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
-import { invalidateSession } from '@/lib/oslo';
+import { invalidateSession } from '@/lib/auth';
 import { signInPath } from '@/utils/paths';
 
 import { deleteSessionCookie } from './delete-session-cookie';

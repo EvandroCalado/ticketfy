@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 
 import { SESSION_COOKIE_NAME } from '@/constants/session-cookie-name';
-import { validateSession } from '@/lib/oslo';
+import { validateSession } from '@/lib/auth';
 
 export const getAuth = cache(async () => {
   const sessionToken =

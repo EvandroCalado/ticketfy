@@ -39,7 +39,6 @@ export const validateSession = async (sessionToken: string) => {
 
   // if the session is expired, delete it
   if (Date.now() >= session.expiresAt.getTime()) {
-    // or your ORM of choice
     await prisma.session.delete({
       where: {
         id: sessionId,

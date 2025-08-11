@@ -3,7 +3,7 @@
 import { hash } from '@node-rs/argon2';
 
 import { setSessionCookie } from '@/actions/set-session-cookie';
-import { createSession } from '@/lib/oslo';
+import { createSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { generateRandomToken } from '@/utils/generate-random-token';
