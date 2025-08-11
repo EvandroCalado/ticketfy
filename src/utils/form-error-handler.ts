@@ -2,10 +2,6 @@ import { ZodError, flattenError } from 'zod';
 
 import { ActionState } from '@/constants/action-state';
 
-const formatZodError = (error: ZodError) => {
-  return flattenError(error).fieldErrors;
-};
-
 export const formErrorHandler = (
   error: unknown,
   formData?: FormData,
@@ -14,7 +10,7 @@ export const formErrorHandler = (
     return {
       success: false,
       message: undefined,
-      fieldErrors: formatZodError(error),
+      fieldErrors: flattenError(error).fieldErrors,
       payload: formData,
     };
   }
