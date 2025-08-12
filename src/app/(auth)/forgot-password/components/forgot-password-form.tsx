@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 
 import { toast } from 'sonner';
 
@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ACTION_STATE } from '@/constants/action-state';
-import { useFeedbackState } from '@/hooks/use-feedback-state';
 
 import { forgotPassword } from '../actions/forgot-password';
 
@@ -18,14 +17,15 @@ export const ForgotPasswordForm = () => {
     ACTION_STATE,
   );
 
-  useFeedbackState(state, {
-    onSuccess: () => {
+  useEffect(() => {
+    if (state.success) {
       toast.success(state.message);
-    },
-    onError: () => {
+    }
+
+    if (!state.success && state.message) {
       toast.error(state.message);
-    },
-  });
+    }
+  }, [state]);
 
   return (
     <form action={formAction} className='space-y-6'>

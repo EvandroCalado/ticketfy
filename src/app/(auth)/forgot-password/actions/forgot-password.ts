@@ -35,7 +35,7 @@ export const forgotPassword = async (
 
     return {
       success: true,
-      message: 'Email enviado com sucesso',
+      message: 'Verifique seu email para redefinir sua senha',
       fieldErrors: undefined,
       payload: undefined,
     };
