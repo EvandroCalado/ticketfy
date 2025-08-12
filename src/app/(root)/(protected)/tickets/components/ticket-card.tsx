@@ -27,7 +27,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
           <CardTitle className='flex items-center gap-2'>
             {TICKET_ICONS[ticket.status]}
 
-            <span className='text-xl'>{ticket.title}</span>
+            <h2>{ticket.title}</h2>
           </CardTitle>
         </CardHeader>
 
@@ -48,7 +48,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
             <span className='text-primary text-xs font-semibold capitalize'>
               {ticket.user.name}
             </span>
-            <span className='text-lg font-bold'>
+            <span className='font-bold'>
               {formatCurrency(ticket.bounty.toString())}
             </span>
           </div>

@@ -35,9 +35,11 @@ export const PageTitle = ({ title, breadcrumbs }: PageTitleProps) => {
 
             if (breadcrumb.href) {
               breadcrumbItem = (
-                <BreadcrumbLink asChild>
-                  <Link href={breadcrumb.href}>{breadcrumb.title}</Link>
-                </BreadcrumbLink>
+                <li>
+                  <BreadcrumbLink asChild>
+                    <Link href={breadcrumb.href}>{breadcrumb.title}</Link>
+                  </BreadcrumbLink>
+                </li>
               );
             }
 

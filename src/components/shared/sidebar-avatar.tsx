@@ -24,7 +24,13 @@ export const SidebarAvatar = ({ user }: SidebarAvatarProps) => {
             <Skeleton className='h-[38px] w-[38px] animate-pulse' />
           ) : (
             <>
-              <AvatarImage src={image} alt='Avatar' width={38} height={38} />
+              <AvatarImage
+                src={image}
+                alt='Avatar'
+                width={38}
+                height={38}
+                loading='lazy'
+              />
               <AvatarFallback className='uppercase'>
                 {user.name[0]}
               </AvatarFallback>
