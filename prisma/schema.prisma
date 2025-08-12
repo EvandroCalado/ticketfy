@@ -24,9 +24,22 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  session Session[]
-  ticket  Ticket[]
-  comment Comment[]
+  session            Session[]
+  ticket             Ticket[]
+  comment            Comment[]
+  passwordResetToken PasswordResetToken[]
+}
+
+model PasswordResetToken {
+  tokenHash String   @id @default(cuid())
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Session {

@@ -1,9 +1,16 @@
+import { FormContainer } from '@/components/shared/form-container';
+
+import { ForgotPasswordForm } from './components/forgot-password-form';
+
 const ForgotPasswordPage = () => {
   return (
-    <div>
-      <h1>ForgotPasswordPage</h1>
-      {/* TODO: Implementar */}
-    </div>
+    <main className='flex flex-1 items-center justify-center p-5'>
+      <FormContainer
+        title='Recuperar senha'
+        description='Entre com o email para recuperar a senha'
+        content={<ForgotPasswordForm />}
+      />
+    </main>
   );
 };
 
