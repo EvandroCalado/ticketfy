@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-import { Toaster } from '@/components/ui/sonner';
+import { LazyToaster } from '@/components/shared/lazy-toaster';
 
 import './globals.css';
 import { ThemeProvider } from './theme-provider';
@@ -12,8 +12,9 @@ import { ThemeProvider } from './theme-provider';
 const primary = Inter({
   variable: '--font-primary',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -41,7 +42,7 @@ const RootLayout = ({
           >
             {children}
           </ThemeProvider>
-          <Toaster position='top-right' richColors />
+          <LazyToaster />
           <SpeedInsights />
         </NuqsAdapter>
       </body>

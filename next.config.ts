@@ -5,11 +5,21 @@ import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-*'],
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-*',
+      'zustand',
+      'big.js',
+      'clsx',
+      'tailwind-merge',
+    ],
+    optimizeCss: true,
   },
   images: {
     formats: ['image/webp', 'image/avif'],
