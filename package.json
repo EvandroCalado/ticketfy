@@ -13,7 +13,7 @@
     "test:coverage": "vitest --coverage",
     "analyze": "ANALYZE=true next build",
     "seed": "tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "email": "email dev --dir src/components/email --port 3001"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^15.4.5",
@@ -33,6 +33,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@react-email/components": "^0.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "big.js": "^7.0.1",
     "class-variance-authority": "^0.7.1",
@@ -51,6 +52,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "^15.4.5",
+    "@react-email/preview-server": "4.2.8",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
@@ -72,6 +74,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.13",
     "prisma": "^6.11.1",
+    "react-email": "^4.2.8",
     "react-scan": "^0.4.3",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
@@ -79,5 +82,6 @@
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
-  }
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }
