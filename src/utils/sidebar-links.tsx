@@ -1,4 +1,4 @@
-import { BookIcon, LibraryIcon, LucideIcon, UserCogIcon } from 'lucide-react';
+import { Book, Library, LucideIcon, UserCog } from 'lucide-react';
 
 import { accountPath, ticketsPath } from './paths';
 
@@ -13,17 +13,17 @@ export const sidebarLinks: SidebarLink[] = [
   {
     label: 'Todos os tickets',
     href: ticketsPath(),
-    icon: LibraryIcon,
+    icon: Library,
   },
   {
     label: 'Meus tickets',
     href: '/tickets/my',
-    icon: BookIcon,
+    icon: Book,
   },
   {
     separator: true,
     label: 'Minha conta',
     href: accountPath(),
-    icon: UserCogIcon,
+    icon: UserCog,
   },
 ];

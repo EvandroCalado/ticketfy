@@ -10,7 +10,8 @@
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "vitest",
     "test:ci": "vitest --run --passWithNoTests",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest --coverage --run",
+    "test:ui": "vitest --ui",
     "analyze": "ANALYZE=true next build",
     "seed": "tsx prisma/seed.ts",
     "email": "email dev --dir src/components/email --port 3001"
@@ -65,6 +66,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.6.0",
     "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "3.2.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "eslint-config-prettier": "^10.1.5",
