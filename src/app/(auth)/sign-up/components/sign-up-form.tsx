@@ -43,9 +43,9 @@ export const SignUpForm = () => {
           defaultValue={(state.payload?.get('name') as string) || ''}
         />
 
-        {state.fieldErrors?.email && (
+        {state.fieldErrors?.name && (
           <span className='absolute -bottom-4 left-0 text-xs font-semibold text-red-500'>
-            {state.fieldErrors.email}
+            {state.fieldErrors.name}
           </span>
         )}
       </div>
