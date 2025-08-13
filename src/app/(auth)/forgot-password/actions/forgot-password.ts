@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
+import { sendEmailResetPassword } from '@/utils/send-email-reset-password';
 
 import { forgotPasswordSchema } from '../schemas/forgot-password';
 import { generatePasswordResetLink } from '../utils/generate-password-reset-link';
@@ -30,8 +31,7 @@ export const forgotPassword = async (
 
     const passwordResetLink = await generatePasswordResetLink(user.id);
 
-    //TODO: Send email
-    console.log(passwordResetLink);
+    await sendEmailResetPassword(user.name, user.email, passwordResetLink);
 
     return {
       success: true,

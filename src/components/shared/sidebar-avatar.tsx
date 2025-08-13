@@ -37,9 +37,9 @@ export const SidebarAvatar = ({ user }: SidebarAvatarProps) => {
             </>
           )}
         </Avatar>
-        <div className='pointer-events-none text-left text-xs font-semibold transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100'>
+        <div className='pointer-events-none space-y-2 text-left text-xs font-semibold transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100'>
           <span className='block capitalize'>{user.name}</span>
-          <span className='text-muted-foreground/40 block text-xs'>
+          <span className='text-muted-foreground/40 line-clamp-1 block max-w-[135px] text-[10px] font-semibold'>
             {user.email}
           </span>
         </div>

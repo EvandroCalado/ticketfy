@@ -4,6 +4,7 @@ import { getAuth } from '@/actions/get-auth';
 import { generatePasswordResetLink } from '@/app/(auth)/forgot-password/utils/generate-password-reset-link';
 import { verifyPassword } from '@/app/(auth)/reset-password/[tokenId]/utils/verify-password';
 import { formErrorHandler } from '@/utils/form-error-handler';
+import { sendEmailResetPassword } from '@/utils/send-email-reset-password';
 
 import { changePasswordSchema } from '../schemas/change-password';
 
@@ -40,8 +41,7 @@ export const changePassword = async (
 
     const passwordResetLink = await generatePasswordResetLink(user.id);
 
-    // Send email with password reset link
-    TODO: console.log(passwordResetLink);
+    await sendEmailResetPassword(user.name, user.email, passwordResetLink);
 
     return {
       success: true,
