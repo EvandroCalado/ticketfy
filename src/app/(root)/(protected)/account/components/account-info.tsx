@@ -7,8 +7,8 @@ type AccountInfoProps = {
 
 export const AccountInfo = ({ user }: AccountInfoProps) => {
   return (
-    <div>
-      <h2 className='text-xl font-semibold'>Informações</h2>
+    <div className='animate-fade-from-top'>
+      <h2 className='text-xl font-semibold'>Dados do usuário</h2>
       <Separator className='my-4' />
 
       <div className='space-y-2'>
@@ -16,16 +16,16 @@ export const AccountInfo = ({ user }: AccountInfoProps) => {
           <span>Usuário:</span>
           <span className='font-semibold capitalize'>{user.name}</span>
         </h3>
-        <h4 className='flex items-center gap-2'>
+        <p className='flex items-center gap-2'>
           <span>Email:</span>
           <span className='font-semibold'>{user.email}</span>
-        </h4>
-        <h4 className='flex items-center gap-2'>
+        </p>
+        <p className='flex items-center gap-2'>
           <span>Criado em:</span>
           <span className='font-semibold'>
             {user.createdAt.toLocaleString('pt-BR')}
           </span>
-        </h4>
+        </p>
       </div>
     </div>
   );

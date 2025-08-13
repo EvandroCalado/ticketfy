@@ -11,11 +11,11 @@ export const AccountAvatars = () => {
   const { image, setImage } = useAvatarStore(state => state);
 
   return (
-    <div>
-      <h2 className='text-xl font-semibold'>Avatares</h2>
+    <div className='animate-fade-from-top'>
+      <h2 className='text-xl font-semibold'>Opções</h2>
       <Separator className='my-4' />
 
-      <div className='flex flex-wrap items-center justify-start gap-2'>
+      <div className='flex max-w-md flex-wrap items-center justify-start gap-2'>
         {avatarOptions.map(option => (
           <button
             key={option.image}
