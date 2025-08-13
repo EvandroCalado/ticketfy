@@ -39,6 +39,8 @@ export const TicketsPagination = ({ metadata }: TicketsPaginationProps) => {
     });
   }, [search, pagination, setPagination]);
 
+  if (metadata.count <= 6) return null;
+
   return (
     <Pagination
       pagination={pagination}
