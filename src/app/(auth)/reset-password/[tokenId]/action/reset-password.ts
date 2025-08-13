@@ -41,6 +41,8 @@ export const resetPassword = async (
       };
     }
 
+    // TODO: delete passwordResetToken from this user
+
     await prisma.session.deleteMany({
       where: { userId: passwordResetToken.userId },
     });

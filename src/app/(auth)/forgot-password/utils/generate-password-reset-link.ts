@@ -7,11 +7,11 @@ import { resetPasswordPath } from '@/utils/paths';
 import { PASSWORD_RESET_TOKEN_LIFETIME_MS } from '../constants/password-reset-token-lifetime-ms';
 
 export const generatePasswordResetLink = async (userId: string) => {
-  await prisma.passwordResetToken.deleteMany({
-    where: {
-      userId,
-    },
-  });
+  // await prisma.passwordResetToken.deleteMany({
+  //   where: {
+  //     userId,
+  //   },
+  // });
 
   const tokenId = generateRandomToken();
   const tokenHash = hashToken(tokenId);
