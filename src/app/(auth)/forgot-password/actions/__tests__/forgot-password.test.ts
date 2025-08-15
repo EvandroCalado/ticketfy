@@ -3,8 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // Create mock functions that we can control
 const mockFindUnique = vi.fn();
 const mockFormErrorHandler = vi.fn();
-const mockSendEmailResetPassword = vi.fn();
-const mockGeneratePasswordResetLink = vi.fn();
+const mockInngestSend = vi.fn();
 
 // Mock all dependencies
 vi.mock('@/lib/prisma', () => ({
@@ -22,12 +21,10 @@ vi.mock('@/utils/form-error-handler', () => ({
   formErrorHandler: mockFormErrorHandler,
 }));
 
-vi.mock('@/utils/send-email-reset-password', () => ({
-  sendEmailResetPassword: mockSendEmailResetPassword,
-}));
-
-vi.mock('../utils/generate-password-reset-link', () => ({
-  generatePasswordResetLink: mockGeneratePasswordResetLink,
+vi.mock('@/lib/inngest', () => ({
+  inngest: {
+    send: mockInngestSend,
+  },
 }));
 
 vi.mock('../schemas/forgot-password', () => ({
@@ -53,10 +50,7 @@ describe('forgot-password action', () => {
       name: 'Test User',
       email: 'test@example.com',
     });
-    mockGeneratePasswordResetLink.mockResolvedValue(
-      'https://example.com/reset/token123',
-    );
-    mockSendEmailResetPassword.mockImplementation(() => Promise.resolve());
+    mockInngestSend.mockResolvedValue({});
 
     const { forgotPassword } = await import('../forgot-password');
 
@@ -65,12 +59,27 @@ describe('forgot-password action', () => {
 
     const result = await forgotPassword(null, formData);
 
-    // Just verify that we get a result and it's successful
+    // Verify that we get a result and it's successful
     expect(result).toBeDefined();
-    expect(result).toHaveProperty('success', true);
+    expect(result).toEqual({
+      success: true,
+      message: 'Verifique seu email para redefinir sua senha',
+      fieldErrors: undefined,
+      payload: undefined,
+    });
 
     // Verify the user lookup was called
-    expect(mockFindUnique).toHaveBeenCalled();
+    expect(mockFindUnique).toHaveBeenCalledWith({
+      where: {
+        email: 'test@example.com',
+      },
+    });
+
+    // Verify inngest.send was called
+    expect(mockInngestSend).toHaveBeenCalledWith({
+      name: 'app/(auth)/reset-password/[tokenId].reset-password',
+      data: { userId: 'user-id' },
+    });
   });
 
   it('should return error when user not found (lines 24-30)', async () => {

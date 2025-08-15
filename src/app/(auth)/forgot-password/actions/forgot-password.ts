@@ -1,11 +1,11 @@
 'use server';
 
+import { inngest } from '@/lib/inngest';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
-import { sendEmailResetPassword } from '@/utils/send-email-reset-password';
 
+import { RESET_PASSWORD_EVENT_NAME } from '../../reset-password/[tokenId]/constants/reset-password-event-name';
 import { forgotPasswordSchema } from '../schemas/forgot-password';
-import { generatePasswordResetLink } from '../utils/generate-password-reset-link';
 
 export const forgotPassword = async (
   prevState: unknown,
@@ -29,9 +29,10 @@ export const forgotPassword = async (
       };
     }
 
-    const passwordResetLink = await generatePasswordResetLink(user.id);
-
-    await sendEmailResetPassword(user.name, user.email, passwordResetLink);
+    await inngest.send({
+      name: RESET_PASSWORD_EVENT_NAME,
+      data: { userId: user.id },
+    });
 
     return {
       success: true,

@@ -1,10 +1,10 @@
 'use server';
 
 import { getAuth } from '@/actions/get-auth';
-import { generatePasswordResetLink } from '@/app/(auth)/forgot-password/utils/generate-password-reset-link';
+import { RESET_PASSWORD_EVENT_NAME } from '@/app/(auth)/reset-password/[tokenId]/constants/reset-password-event-name';
 import { verifyPassword } from '@/app/(auth)/reset-password/[tokenId]/utils/verify-password';
+import { inngest } from '@/lib/inngest';
 import { formErrorHandler } from '@/utils/form-error-handler';
-import { sendEmailResetPassword } from '@/utils/send-email-reset-password';
 
 import { changePasswordSchema } from '../schemas/change-password';
 
@@ -39,9 +39,10 @@ export const changePassword = async (
       };
     }
 
-    const passwordResetLink = await generatePasswordResetLink(user.id);
-
-    await sendEmailResetPassword(user.name, user.email, passwordResetLink);
+    await inngest.send({
+      name: RESET_PASSWORD_EVENT_NAME,
+      data: { userId: user.id },
+    });
 
     return {
       success: true,

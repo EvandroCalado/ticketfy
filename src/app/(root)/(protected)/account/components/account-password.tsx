@@ -12,7 +12,7 @@ export const AccountPassword = () => {
       <div className='flex flex-1 items-center justify-center'>
         <FormContainer
           title='Redefinir senha'
-          description='Entre com o email para Redefinir a senha'
+          description='Entre com a senha atual para criar uma nova'
           content={<ChangePasswordForm />}
         />
       </div>
