@@ -3,7 +3,7 @@
 import { ComponentProps } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon } from '@/icons';
 
 import { Button } from '../ui/button';
 

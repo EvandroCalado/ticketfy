@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { MoveLeftIcon } from 'lucide-react';
-
 import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
+import { MoveLeftIcon } from '@/icons';
 import { homePath } from '@/utils/paths';
 
 export const metadata: Metadata = {

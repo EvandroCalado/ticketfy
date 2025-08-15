@@ -4,16 +4,16 @@ import { useActionState } from 'react';
 
 import { toast } from 'sonner';
 
+import {
+  LazySelect as Select,
+  LazySelectContent as SelectContent,
+  LazySelectItem as SelectItem,
+  LazySelectTrigger as SelectTrigger,
+  LazySelectValue as SelectValue,
+} from '@/components/shared/lazy-select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { ACTION_STATE } from '@/constants/action-state';
 import { TICKET_STATUS } from '@/constants/ticket-status';

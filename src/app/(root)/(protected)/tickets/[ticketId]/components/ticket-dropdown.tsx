@@ -1,16 +1,15 @@
 import Link from 'next/link';
 
-import { EllipsisVerticalIcon } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+  LazyDropdownMenu as DropdownMenu,
+  LazyDropdownMenuContent as DropdownMenuContent,
+  LazyDropdownMenuItem as DropdownMenuItem,
+  LazyDropdownMenuLabel as DropdownMenuLabel,
+  LazyDropdownMenuSeparator as DropdownMenuSeparator,
+  LazyDropdownMenuTrigger as DropdownMenuTrigger,
+} from '@/components/shared/lazy-dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { EllipsisVerticalIcon } from '@/icons';
 import { ticketEditPath } from '@/utils/paths';
 
 import { TicketDeleteButton } from './ticket-delete-button';

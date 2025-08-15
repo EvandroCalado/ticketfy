@@ -2,10 +2,9 @@
 
 import { useActionState } from 'react';
 
-import { Loader2Icon, LogOutIcon } from 'lucide-react';
-
 import { signOut } from '@/actions/sign-out';
 import { ACTION_STATE } from '@/constants/action-state';
+import { Loader2Icon, LogOutIcon } from '@/icons';
 
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';

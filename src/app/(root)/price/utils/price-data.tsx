@@ -1,5 +1,4 @@
-import { CircleCheckIcon } from 'lucide-react';
-
+import { CircleCheckIcon } from '@/icons';
 import { toCent } from '@/utils/format-currency';
 
 export const priceData = [

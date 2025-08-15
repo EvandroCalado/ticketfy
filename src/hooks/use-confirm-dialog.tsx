@@ -3,15 +3,15 @@ import { cloneElement, useActionState, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  LazyAlertDialog as AlertDialog,
+  LazyAlertDialogAction as AlertDialogAction,
+  LazyAlertDialogCancel as AlertDialogCancel,
+  LazyAlertDialogContent as AlertDialogContent,
+  LazyAlertDialogDescription as AlertDialogDescription,
+  LazyAlertDialogFooter as AlertDialogFooter,
+  LazyAlertDialogHeader as AlertDialogHeader,
+  LazyAlertDialogTitle as AlertDialogTitle,
+} from '@/components/shared/lazy-alert-dialog';
 import { Button } from '@/components/ui/button';
 import { ACTION_STATE, ActionState } from '@/constants/action-state';
 

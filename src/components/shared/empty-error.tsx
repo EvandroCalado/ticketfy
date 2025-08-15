@@ -1,4 +1,4 @@
-import { CircleXIcon, LucideIcon, PanelTopIcon } from 'lucide-react';
+import { CircleXIcon, LucideIcon, PanelTopIcon } from '@/icons';
 
 type TicketListEmptyProps = {
   label: string;

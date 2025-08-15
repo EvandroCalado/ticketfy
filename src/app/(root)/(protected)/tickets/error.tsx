@@ -2,10 +2,9 @@
 
 import Link from 'next/link';
 
-import { HomeIcon } from 'lucide-react';
-
 import { EmptyError } from '@/components/shared/empty-error';
 import { Button } from '@/components/ui/button';
+import { HomeIcon } from '@/icons';
 
 const TicketsErrorPage = ({ error }: { error: Error }) => {
   return (

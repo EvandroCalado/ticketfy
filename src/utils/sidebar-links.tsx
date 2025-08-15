@@ -1,4 +1,4 @@
-import { Book, Library, LucideIcon, UserCog } from 'lucide-react';
+import { Book, Library, LucideIcon, UserCog } from '@/icons';
 
 import { accountPath, ticketsPath } from './paths';
 

@@ -3,12 +3,12 @@
 import { useQueryState } from 'nuqs';
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  LazySelect as Select,
+  LazySelectContent as SelectContent,
+  LazySelectItem as SelectItem,
+  LazySelectTrigger as SelectTrigger,
+  LazySelectValue as SelectValue,
+} from '@/components/shared/lazy-select';
 
 import { sortParse } from '../search-params';
 

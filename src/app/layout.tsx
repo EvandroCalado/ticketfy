@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
+import { LazySpeedInsights } from '@/components/shared/lazy-speed-insights';
 import { LazyToaster } from '@/components/shared/lazy-toaster';
 
 import './globals.css';
@@ -43,7 +43,7 @@ const RootLayout = ({
             {children}
           </ThemeProvider>
           <LazyToaster />
-          <SpeedInsights />
+          <LazySpeedInsights />
         </NuqsAdapter>
       </body>
     </html>

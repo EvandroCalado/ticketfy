@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/icons';
 
 import { Button } from '../ui/button';
 

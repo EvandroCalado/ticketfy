@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-import { SlashIcon } from 'lucide-react';
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { SlashIcon } from '@/icons';
 
 type BreadcrumbProps = {
   title: string;

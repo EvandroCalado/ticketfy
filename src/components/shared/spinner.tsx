@@ -1,5 +1,4 @@
-import { Loader2 } from 'lucide-react';
-
+import { Loader2 } from '@/icons';
 import { cn } from '@/lib/utils';
 
 type SpinnerSize = '4' | '8' | '16';

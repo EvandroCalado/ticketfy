@@ -1,4 +1,4 @@
-import { FileCheck2Icon, FilePenIcon, FileTextIcon } from 'lucide-react';
+import { FileCheck2Icon, FilePenIcon, FileTextIcon } from '@/icons';
 
 export const TICKET_ICONS = {
   OPEN: (

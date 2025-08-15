@@ -1,8 +1,13 @@
 import { notFound } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
+import {
+  LazyTabs as Tabs,
+  LazyTabsContent as TabsContent,
+  LazyTabsList as TabsList,
+  LazyTabsTrigger as TabsTrigger,
+} from '@/components/shared/lazy-tabs';
 import { PageTitle } from '@/components/shared/page-title';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { AccountAvatars } from './account-avatars';
 import { AccountInfo } from './account-info';

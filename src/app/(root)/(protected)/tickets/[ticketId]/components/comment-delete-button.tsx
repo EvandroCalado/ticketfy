@@ -1,9 +1,8 @@
 'use client';
 
-import { TrashIcon } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
+import { TrashIcon } from '@/icons';
 import { ticketPath } from '@/utils/paths';
 
 import { deleteComment } from '../actions/delete-comment';

@@ -1,12 +1,11 @@
+import { TICKET_STATUS } from '@/constants/ticket-status';
+import { Ticket } from '@/generated/prisma';
 import {
   CalendarCheckIcon,
   CalendarIcon,
   CreditCardIcon,
   SquareCheckBigIcon,
-} from 'lucide-react';
-
-import { TICKET_STATUS } from '@/constants/ticket-status';
-import { Ticket } from '@/generated/prisma';
+} from '@/icons';
 import { formatCurrency } from '@/utils/format-currency';
 import { formatDate } from '@/utils/format-date';
 

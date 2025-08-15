@@ -1,10 +1,13 @@
-import { ChevronRightIcon } from 'lucide-react';
-
+import { ChevronRightIcon } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useSidebarStore } from '@/stores/sidebar';
 
 import { Button } from '../ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import {
+  LazyTooltip as Tooltip,
+  LazyTooltipContent as TooltipContent,
+  LazyTooltipTrigger as TooltipTrigger,
+} from './lazy-tooltip';
 
 export const SidebarToggle = () => {
   const { isOpen, toggle } = useSidebarStore();

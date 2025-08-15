@@ -17,7 +17,6 @@
     "email": "email dev --dir src/components/email --port 3001"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^15.4.5",
     "@node-rs/argon2": "^2.0.2",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
@@ -54,6 +53,7 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.4.5",
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "^15.4.5",
     "@react-email/preview-server": "4.2.8",

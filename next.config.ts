@@ -35,23 +35,56 @@ const nextConfig: NextConfig = {
 
     config.optimization.splitChunks = {
       chunks: 'all',
+      maxSize: 244000, // 244KB max chunk size
       cacheGroups: {
+        // Core vendor libraries
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           chunks: 'all',
+          priority: 1,
         },
+        // Radix UI components (heavy)
         radix: {
           test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
           name: 'radix',
           chunks: 'all',
-          priority: 10,
+          priority: 20,
         },
+        // Icons (frequently used)
         lucide: {
           test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
           name: 'lucide',
           chunks: 'all',
+          priority: 15,
+        },
+        // Form utilities
+        forms: {
+          test: /[\\/]node_modules[\\/](zod|react-hook-form)[\\/]/,
+          name: 'forms',
+          chunks: 'all',
+          priority: 12,
+        },
+        // Utilities
+        utils: {
+          test: /[\\/]node_modules[\\/](clsx|tailwind-merge|class-variance-authority|big\.js)[\\/]/,
+          name: 'utils',
+          chunks: 'all',
           priority: 10,
+        },
+        // State management
+        state: {
+          test: /[\\/]node_modules[\\/](zustand|nuqs)[\\/]/,
+          name: 'state',
+          chunks: 'all',
+          priority: 8,
+        },
+        // Authentication & security
+        auth: {
+          test: /[\\/]node_modules[\\/](@node-rs\/argon2|@oslojs)[\\/]/,
+          name: 'auth',
+          chunks: 'all',
+          priority: 6,
         },
       },
     };
