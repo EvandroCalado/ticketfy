@@ -10,10 +10,12 @@ const users = [
   {
     name: 'admin',
     email: 'admin@email.com',
+    emailVerified: true,
   },
   {
-    name: 'user',
-    email: 'user@email.com',
+    name: 'Evandro',
+    email: 'evandro.calado.da.silva@gmail.com',
+    emailVerified: false,
   },
 ];
 
@@ -118,7 +120,7 @@ async function main() {
   await prisma.comment.deleteMany();
   await prisma.user.deleteMany();
   await prisma.ticket.deleteMany();
-  console.log('Deleted all');
+  console.log('Deleted all...');
 
   const passwordHash = await hash('123456');
 
@@ -144,7 +146,7 @@ async function main() {
       ticketId: dbTickets[0].id,
     })),
   });
-  console.log('Created initial data');
+  console.log('Created initial data...');
 }
 
 main()

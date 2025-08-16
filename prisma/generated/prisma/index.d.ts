@@ -106,13 +106,6 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
-
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -289,8 +282,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1223,25 +1216,6 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
-
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -1366,6 +1340,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     passwordHash: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1375,6 +1350,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     passwordHash: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1384,6 +1360,7 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    emailVerified: number
     passwordHash: number
     createdAt: number
     updatedAt: number
@@ -1395,6 +1372,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
@@ -1404,6 +1382,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
@@ -1413,6 +1392,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
@@ -1495,6 +1475,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified: boolean
     passwordHash: string
     createdAt: Date
     updatedAt: Date
@@ -1521,6 +1502,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1535,6 +1517,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1544,6 +1527,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1553,12 +1537,13 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | User$sessionArgs<ExtArgs>
     ticket?: boolean | User$ticketArgs<ExtArgs>
@@ -1581,6 +1566,7 @@ export namespace Prisma {
       id: string
       name: string
       email: string
+      emailVerified: boolean
       passwordHash: string
       createdAt: Date
       updatedAt: Date
@@ -2014,6 +2000,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -6925,6 +6912,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    emailVerified: 'emailVerified',
     passwordHash: 'passwordHash',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -7026,6 +7014,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7091,6 +7086,7 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -7104,6 +7100,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7120,6 +7117,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -7133,6 +7131,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7148,6 +7147,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -7410,6 +7410,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7423,6 +7424,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7436,6 +7438,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7449,6 +7452,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7462,6 +7466,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7471,6 +7476,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7480,6 +7486,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7758,6 +7765,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -7813,6 +7825,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7822,6 +7835,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7831,6 +7845,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7852,6 +7867,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8144,6 +8167,10 @@ export namespace Prisma {
     set?: string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -8404,6 +8431,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8441,6 +8473,14 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8768,6 +8808,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8780,6 +8821,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8808,6 +8850,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8820,6 +8863,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8832,6 +8876,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8844,6 +8889,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8872,6 +8918,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8884,6 +8931,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8896,6 +8944,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8908,6 +8957,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8962,6 +9012,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8974,6 +9025,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9031,6 +9083,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9043,6 +9096,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    emailVerified?: boolean
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9106,6 +9160,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9118,6 +9173,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
