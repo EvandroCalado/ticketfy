@@ -9,5 +9,6 @@ export const signUpPath = () => '/sign-up';
 export const signInPath = () => '/sign-in';
 export const forgotPasswordPath = () => '/forgot-password';
 export const resetPasswordPath = () => '/reset-password';
+export const verifyEmailPath = () => '/verify-email';
 
 export const accountPath = () => '/account';
