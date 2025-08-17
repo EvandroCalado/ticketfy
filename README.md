@@ -1,14 +1,18 @@
 <div align="center">
   <h1 align="center">🎟️ Ticketfy</h1>
-  <p align="center">Sistema moderno de gerenciamento de tickets construído com Next.js 15 e React 19</p>
+  <p align="center">Sistema moderno e completo de gerenciamento de tickets construído com Next.js 15 e React 19</p>
 
-  [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Next.js](https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript_5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+  [![Prisma](https://img.shields.io/badge/Prisma_6-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org/)
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+  ![Node.js Version](https://img.shields.io/badge/Node.js-22+-339933?style=flat-square&logo=nodedotjs)
+  ![PNPM Version](https://img.shields.io/badge/pnpm-10.14-F69220?style=flat-square&logo=pnpm)
 </div>
 
 ## 📋 Visão Geral
@@ -17,37 +21,59 @@ O Ticketfy é uma aplicação web moderna para gerenciamento de tickets, desenvo
 
 ## ✨ Principais Recursos
 
-- ✅ **Autenticação Segura** - Sistema de autenticação robusto com proteção de rotas
-- 🎨 **Interface Moderna** - Design limpo e responsivo com suporte a tema claro/escuro
-- ⚡ **Performance Otimizada** - Utilização de Server Components e renderização híbrida do Next.js
-- 🔒 **Validação de Dados** - Validação em tempo real com Zod
-- 📱 **Responsivo** - Funciona perfeitamente em dispositivos móveis e desktop
-- 🌈 **UI/UX Aprimorada** - Componentes acessíveis e intuitivos com Shadcn UI
-- 🔄 **Estado Global** - Gerenciamento de estado com Zustand
-- 🛠️ **Deploy Fácil** - Pronto para deploy na Vercel ou qualquer plataforma compatível
+- 🔐 **Autenticação Completa** - Sistema robusto com registro, login, verificação de email e recuperação de senha
+- 🎫 **Gerenciamento de Tickets** - CRUD completo para tickets com status, prazos e bounties
+- 💬 **Sistema de Comentários** - Discussão e colaboração em tickets
+- 🎨 **Interface Moderna** - Design responsivo com tema claro/escuro usando Tailwind CSS v4
+- ⚡ **Performance Otimizada** - Next.js 15 com Turbopack, Server Components e otimizações avançadas
+- 🔒 **Segurança Avançada** - Criptografia Argon2, sessões seguras com Oslo.js
+- 📱 **Totalmente Responsivo** - Interface adaptativa para mobile, tablet e desktop
+- 🌈 **Componentes Acessíveis** - UI baseada em Radix UI com suporte completo a acessibilidade
+- 🔄 **Estado Sincronizado** - Gerenciamento de estado com Zustand e sincronização de URL com Nuqs
+- 📧 **Sistema de Email** - Templates React Email para notificações
+- 🔍 **Busca Avançada** - Filtragem e busca inteligente de tickets
+- 📈 **Analytics** - Insights de performance com Vercel Speed Insights
+- 🧪 **Testes Completos** - Suite de testes com Vitest e Testing Library
 
-## 🛠️ Tecnologias Utilizadas
+## 🔠 Stack Tecnológica
 
-- **Frontend:**
-  - Next.js 15 com App Router
-  - React 19 com Server Components
-  - TypeScript
-  - Tailwind CSS
-  - Shadcn UI (componentes acessíveis)
-  - Zustand (gerenciamento de estado)
-  - Zod (formulários e validação)
+### 🎭 Frontend
+- **Next.js 15.4.5** - Framework React com App Router e Server Components
+- **React 19** - Biblioteca para interfaces de usuário
+- **TypeScript 5** - Superset tipado do JavaScript
+- **Tailwind CSS 4** - Framework CSS utility-first
+- **Shadcn/UI + Radix UI** - Componentes acessíveis e customizáveis
+- **Lucide React** - Ícones SVG otimizados
+- **Next Themes** - Gerenciamento de temas claro/escuro
 
-- **Backend:**
-  - Prisma (ORM)
-  - PostgreSQL (banco de dados Supabase)
-  - Oslo.js (autenticação)
-  - Argon2 (hash de senhas)
+### 💾 Backend & Banco de Dados
+- **Prisma 6.11.1** - ORM moderno para TypeScript
+- **PostgreSQL** - Banco de dados relacional robusto
+- **Oslo.js** - Biblioteca de autenticação segura
+- **Argon2** - Algoritmo de hash para senhas
+- **Resend** - Serviço de envio de emails transacionais
 
-- **Ferramentas:**
-  - ESLint + Prettier (padronização de código)
-  - Vitest (testes)
-  - Prisma Studio (visualização do banco de dados)
-  - Sonner (notificações)
+### 🔄 Estado & Navegação
+- **Zustand 5** - Gerenciamento de estado global leve
+- **Nuqs 2.4.3** - Sincronização de estado com URL
+- **React Hook Form + Zod** - Formulários com validação tipada
+
+### 🔧 Ferramentas de Desenvolvimento
+- **Turbopack** - Bundler rápido do Next.js
+- **Vitest 3.2.4** - Framework de testes unitários
+- **Testing Library** - Utilitários para testes de componentes
+- **ESLint 9 + Prettier** - Linting e formatação de código
+- **Lefthook** - Git hooks para automação
+- **Bundle Analyzer** - Análise de tamanho do bundle
+
+### 📧 Email & Notificações
+- **React Email 4.2.8** - Templates de email em React
+- **Sonner** - Toasts e notificações elegantes
+- **Inngest** - Processamento de jobs em background
+
+### 📈 Performance & Analytics
+- **Vercel Speed Insights** - Métricas de performance em tempo real
+- **React Scan** - Depuração de renderizações desnecessárias
 
 ## 🚀 Começando
 
@@ -98,21 +124,82 @@ O Ticketfy é uma aplicação web moderna para gerenciamento de tickets, desenvo
 6. **Acesse a aplicação**
    Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-## 📂 Estrutura do Projeto
+## 📂 Arquitetura do Projeto
 
 ```
+ticketfy/
+├── prisma/                    # Esquema e migrações do banco
+│   ├── schema.prisma          # Definição das tabelas
+│   └── generated/             # Cliente Prisma gerado
+│
 src/
-├── app/                    # Rotas da aplicação (App Router)
-├── actions/                # Ações de uso global
-│   ├── (auth)/             # Rotas de autenticação
-│   ├── (protected)/        # Rotas protegidas
-├── components/             # Componentes compartilhados
-├── constants/              # Constantes globais
-├── hooks/                  # Hooks globais
-├── lib/                    # Utilitários e configurações
-├── stores/                 # Stores globais
-├── types/                  # Tipos globais
-└── utils/                  # Utilitários globais
+├── app/                      # App Router (Next.js 15)
+│   ├── (root)/                # Grupo de rotas públicas
+│   │   ├── (protected)/       # Rotas autenticadas
+│   │   │   └── tickets/       # CRUD de tickets
+│   │   ├── about/             # Página sobre
+│   │   └── price/             # Página de preços
+│   │
+│   ├── (auth)/                # Grupo de autenticação
+│   │   ├── sign-in/           # Login
+│   │   ├── sign-up/           # Registro
+│   │   └── forgot-password/   # Recuperação de senha
+│   │
+│   └── api/                   # API Routes
+│       └── inngest/           # Background jobs
+│
+├── components/               # Componentes reutilizáveis
+│   ├── ui/                   # Componentes base (Shadcn)
+│   ├── shared/               # Componentes compartilhados
+│   └── email/                # Templates de email
+│
+├── actions/                  # Server Actions
+├── hooks/                    # React Hooks customizados
+├── stores/                   # Zustand stores
+├── lib/                      # Utilitários e configs
+├── types/                    # Definições de tipos TypeScript
+├── utils/                    # Funções utilitárias
+├── constants/                # Constantes da aplicação
+└── icons/                    # Ícones customizados
+```
+
+## 📑 Modelo de Dados
+
+O projeto utiliza um esquema relacional bem estruturado:
+
+- **User** - Usuários do sistema com autenticação segura
+- **Ticket** - Tickets com status, prazos e bounties
+- **Comment** - Sistema de comentários para colaboração
+- **Session** - Sessões de usuário para segurança
+- **EmailVerificationToken** - Tokens para verificação de email
+- **PasswordResetToken** - Tokens para recuperação de senha
+
+## 🛠️ Scripts Disponíveis
+
+```bash
+# Desenvolvimento
+pnpm dev              # Inicia servidor com Turbopack
+pnpm build            # Build de produção
+pnpm start            # Inicia servidor de produção
+
+# Qualidade de Código
+pnpm lint             # ESLint com regras rígidas
+pnpm typecheck        # Verificação de tipos TypeScript
+
+# Testes
+pnpm test             # Testes unitários com Vitest
+pnpm test:ui          # Interface gráfica para testes
+pnpm test:coverage    # Relatório de cobertura
+
+# Banco de Dados
+pnpm seed             # Popular banco com dados de teste
+npx prisma studio     # Interface visual do Prisma
+
+# Análises
+pnpm analyze          # Bundle analyzer para otimizações
+
+# Email Templates
+pnpm email            # Preview dos templates de email
 ```
 
 ## 🧪 Testes (Ainda em construção)
