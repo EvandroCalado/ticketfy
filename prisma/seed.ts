@@ -53,7 +53,7 @@ const tickets = [
     bounty: toCent('450'),
   },
   {
-    title: 'Integração com API de Pagamento',
+    title: 'Integração de Pagamento',
     content:
       'Implementar integração com a API do PagSeguro para processamento de pagamentos. Garantir segurança e confiabilidade das transações.',
     status: 'OPEN' as const,
