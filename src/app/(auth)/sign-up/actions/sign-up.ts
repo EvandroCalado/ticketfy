@@ -4,10 +4,12 @@ import { hash } from '@node-rs/argon2';
 
 import { setSessionCookie } from '@/actions/set-session-cookie';
 import { createSession } from '@/lib/auth';
+import { inngest } from '@/lib/inngest';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { generateRandomToken } from '@/utils/generate-random-token';
 
+import { VERIFY_EMAIL_EVENT_NAME } from '../constants/verify-email-event-name';
 import { signUpSchema } from '../schemas/sign-up';
 
 export const signUp = async (prevState: unknown, formData: FormData) => {
@@ -24,6 +26,11 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
         email,
         passwordHash,
       },
+    });
+
+    await inngest.send({
+      name: VERIFY_EMAIL_EVENT_NAME,
+      data: { userId: user.id },
     });
 
     const sessionToken = generateRandomToken();

@@ -13,8 +13,8 @@ const users = [
     emailVerified: true,
   },
   {
-    name: 'Evandro',
-    email: 'evandro.calado.da.silva@gmail.com',
+    name: 'user',
+    email: 'user@email.com',
     emailVerified: false,
   },
 ];

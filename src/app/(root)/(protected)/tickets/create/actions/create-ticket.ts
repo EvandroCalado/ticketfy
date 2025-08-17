@@ -1,20 +1,17 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
-import { getAuth } from '@/actions/get-auth';
+import { requireAuth } from '@/actions/require-auth';
 import { prisma } from '@/lib/prisma';
 import { formErrorHandler } from '@/utils/form-error-handler';
 import { toCent } from '@/utils/format-currency';
-import { signInPath, ticketsPath } from '@/utils/paths';
+import { ticketsPath } from '@/utils/paths';
 
 import { createTicketSchema } from '../schemas/create-ticket';
 
 export const createTicket = async (prevState: unknown, formData: FormData) => {
-  const { user } = await getAuth();
-
-  if (!user) redirect(signInPath());
+  const { user } = await requireAuth();
 
   try {
     const insertedData = createTicketSchema.parse(Object.fromEntries(formData));

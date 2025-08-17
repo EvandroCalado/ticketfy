@@ -1,9 +1,6 @@
-import { redirect } from 'next/navigation';
-
 import { SESSION_MAX_DURATION_MS } from '@/constants/session-max-duration-ms';
 import { SESSION_REFRESH_INTERVAL_MS } from '@/constants/session-refresh-interval-ms';
 import { hashToken } from '@/utils/hash-token';
-import { verifyEmailPath } from '@/utils/paths';
 
 import { prisma } from './prisma';
 
@@ -39,11 +36,6 @@ export const validateSession = async (sessionToken: string) => {
   }
 
   const { user, ...session } = result;
-
-  if (!user.emailVerified) {
-    await invalidateSession(session.id);
-    redirect(verifyEmailPath());
-  }
 
   // if the session is expired, delete it
   if (Date.now() >= session.expiresAt.getTime()) {

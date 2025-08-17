@@ -1,0 +1,1 @@
+export const EMAIL_VERIFICATION_TOKEN_LIFETIME_MS = 15 * 60 * 1000; // 15 minutes

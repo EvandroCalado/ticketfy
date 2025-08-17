@@ -45,6 +45,6 @@ const EmailPasswordReset = ({ toName, url }: EmailPasswordResetProps) => {
 EmailPasswordReset.PreviewProps = {
   toName: 'John Doe',
   url: 'http://localhost:3000/reset-password/1234567890',
-};
+} as EmailPasswordResetProps;
 
 export default EmailPasswordReset;
