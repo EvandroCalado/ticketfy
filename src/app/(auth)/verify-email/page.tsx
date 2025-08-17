@@ -10,7 +10,7 @@ const VerifyEmail = () => {
         title='Verificar email'
         description='Verifique o email para ativar a sua conta'
         content={
-          <div>
+          <div className='flex flex-col gap-2'>
             <VerifyEmailForm />
             <VerifyEmailResendForm />
           </div>
