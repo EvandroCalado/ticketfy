@@ -54,8 +54,8 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^15.4.5",
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.4.5",
     "@next/eslint-plugin-next": "^15.4.5",
     "@react-email/preview-server": "4.2.8",
     "@tailwindcss/postcss": "^4",
