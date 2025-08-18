@@ -120,7 +120,15 @@ async function main() {
   await prisma.comment.deleteMany();
   await prisma.user.deleteMany();
   await prisma.ticket.deleteMany();
+  await prisma.organization.deleteMany();
+  await prisma.membership.deleteMany();
   console.log('Deleted all...');
+
+  const dbOrganization = await prisma.organization.create({
+    data: {
+      name: 'Organization 1',
+    },
+  });
 
   const passwordHash = await hash('123456');
 
@@ -128,6 +136,13 @@ async function main() {
     data: users.map(user => ({
       ...user,
       passwordHash,
+    })),
+  });
+
+  await prisma.membership.createManyAndReturn({
+    data: dbUsers.map(user => ({
+      userId: user.id,
+      organizationId: dbOrganization.id,
     })),
   });
 
