@@ -35,7 +35,7 @@ const MyTicketsPage = async ({ searchParams }: MyTicketsPageParams) => {
   ];
 
   return (
-    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-10'>
+    <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col space-y-9'>
       <PageTitle title='Meus tickets' breadcrumbs={breadcrumbs} />
       <Suspense
         fallback={
