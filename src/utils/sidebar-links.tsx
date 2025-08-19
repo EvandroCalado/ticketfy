@@ -1,4 +1,4 @@
-import { Book, Library, LucideIcon, UserCog } from '@/icons';
+import { Book, Library, LucideIcon, Settings2Icon, UsersIcon } from '@/icons';
 
 import { accountPath, ticketsPath } from './paths';
 
@@ -21,9 +21,14 @@ export const sidebarLinks: SidebarLink[] = [
     icon: Book,
   },
   {
+    label: 'Organização',
+    href: '/organization',
+    icon: UsersIcon,
+  },
+  {
     separator: true,
     label: 'Minha conta',
     href: accountPath(),
-    icon: UserCog,
+    icon: Settings2Icon,
   },
 ];
