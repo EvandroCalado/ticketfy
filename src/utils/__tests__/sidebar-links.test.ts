@@ -5,7 +5,7 @@ import { sidebarLinks } from '../sidebar-links';
 describe('sidebar-links', () => {
   it('should export an array of sidebar links', () => {
     expect(Array.isArray(sidebarLinks)).toBe(true);
-    expect(sidebarLinks.length).toBe(3);
+    expect(sidebarLinks.length).toBe(4);
   });
 
   it('should have the first link as tickets', () => {
@@ -21,7 +21,7 @@ describe('sidebar-links', () => {
   });
 
   it('should have the third link as account', () => {
-    const thirdLink = sidebarLinks[2];
+    const thirdLink = sidebarLinks[3];
     expect(thirdLink.label).toBe('Minha conta');
     expect(thirdLink.href).toBe('/account');
     expect(thirdLink.separator).toBe(true);
