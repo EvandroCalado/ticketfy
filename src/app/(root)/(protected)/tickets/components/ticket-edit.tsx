@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/shared/page-title';
 import { ticketPath, ticketsPath } from '@/utils/paths';
 
-import { getTicket } from '../../../[ticketId]/actions/get-ticket';
+import { getTicket } from '../actions/get-ticket';
 import { TicketEditForm } from './ticket-edit-form';
 
 type TicketEditPageProps = {

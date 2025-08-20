@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock all dependencies
 vi.mock('next/cache', () => ({
   revalidatePath: vi.fn(),
 }));

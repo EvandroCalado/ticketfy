@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import { Spinner } from '@/components/shared/spinner';
 
-import { TicketEdit } from './components/ticket-edit';
+import { TicketEdit } from '../../../components/ticket-edit';
 
 export const metadata: Metadata = {
   title: 'Editar ticket',

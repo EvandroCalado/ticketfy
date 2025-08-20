@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { PageTitle } from '@/components/shared/page-title';
 import { ticketsPath } from '@/utils/paths';
 
-import { TicketCreateForm } from './components/ticket-create-form';
+import { TicketCreateForm } from '../../components/ticket-create-form';
 
 export const metadata: Metadata = {
   title: 'Criar ticket',

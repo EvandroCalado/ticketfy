@@ -5,8 +5,8 @@ import { SearchParams } from 'nuqs/server';
 
 import { Spinner } from '@/components/shared/spinner';
 
-import { searchParamsCache } from '../search-params';
-import { TicketDetails } from './components/ticket-details';
+import { TicketDetails } from '../../components/ticket-details';
+import { searchParamsCache } from '../../search-params';
 
 export const metadata: Metadata = {
   title: 'Ticket',

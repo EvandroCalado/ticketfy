@@ -8,8 +8,8 @@ import { PageTitle } from '@/components/shared/page-title';
 import { Spinner } from '@/components/shared/spinner';
 import { ticketsPath } from '@/utils/paths';
 
-import { TicketsList } from '../components/tickets-list';
-import { searchParamsCache } from '../search-params';
+import { TicketsList } from '../../components/tickets-list';
+import { searchParamsCache } from '../../search-params';
 
 export const metadata: Metadata = {
   title: 'Meus tickets',

@@ -2,7 +2,7 @@ import { useQueryStates } from 'nuqs';
 
 import { Pagination } from '@/components/shared/pagination';
 
-import { paginationOptions, paginationParse } from '../../search-params';
+import { paginationOptions, paginationParse } from '../search-params';
 
 type CommentsPaginationProps = {
   metadata: {
