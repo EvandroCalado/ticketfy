@@ -5,7 +5,7 @@ vi.mock('@/actions/get-auth', () => ({
   getAuth: vi.fn(),
 }));
 
-vi.mock('@/app/(auth)/reset-password/[tokenId]/utils/verify-password', () => ({
+vi.mock('@/app/(auth)/utils/verify-password', () => ({
   verifyPassword: vi.fn(),
 }));
 
@@ -32,7 +32,7 @@ describe('changePassword', () => {
   it('should change password successfully with valid current password', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
     const { inngest } = await import('@/lib/inngest');
 
@@ -108,7 +108,7 @@ describe('changePassword', () => {
   it('should return error when current password is incorrect', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
 
     const mockUser = {
@@ -191,7 +191,7 @@ describe('changePassword', () => {
   it('should handle password verification errors', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
     const { formErrorHandler } = await import('@/utils/form-error-handler');
 
@@ -232,7 +232,7 @@ describe('changePassword', () => {
   it('should handle inngest send errors', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
     const { inngest } = await import('@/lib/inngest');
     const { formErrorHandler } = await import('@/utils/form-error-handler');
@@ -276,7 +276,7 @@ describe('changePassword', () => {
   it('should verify password with correct hash and password', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
 
     const mockUser = {
@@ -317,7 +317,7 @@ describe('changePassword', () => {
   it('should send correct event data to inngest', async () => {
     const { getAuth } = await import('@/actions/get-auth');
     const { verifyPassword } = await import(
-      '@/app/(auth)/reset-password/[tokenId]/utils/verify-password'
+      '@/app/(auth)/utils/verify-password'
     );
     const { inngest } = await import('@/lib/inngest');
 

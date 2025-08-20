@@ -1,8 +1,8 @@
 'use server';
 
 import { getAuth } from '@/actions/get-auth';
-import { RESET_PASSWORD_EVENT_NAME } from '@/app/(auth)/reset-password/[tokenId]/constants/reset-password-event-name';
-import { verifyPassword } from '@/app/(auth)/reset-password/[tokenId]/utils/verify-password';
+import { RESET_PASSWORD_EVENT_NAME } from '@/app/(auth)/constants/reset-password-event-name';
+import { verifyPassword } from '@/app/(auth)/utils/verify-password';
 import { inngest } from '@/lib/inngest';
 import { formErrorHandler } from '@/utils/form-error-handler';
 
