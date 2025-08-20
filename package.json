@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^15.4.5",
+    "@next/bundle-analyzer": "^15.5.0",
     "@next/eslint-plugin-next": "^15.4.5",
     "@react-email/preview-server": "4.2.8",
     "@tailwindcss/postcss": "^4",
