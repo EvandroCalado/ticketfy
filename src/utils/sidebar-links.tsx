@@ -21,8 +21,8 @@ export const sidebarLinks: SidebarLink[] = [
     icon: Book,
   },
   {
-    label: 'Organização',
-    href: '/organization',
+    label: 'Organizações',
+    href: '/organizations',
     icon: UsersIcon,
   },
   {
