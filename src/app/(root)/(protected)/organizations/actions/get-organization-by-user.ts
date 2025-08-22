@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getAuth } from '@/actions/get-auth';
 import { prisma } from '@/lib/prisma';
-import { organizationCreatePath } from '@/utils/paths';
+import { onboardingPath } from '@/utils/paths';
 
 export const getOrganizationByUser = async () => {
   const { user } = await getAuth();
@@ -31,7 +31,7 @@ export const getOrganizationByUser = async () => {
     },
   });
 
-  if (!organizations.length) redirect(organizationCreatePath());
+  if (!organizations.length) redirect(onboardingPath());
 
   return organizations.map(({ membership, ...organization }) => ({
     ...organization,
