@@ -8,18 +8,16 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  ArrowRightLeftIcon,
-  SquareArrowOutUpRightIcon,
-  SquarePenIcon,
-  TrashIcon,
-} from '@/icons';
+import { SquareArrowOutUpRightIcon, SquarePenIcon, TrashIcon } from '@/icons';
 import { formatDate } from '@/utils/format-date';
 
 import { getOrganizationByUser } from '../actions/get-organization-by-user';
+import { OrganizationSwitchButton } from './organization-switch-button';
 
 export const OrganizationsList = async () => {
   const organizations = await getOrganizationByUser();
+
+  const hasActive = organizations.some(org => org.membershipByUser.isActive);
 
   return (
     <Table>
@@ -43,9 +41,11 @@ export const OrganizationsList = async () => {
             </TableCell>
             <TableCell>{org._count.membership}</TableCell>
             <TableCell className='space-x-2 text-right'>
-              <Button variant={'outline'} size='icon'>
-                <ArrowRightLeftIcon />
-              </Button>
+              <OrganizationSwitchButton
+                organizationId={org.id}
+                isActive={org.membershipByUser.isActive}
+                hasActive={hasActive}
+              />
 
               <Button variant={'outline'} size='icon'>
                 <SquareArrowOutUpRightIcon />
