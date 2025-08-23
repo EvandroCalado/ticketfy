@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 
-import { Organizations } from './components/organization';
+import { Organizations } from './components/organizations';
 
 export const metadata: Metadata = {
   title: 'Organização',
 };
 
-const OrganizationPage = async () => {
+const OrganizationsPage = async () => {
   return (
     <main className='mx-auto flex w-full max-w-5xl flex-1 flex-col'>
       <Organizations />
@@ -14,4 +14,4 @@ const OrganizationPage = async () => {
   );
 };
 
-export default OrganizationPage;
+export default OrganizationsPage;

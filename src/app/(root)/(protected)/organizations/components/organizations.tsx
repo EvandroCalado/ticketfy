@@ -6,7 +6,7 @@ import { Spinner } from '@/components/shared/spinner';
 import { Button } from '@/components/ui/button';
 import { organizationCreatePath } from '@/utils/paths';
 
-import { OrganizationList } from './organization-list';
+import { OrganizationsList } from './organizations-list';
 
 export const Organizations = () => {
   const breadcrumbs = [
@@ -32,7 +32,7 @@ export const Organizations = () => {
           />
         }
       >
-        <OrganizationList />
+        <OrganizationsList />
       </Suspense>
     </div>
   );
