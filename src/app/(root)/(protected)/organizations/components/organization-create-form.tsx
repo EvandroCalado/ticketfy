@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ACTION_STATE } from '@/constants/action-state';
-import { ticketsPath } from '@/utils/paths';
+import { organizationPath } from '@/utils/paths';
 
 import { createOrganization } from '../actions/create-organization';
 
@@ -24,7 +24,7 @@ export const OrganizationCreateForm = () => {
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
-      router.push(ticketsPath());
+      router.push(organizationPath());
     }
 
     if (!state.success && state.message) {
