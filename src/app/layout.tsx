@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-import { LazySpeedInsights } from '@/components/shared/lazy-speed-insights';
 import { LazyToaster } from '@/components/shared/lazy-toaster';
 
 import './globals.css';
@@ -43,7 +42,6 @@ const RootLayout = ({
             {children}
           </ThemeProvider>
           <LazyToaster />
-          <LazySpeedInsights />
         </NuqsAdapter>
       </body>
     </html>
