@@ -23,6 +23,7 @@ export const createOrganization = async (
         membership: {
           create: {
             userId: user.id,
+            isActive: false,
           },
         },
       },

@@ -27,6 +27,7 @@ model Organization {
 
 model Membership {
   joinedAt DateTime @default(now())
+  isActive Boolean
 
   userId         String
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)

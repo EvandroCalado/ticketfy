@@ -143,6 +143,7 @@ async function main() {
     data: dbUsers.map(user => ({
       userId: user.id,
       organizationId: dbOrganization.id,
+      isActive: true,
     })),
   });
 
