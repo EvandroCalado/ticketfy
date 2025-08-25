@@ -8,6 +8,8 @@ const mockUseActionState = vi.fn();
 const mockUseState = vi.fn();
 const mockUseFeedbackState = vi.fn();
 const mockCloneElement = vi.fn();
+const mockToastSuccess = vi.fn();
+const mockToastError = vi.fn();
 
 // Mock React hooks
 vi.mock('react', async () => {
@@ -23,8 +25,8 @@ vi.mock('react', async () => {
 // Mock sonner toast
 vi.mock('sonner', () => ({
   toast: {
-    success: vi.fn(),
-    error: vi.fn(),
+    success: mockToastSuccess,
+    error: mockToastError,
   },
 }));
 
@@ -34,46 +36,82 @@ vi.mock('../use-feedback-state', () => ({
 }));
 
 // Mock UI components
-vi.mock('@/components/shared/lazy-alert-dialog', () => ({
-  LazyAlertDialog: ({ children, open }: never) => (
+vi.mock('@/components/ui/alert-dialog', () => ({
+  AlertDialog: ({
+    children,
+    open,
+  }: {
+    children: React.ReactNode;
+    open: boolean;
+  }) => (
     <div data-testid='alert-dialog' data-open={open}>
       {children}
     </div>
   ),
-  LazyAlertDialogContent: ({ children }: never) => (
+  AlertDialogContent: ({ children }: { children: React.ReactNode }) => (
     <div data-testid='alert-dialog-content'>{children}</div>
   ),
-  LazyAlertDialogHeader: ({ children }: never) => (
+  AlertDialogHeader: ({ children }: { children: React.ReactNode }) => (
     <div data-testid='alert-dialog-header'>{children}</div>
   ),
-  LazyAlertDialogTitle: ({ children }: never) => (
+  AlertDialogTitle: ({ children }: { children: React.ReactNode }) => (
     <h2 data-testid='alert-dialog-title'>{children}</h2>
   ),
-  LazyAlertDialogDescription: ({ children }: never) => (
+  AlertDialogDescription: ({ children }: { children: React.ReactNode }) => (
     <p data-testid='alert-dialog-description'>{children}</p>
   ),
-  LazyAlertDialogFooter: ({ children }: never) => (
+  AlertDialogFooter: ({ children }: { children: React.ReactNode }) => (
     <div data-testid='alert-dialog-footer'>{children}</div>
   ),
-  LazyAlertDialogCancel: ({ children }: never) => (
-    <button data-testid='alert-dialog-cancel'>{children}</button>
+  AlertDialogCancel: ({
+    children,
+    className,
+  }: {
+    children: React.ReactNode;
+    className?: string;
+  }) => (
+    <button data-testid='alert-dialog-cancel' className={className}>
+      {children}
+    </button>
   ),
-  LazyAlertDialogAction: ({ children }: never) => (
-    <div data-testid='alert-dialog-action'>{children}</div>
+  AlertDialogAction: ({
+    children,
+    asChild,
+  }: {
+    children: React.ReactNode;
+    asChild?: boolean;
+  }) => (
+    <div data-testid='alert-dialog-action' data-as-child={asChild}>
+      {children}
+    </div>
   ),
 }));
 
 vi.mock('@/components/ui/button', () => ({
-  Button: ({ children, type, variant, disabled }: never) => (
+  Button: ({
+    children,
+    type,
+    variant,
+    disabled,
+    className,
+  }: {
+    children: React.ReactNode;
+    type?: 'button' | 'submit' | 'reset';
+    variant?: string;
+    disabled?: boolean;
+    className?: string;
+  }) => (
     <button
       data-testid='button'
       type={type}
       data-variant={variant}
       disabled={disabled}
+      className={className}
     >
       {children}
     </button>
   ),
+  buttonVariants: vi.fn(() => 'mocked-button-class'),
 }));
 
 describe('use-confirm-dialog hook', () => {
@@ -101,6 +139,8 @@ describe('use-confirm-dialog hook', () => {
       ...element,
       props: { ...element.props, ...props },
     }));
+
+    mockUseFeedbackState.mockImplementation(() => {});
   });
 
   it('should export useConfirmDialog function', async () => {
@@ -341,31 +381,6 @@ describe('use-confirm-dialog hook', () => {
     expect(alertDialog).toHaveAttribute('data-open', 'true');
   });
 
-  it('should handle onClick function in cloned trigger', async () => {
-    const { useConfirmDialog } = await import('../use-confirm-dialog');
-    const triggerElement = <button>Delete</button>;
-
-    useConfirmDialog({
-      action: mockAction,
-      trigger: triggerElement,
-    });
-
-    // Get the onClick function that was passed to cloneElement
-    const cloneElementCall = mockCloneElement.mock.calls[0];
-    const onClickHandler = cloneElementCall[1].onClick;
-
-    // Call the onClick handler
-    onClickHandler();
-
-    // The onClick handler should call setIsOpen with a function that toggles the state
-    expect(mockSetIsOpen).toHaveBeenCalledWith(expect.any(Function));
-
-    // Test the toggle function
-    const toggleFunction = mockSetIsOpen.mock.calls[0][0];
-    expect(toggleFunction(false)).toBe(true);
-    expect(toggleFunction(true)).toBe(false);
-  });
-
   it('should render form with action', async () => {
     const { useConfirmDialog } = await import('../use-confirm-dialog');
     const triggerElement = <button>Delete</button>;
@@ -447,5 +462,117 @@ describe('use-confirm-dialog hook', () => {
         onError: expect.any(Function),
       }),
     );
+  });
+
+  it('should trigger onClick handler when trigger element is clicked', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+
+    const [trigger] = useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+    });
+
+    render(<div>{trigger}</div>);
+
+    // Get the onClick function that was passed to cloneElement
+    const cloneElementCall = mockCloneElement.mock.calls[0];
+    const onClickHandler = cloneElementCall[1].onClick;
+
+    // Simulate click
+    onClickHandler();
+
+    // The onClick handler should call setIsOpen with a function that toggles the state
+    expect(mockSetIsOpen).toHaveBeenCalledWith(expect.any(Function));
+
+    // Test the toggle function
+    const toggleFunction = mockSetIsOpen.mock.calls[0][0];
+    expect(toggleFunction(false)).toBe(true);
+    expect(toggleFunction(true)).toBe(false);
+  });
+
+  it('should handle form submission correctly', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+
+    const [, dialog] = useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+    });
+
+    render(<div>{dialog}</div>);
+
+    // Verify that dialog is rendered
+    expect(screen.getByTestId('alert-dialog')).toBeDefined();
+  });
+
+  it('should pass correct className to cancel button', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+
+    const [, dialog] = useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+    });
+
+    render(<div>{dialog}</div>);
+
+    const cancelButton = screen.getByTestId('alert-dialog-cancel');
+    expect(cancelButton).toHaveClass('w-28');
+  });
+
+  it('should pass correct className to confirm button', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+
+    const [, dialog] = useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+    });
+
+    render(<div>{dialog}</div>);
+
+    const confirmButton = screen.getByTestId('button');
+    expect(confirmButton).toHaveClass('w-28');
+  });
+
+  it('should handle onSuccessRedirect option', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+    const onSuccessRedirect = '/dashboard';
+
+    useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+      onSuccessRedirect,
+    });
+
+    expect(mockUseFeedbackState).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        onSuccessRedirect,
+      }),
+    );
+  });
+
+  it('should return a tuple with correct types', async () => {
+    const { useConfirmDialog } = await import('../use-confirm-dialog');
+    const triggerElement = <button>Delete</button>;
+
+    const result = useConfirmDialog({
+      action: mockAction,
+      trigger: triggerElement,
+    });
+
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(2);
+
+    // Check that first element is the trigger (React element)
+    expect(result[0]).toBeDefined();
+    expect(typeof result[0]).toBe('object');
+
+    // Check that second element is the dialog (React element)
+    expect(result[1]).toBeDefined();
+    expect(typeof result[1]).toBe('object');
   });
 });
