@@ -3,15 +3,15 @@ import { cloneElement, useActionState, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
-  LazyAlertDialog as AlertDialog,
-  LazyAlertDialogAction as AlertDialogAction,
-  LazyAlertDialogCancel as AlertDialogCancel,
-  LazyAlertDialogContent as AlertDialogContent,
-  LazyAlertDialogDescription as AlertDialogDescription,
-  LazyAlertDialogFooter as AlertDialogFooter,
-  LazyAlertDialogHeader as AlertDialogHeader,
-  LazyAlertDialogTitle as AlertDialogTitle,
-} from '@/components/shared/lazy-alert-dialog';
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { ACTION_STATE, ActionState } from '@/constants/action-state';
 
@@ -57,10 +57,15 @@ export const useConfirmDialog = ({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className='w-28'>Cancel</AlertDialogCancel>
           <form action={formAction}>
             <AlertDialogAction asChild>
-              <Button type='submit' variant='destructive' disabled={isPending}>
+              <Button
+                type='submit'
+                variant='destructive'
+                className='w-28'
+                disabled={isPending}
+              >
                 {isPending ? 'Excluindo...' : 'Confirmar'}
               </Button>
             </AlertDialogAction>
