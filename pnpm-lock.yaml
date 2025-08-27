@@ -115,8 +115,8 @@ importers:
         specifier: ^3
         version: 3.3.1
       '@next/bundle-analyzer':
-        specifier: ^15.4.5
-        version: 15.4.6
+        specifier: ^15.5.2
+        version: 15.5.2
       '@next/eslint-plugin-next':
         specifier: ^15.4.5
         version: 15.4.6
@@ -1063,8 +1063,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@next/bundle-analyzer@15.4.6':
-    resolution: {integrity: sha512-LZWqTQgIpfhblT77VVc1r4qtHJY1pfZOAIx8zNtliU7L3pMjpNrG4rYWikJ7AyAI/RgYyt2sCVWqkeOZmFp7Zg==}
+  '@next/bundle-analyzer@15.5.2':
+    resolution: {integrity: sha512-UWOFpy/NK5iSeIP0mgdq4VqGB4/z37uq5v5dEtvzmY/BlaPO6m4EtFUaH6RVI0w2wG5sh0TG86i/cA5wcaJtgg==}
 
   '@next/env@15.4.1':
     resolution: {integrity: sha512-DXQwFGAE2VH+f2TJsKepRXpODPU+scf5fDbKOME8MMyeyswe4XwgRdiiIYmBfkXU+2ssliLYznajTrOQdnLR5A==}
@@ -4940,6 +4940,9 @@ packages:
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
+  magic-string@0.30.18:
+    resolution: {integrity: sha512-yi8swmWbO17qHhwIBNeeZxTceJMeBvWJaId6dyvTSOwTipqeHhMhOrz6513r1sOKnpvQ7zkhlG8tPrpilwTxHQ==}
+
   magicast@0.3.5:
     resolution: {integrity: sha512-L0WhttDl+2BOsybvEOLK7fW3UA0OQ0IQ2d6Zl2x/a6vVRs3bAY0ECOSHHeL5jD+SbOpOCUEi0y1DgHEn9Qn1AQ==}
 
@@ -7262,7 +7265,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.0
     optional: true
 
-  '@next/bundle-analyzer@15.4.6':
+  '@next/bundle-analyzer@15.5.2':
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
@@ -9724,7 +9727,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.18
       '@vue/shared': 3.5.18
       estree-walker: 2.0.2
-      magic-string: 0.30.17
+      magic-string: 0.30.18
       postcss: 8.5.6
       source-map-js: 1.2.1
     optional: true
@@ -11641,6 +11644,11 @@ snapshots:
   magic-string@0.30.17:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  magic-string@0.30.18:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.5
+    optional: true
 
   magicast@0.3.5:
     dependencies:
