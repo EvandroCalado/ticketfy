@@ -17,15 +17,27 @@ export const createOrganization = async (
       Object.fromEntries(formData),
     );
 
-    await prisma.organization.create({
+    const organization = await prisma.organization.create({
       data: {
         name,
         membership: {
           create: {
             userId: user.id,
-            isActive: false,
+            isActive: true,
           },
         },
+      },
+    });
+
+    await prisma.membership.updateMany({
+      where: {
+        userId: user.id,
+        organizationId: {
+          not: organization.id,
+        },
+      },
+      data: {
+        isActive: false,
       },
     });
 

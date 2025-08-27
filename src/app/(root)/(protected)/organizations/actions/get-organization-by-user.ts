@@ -1,15 +1,10 @@
 'use server';
 
-import { notFound, redirect } from 'next/navigation';
-
-import { getAuth } from '@/actions/get-auth';
+import { requireAuthOnly } from '@/actions/require-auth';
 import { prisma } from '@/lib/prisma';
-import { onboardingPath } from '@/utils/paths';
 
 export const getOrganizationByUser = async () => {
-  const { user } = await getAuth();
-
-  if (!user) notFound();
+  const { user } = await requireAuthOnly();
 
   const organizations = await prisma.organization.findMany({
     where: {
@@ -30,8 +25,6 @@ export const getOrganizationByUser = async () => {
       },
     },
   });
-
-  if (!organizations.length) redirect(onboardingPath());
 
   return organizations.map(({ membership, ...organization }) => ({
     ...organization,

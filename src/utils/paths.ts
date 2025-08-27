@@ -16,4 +16,7 @@ export const organizationCreatePath = () => '/organizations/create';
 
 export const onboardingPath = () => '/onboarding';
 
+export const selectActiveOrganizationPath = () =>
+  '/onboarding/select-active-organization';
+
 export const accountPath = () => '/account';

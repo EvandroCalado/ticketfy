@@ -28,6 +28,7 @@ export default defineConfig({
         'prisma/**',
       ],
       include: [
+        'src/actions/**',
         'src/utils/**',
         'src/lib/**',
         'src/hooks/**',

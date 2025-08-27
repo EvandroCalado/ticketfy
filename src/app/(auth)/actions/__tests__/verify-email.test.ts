@@ -2,9 +2,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { verifyEmail } from '../verify-email';
 
+// Mock next/navigation
+vi.mock('next/navigation', () => ({
+  redirect: vi.fn(() => {
+    throw new Error('REDIRECT'); // Simulate redirect behavior
+  }),
+}));
+
 // Mock all dependencies
 vi.mock('@/actions/get-auth', () => ({
   getAuth: vi.fn(),
+}));
+
+// Mock paths
+vi.mock('@/utils/paths', () => ({
+  signInPath: vi.fn(() => '/sign-in'),
 }));
 
 vi.mock('@/actions/set-session-cookie', () => ({
@@ -154,6 +166,7 @@ describe('verifyEmail', () => {
 
   it('should return error when user is not authenticated', async () => {
     const { getAuth } = await import('@/actions/get-auth');
+    const { redirect } = await import('next/navigation');
 
     vi.mocked(getAuth).mockResolvedValue({
       user: null,
@@ -163,14 +176,8 @@ describe('verifyEmail', () => {
     const formData = new FormData();
     formData.append('code', '12345678');
 
-    const result = await verifyEmail(undefined, formData);
-
-    expect(result).toEqual({
-      success: false,
-      message: 'Usuário não autenticado',
-      fieldErrors: undefined,
-      payload: undefined,
-    });
+    await expect(verifyEmail(undefined, formData)).rejects.toThrow('REDIRECT');
+    expect(redirect).toHaveBeenCalledWith('/sign-in');
   });
 
   it('should return error when verification code is invalid', async () => {

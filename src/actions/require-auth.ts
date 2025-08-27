@@ -2,7 +2,13 @@
 
 import { redirect } from 'next/navigation';
 
-import { signInPath, verifyEmailPath } from '@/utils/paths';
+import { getOrganizationByUser } from '@/app/(root)/(protected)/organizations/actions/get-organization-by-user';
+import {
+  onboardingPath,
+  selectActiveOrganizationPath,
+  signInPath,
+  verifyEmailPath,
+} from '@/utils/paths';
 
 import { getAuth } from './get-auth';
 
@@ -10,12 +16,43 @@ import { getAuth } from './get-auth';
  * Função para garantir que o usuário está autenticado e com email verificado
  * Redireciona automaticamente se não estiver
  */
-export const requireAuth = async () => {
+
+type RequireAuthOptions = {
+  checkEmailVerified?: boolean;
+  checkOrganization?: boolean;
+  checkActiveOrganization?: boolean;
+};
+
+export const requireAuth = async (options?: RequireAuthOptions) => {
+  const {
+    checkEmailVerified = true,
+    checkOrganization = true,
+    checkActiveOrganization = true,
+  } = options || {};
+
   const { user } = await getAuth();
 
   if (!user) redirect(signInPath());
 
-  if (!user.emailVerified) redirect(verifyEmailPath());
+  if (checkEmailVerified && !user.emailVerified) {
+    redirect(verifyEmailPath());
+  }
+
+  if (checkOrganization || checkActiveOrganization) {
+    const organizations = await getOrganizationByUser();
+
+    if (checkOrganization && !organizations.length) {
+      redirect(onboardingPath());
+    }
+
+    const hasActiveOrganization = organizations.find(
+      organization => organization.membershipByUser.isActive,
+    );
+
+    if (checkActiveOrganization && !hasActiveOrganization) {
+      redirect(selectActiveOrganizationPath());
+    }
+  }
 
   return { user };
 };

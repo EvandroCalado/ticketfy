@@ -18,7 +18,7 @@ export const Organizations = () => {
   return (
     <div className='flex flex-1 flex-col space-y-10'>
       <div className='flex items-center justify-between'>
-        <PageTitle title='Minha conta' breadcrumbs={breadcrumbs} />
+        <PageTitle title='Organizações' breadcrumbs={breadcrumbs} />
         <Button asChild>
           <Link href={organizationCreatePath()}>Criar organização</Link>
         </Button>

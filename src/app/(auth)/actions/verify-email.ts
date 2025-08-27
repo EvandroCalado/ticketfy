@@ -1,6 +1,6 @@
 'use server';
 
-import { getAuth } from '@/actions/get-auth';
+import { requireAuthOnly } from '@/actions/require-auth';
 import { setSessionCookie } from '@/actions/set-session-cookie';
 import { createSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -10,16 +10,7 @@ import { generateRandomToken } from '@/utils/generate-random-token';
 import { verifyEmailSchema } from '../schemas/verify-email';
 
 export const verifyEmail = async (prevState: unknown, formData: FormData) => {
-  const { user } = await getAuth();
-
-  if (!user) {
-    return {
-      success: false,
-      message: 'Usuário não autenticado',
-      fieldErrors: undefined,
-      payload: undefined,
-    };
-  }
+  const { user } = await requireAuthOnly();
 
   try {
     const { code } = verifyEmailSchema.parse(Object.fromEntries(formData));

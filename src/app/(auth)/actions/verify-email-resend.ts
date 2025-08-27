@@ -1,13 +1,13 @@
 'use server';
 
-import { getAuth } from '@/actions/get-auth';
+import { requireAuthOnly } from '@/actions/require-auth';
 import { formErrorHandler } from '@/utils/form-error-handler';
 
 import { generateEmailVerificationCode } from '../utils/generate-email-verification-code';
 import { sendEmailVerify } from '../utils/send-email-verify';
 
 export const verifyEmailResendAction = async () => {
-  const { user } = await getAuth();
+  const { user } = await requireAuthOnly();
 
   if (!user) {
     return {
