@@ -3,9 +3,31 @@ import { describe, expect, it, vi } from 'vitest';
 // Mock dependencies
 vi.mock('@/actions/get-auth', () => ({
   getAuth: vi.fn().mockResolvedValue({
-    user: { id: 'user-id' },
+    user: { id: 'user-id', emailVerified: true },
   }),
 }));
+
+// Mock getOrganizationByUser
+vi.mock(
+  '@/app/(root)/(protected)/organizations/actions/get-organization-by-user',
+  () => ({
+    getOrganizationByUser: vi.fn().mockResolvedValue([
+      {
+        id: 'org-123',
+        name: 'Test Organization',
+        membershipByUser: {
+          id: 'membership-123',
+          userId: 'user-id',
+          organizationId: 'org-123',
+          isActive: true,
+          role: 'ADMIN',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      },
+    ]),
+  }),
+);
 
 vi.mock('@/lib/prisma', () => ({
   prisma: {
