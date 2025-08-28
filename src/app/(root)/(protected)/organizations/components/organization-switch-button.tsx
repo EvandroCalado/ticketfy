@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { ACTION_STATE } from '@/constants/action-state';
 import { ArrowRightLeftIcon, Loader2Icon } from '@/icons';
+import { organizationPath } from '@/utils/paths';
 
 import { switchOrganization } from '../actions/switch-organization';
 
@@ -33,12 +34,17 @@ export const OrganizationSwitchButton = ({
     if (state.success) {
       toast.success(state.message);
       router.refresh();
+
+      if (!hasActive) {
+        router.push(organizationPath());
+        router.refresh();
+      }
     }
 
     if (!state.success && state.message) {
       toast.error(state.message);
     }
-  }, [state, router]);
+  }, [state, router, hasActive]);
 
   return (
     <form className='inline-block' action={formAction}>
