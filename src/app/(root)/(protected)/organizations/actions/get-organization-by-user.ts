@@ -14,6 +14,9 @@ export const getOrganizationByUser = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: 'asc',
+    },
     include: {
       membership: {
         where: {
