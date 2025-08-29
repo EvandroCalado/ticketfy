@@ -8,10 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { SquareArrowOutUpRightIcon, SquarePenIcon, TrashIcon } from '@/icons';
+import { SquareArrowOutUpRightIcon, SquarePenIcon } from '@/icons';
 import { formatDate } from '@/utils/format-date';
 
 import { getOrganizationByUser } from '../actions/get-organization-by-user';
+import { OrganizationDeleteButton } from './organization-delete-button';
 import { OrganizationSwitchButton } from './organization-switch-button';
 
 export const OrganizationsList = async () => {
@@ -55,9 +56,7 @@ export const OrganizationsList = async () => {
                 <SquarePenIcon />
               </Button>
 
-              <Button variant='destructive' size='icon'>
-                <TrashIcon />
-              </Button>
+              <OrganizationDeleteButton organizationId={org.id} />
             </TableCell>
           </TableRow>
         ))}
