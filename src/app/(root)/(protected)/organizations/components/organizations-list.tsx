@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -10,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { SquareArrowOutUpRightIcon, SquarePenIcon } from '@/icons';
 import { formatDate } from '@/utils/format-date';
+import { membershipsPath } from '@/utils/paths';
 
 import { getOrganizationByUser } from '../actions/get-organization-by-user';
 import { OrganizationDeleteButton } from './organization-delete-button';
@@ -48,8 +51,10 @@ export const OrganizationsList = async () => {
                 hasActive={hasActive}
               />
 
-              <Button variant={'outline'} size='icon'>
-                <SquareArrowOutUpRightIcon />
+              <Button variant={'outline'} size='icon' asChild>
+                <Link href={membershipsPath(org.id)}>
+                  <SquareArrowOutUpRightIcon />
+                </Link>
               </Button>
 
               <Button variant={'outline'} size='icon'>

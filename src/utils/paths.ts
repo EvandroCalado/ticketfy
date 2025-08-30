@@ -14,6 +14,9 @@ export const verifyEmailPath = () => '/verify-email';
 export const organizationPath = () => '/organizations';
 export const organizationCreatePath = () => '/organizations/create';
 
+export const membershipsPath = (organizationId: string) =>
+  `/organizations/${organizationId}/memberships`;
+
 export const onboardingPath = () => '/onboarding';
 
 export const selectActiveOrganizationPath = () =>

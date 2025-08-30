@@ -1,5 +1,6 @@
 export {
   ArrowRightLeftIcon,
+  BanIcon,
   Book,
   CalendarCheckIcon,
   CalendarIcon,
@@ -31,8 +32,8 @@ export {
   PanelTopIcon,
   Settings2Icon,
   SlashIcon,
-  SquareCheckBigIcon,
   SquareArrowOutUpRightIcon,
+  SquareCheckBigIcon,
   SquarePenIcon,
   Sun,
   TicketIcon,
