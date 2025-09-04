@@ -15,6 +15,7 @@ import { formatDate } from '@/utils/format-date';
 import { membershipsPath } from '@/utils/paths';
 
 import { getOrganizationByUser } from '../actions/get-organization-by-user';
+import { MembershipDeleteButton } from './membership-delete-button';
 import { OrganizationDeleteButton } from './organization-delete-button';
 import { OrganizationSwitchButton } from './organization-switch-button';
 
@@ -60,6 +61,11 @@ export const OrganizationsList = async () => {
               <Button variant={'outline'} size='icon'>
                 <SquarePenIcon />
               </Button>
+
+              <MembershipDeleteButton
+                userId={org.membershipByUser.userId}
+                organizationId={org.id}
+              />
 
               <OrganizationDeleteButton organizationId={org.id} />
             </TableCell>

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
-import { Loader2Icon, TrashIcon } from '@/icons';
+import { Loader2Icon, LogOutIcon } from '@/icons';
 import { membershipsPath } from '@/utils/paths';
 
 import { deleteMembership } from '../actions/delete-membership';
@@ -20,7 +20,7 @@ export const MembershipDeleteButton = ({
     action: deleteMembership.bind(null, userId, organizationId),
     trigger: isPending => (
       <Button variant='destructive' size='icon'>
-        {isPending ? <Loader2Icon className='animate-spin' /> : <TrashIcon />}
+        {isPending ? <Loader2Icon className='animate-spin' /> : <LogOutIcon />}
       </Button>
     ),
     onSuccessRedirect: membershipsPath(organizationId),
