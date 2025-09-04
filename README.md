@@ -119,7 +119,7 @@ O Ticketfy foi desenvolvido para resolver os desafios comuns de gerenciamento de
 ### 🔄 Estado & Navegação
 - **Zustand 5** - Gerenciamento de estado global leve
 - **Nuqs 2.4.3** - Sincronização de estado com URL
-- **React Hook Form + Zod** - Formulários com validação tipada
+- **Zod** - Validação tipada no servidor
 
 ### 🔧 Ferramentas de Desenvolvimento
 - **Turbopack** - Bundler rápido do Next.js
@@ -133,10 +133,6 @@ O Ticketfy foi desenvolvido para resolver os desafios comuns de gerenciamento de
 - **React Email 4.2.8** - Templates de email em React
 - **Sonner** - Toasts e notificações elegantes
 - **Inngest** - Processamento de jobs em background
-
-### 📈 Performance & Analytics
-- **Vercel Speed Insights** - Métricas de performance em tempo real
-- **React Scan** - Depuração de renderizações desnecessárias
 
 ## 🚀 Começando
 
