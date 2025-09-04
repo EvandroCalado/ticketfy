@@ -11,6 +11,7 @@ import { BanIcon, CheckIcon } from '@/icons';
 import { formatDate } from '@/utils/format-date';
 
 import { getMemberships } from '../actions/get-memberships';
+import { MembershipDeleteButton } from './membership-delete-button';
 
 type MembershipsListProps = {
   organizationId: string;
@@ -40,10 +41,14 @@ export const MembershipsList = async ({
             </TableCell>
             <TableCell>{membership.user.email}</TableCell>
             <TableCell>{formatDate(membership.joinedAt.toString())}</TableCell>
-            <TableCell className='text-right'>
+            <TableCell className='flex items-center justify-end gap-2'>
               <div className='flex items-center justify-end'>
                 {membership.user.emailVerified ? <CheckIcon /> : <BanIcon />}
               </div>
+              <MembershipDeleteButton
+                userId={membership.userId}
+                organizationId={organizationId}
+              />
             </TableCell>
           </TableRow>
         ))}
