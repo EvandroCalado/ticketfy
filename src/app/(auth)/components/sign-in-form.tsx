@@ -40,7 +40,9 @@ export const SignInForm = () => {
           id='email'
           type='email'
           name='email'
-          defaultValue={(state.payload?.get('email') as string) || ''}
+          defaultValue={
+            (state.payload?.get('email') as string) || 'admin@email.com'
+          }
         />
 
         {state.fieldErrors?.email && (
@@ -58,7 +60,7 @@ export const SignInForm = () => {
           id='password'
           type='password'
           name='password'
-          defaultValue={(state.payload?.get('password') as string) || ''}
+          defaultValue={(state.payload?.get('password') as string) || '123456'}
         />
 
         {state.fieldErrors?.password && (
@@ -70,7 +72,7 @@ export const SignInForm = () => {
 
       <Link
         href='/forgot-password'
-        className='text-primary block text-right text-sm hover:underline hover:underline-offset-4'
+        className='text-primary inline-block text-sm hover:underline hover:underline-offset-4'
       >
         Esqueceu a senha?
       </Link>
