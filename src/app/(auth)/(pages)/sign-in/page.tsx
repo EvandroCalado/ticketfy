@@ -9,7 +9,7 @@ const SignInPage = () => {
     <main className='flex flex-1 items-center justify-center p-5'>
       <FormContainer
         title='Entrar'
-        description='Faça login para começar'
+        description='Faça login ou entre com o usuário padrão para testar'
         content={<SignInForm />}
         footer={
           <span className='text-muted-foreground/40 text-center text-sm'>
