@@ -15,6 +15,7 @@ import { formatDate } from '@/utils/format-date';
 import { membershipsPath } from '@/utils/paths';
 
 import { getOrganizationByUser } from '../actions/get-organization-by-user';
+import { Members } from '../constants/members';
 import { MembershipDeleteButton } from './membership-delete-button';
 import { OrganizationDeleteButton } from './organization-delete-button';
 import { OrganizationSwitchButton } from './organization-switch-button';
@@ -33,6 +34,7 @@ export const OrganizationsList = async () => {
           <TableHead>Nome</TableHead>
           <TableHead>Entrou em</TableHead>
           <TableHead>Membros</TableHead>
+          <TableHead>Minha função</TableHead>
           <TableHead className='text-right'>Ações</TableHead>
         </TableRow>
       </TableHeader>
@@ -45,6 +47,13 @@ export const OrganizationsList = async () => {
               {formatDate(org.membershipByUser.joinedAt.toString())}
             </TableCell>
             <TableCell>{org._count.membership}</TableCell>
+            <TableCell>
+              {
+                Members[
+                  org.membershipByUser.membershipRole as keyof typeof Members
+                ]
+              }
+            </TableCell>
             <TableCell className='space-x-2 text-right'>
               <OrganizationSwitchButton
                 organizationId={org.id}
