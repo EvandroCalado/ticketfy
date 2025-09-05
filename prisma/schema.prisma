@@ -16,6 +16,11 @@ enum TicketStatus {
   DONE
 }
 
+enum MembershipRole {
+  ADMIN
+  MEMBER
+}
+
 model Organization {
   id        String   @id @default(cuid())
   name      String
@@ -26,8 +31,9 @@ model Organization {
 }
 
 model Membership {
-  joinedAt DateTime @default(now())
-  isActive Boolean
+  joinedAt       DateTime       @default(now())
+  isActive       Boolean
+  membershipRole MembershipRole @default(MEMBER)
 
   userId         String
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
