@@ -15,7 +15,7 @@ const users = [
   {
     name: 'Evandro',
     email: 'evandro.calado.da.silva@gmail.com',
-    emailVerified: false,
+    emailVerified: true,
   },
 ];
 
@@ -139,12 +139,21 @@ async function main() {
     })),
   });
 
-  await prisma.membership.createManyAndReturn({
-    data: dbUsers.map(user => ({
-      userId: user.id,
-      organizationId: dbOrganization.id,
-      isActive: true,
-    })),
+  await prisma.membership.createMany({
+    data: [
+      {
+        userId: dbUsers[0].id,
+        organizationId: dbOrganization.id,
+        isActive: true,
+        membershipRole: 'ADMIN',
+      },
+      {
+        userId: dbUsers[1].id,
+        organizationId: dbOrganization.id,
+        isActive: true,
+        membershipRole: 'MEMBER',
+      },
+    ],
   });
 
   const dbTickets = await prisma.ticket.createManyAndReturn({
