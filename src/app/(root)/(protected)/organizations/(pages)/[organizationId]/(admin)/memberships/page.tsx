@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { PageTitle } from '@/components/shared/page-title';
 import { Spinner } from '@/components/shared/spinner';
 
-import { MembershipsList } from '../../../components/memberships-list';
+import { MembershipsList } from '../../../../components/memberships-list';
 
 type OrganizationMembershipsPageParams = {
   params: Promise<{
