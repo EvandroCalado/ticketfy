@@ -39,47 +39,76 @@ export const OrganizationsList = async () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {organizations.map(org => (
-          <TableRow key={org.id}>
-            <TableCell className='font-medium'>{org.id}</TableCell>
-            <TableCell>{org.name}</TableCell>
-            <TableCell>
-              {formatDate(org.membershipByUser.joinedAt.toString())}
-            </TableCell>
-            <TableCell>{org._count.membership}</TableCell>
-            <TableCell>
-              {
-                Members[
-                  org.membershipByUser.membershipRole as keyof typeof Members
-                ]
-              }
-            </TableCell>
-            <TableCell className='space-x-2 text-right'>
-              <OrganizationSwitchButton
-                organizationId={org.id}
-                isActive={org.membershipByUser.isActive}
-                hasActive={hasActive}
-              />
+        {organizations.map(org => {
+          const isActive = org.membershipByUser.isActive;
+          const isAdmin = org.membershipByUser.membershipRole === 'ADMIN';
 
-              <Button variant={'outline'} size='icon' asChild>
-                <Link href={membershipsPath(org.id)}>
-                  <SquareArrowOutUpRightIcon />
-                </Link>
-              </Button>
+          const switchButton = (
+            <OrganizationSwitchButton
+              organizationId={org.id}
+              isActive={isActive}
+              hasActive={hasActive}
+            />
+          );
 
-              <Button variant={'outline'} size='icon'>
-                <SquarePenIcon />
-              </Button>
+          const detailButton = (
+            <Button variant={'outline'} size='icon' asChild>
+              <Link href={membershipsPath(org.id)}>
+                <SquareArrowOutUpRightIcon />
+              </Link>
+            </Button>
+          );
 
-              <MembershipDeleteButton
-                userId={org.membershipByUser.userId}
-                organizationId={org.id}
-              />
+          const editButton = (
+            <Button variant={'outline'} size='icon'>
+              <SquarePenIcon />
+            </Button>
+          );
 
-              <OrganizationDeleteButton organizationId={org.id} />
-            </TableCell>
-          </TableRow>
-        ))}
+          const membershipDeleteButton = (
+            <MembershipDeleteButton
+              userId={org.membershipByUser.userId}
+              organizationId={org.id}
+            />
+          );
+
+          const organizationDeleteButton = (
+            <OrganizationDeleteButton organizationId={org.id} />
+          );
+
+          const disabledButton = (
+            <Button size='icon' disabled className='disabled:opacity-0' />
+          );
+
+          const buttons = (
+            <>
+              {switchButton}
+              {isAdmin ? detailButton : disabledButton}
+              {isAdmin ? editButton : disabledButton}
+              {membershipDeleteButton}
+              {isAdmin ? organizationDeleteButton : disabledButton}
+            </>
+          );
+
+          return (
+            <TableRow key={org.id}>
+              <TableCell className='font-medium'>{org.id}</TableCell>
+              <TableCell>{org.name}</TableCell>
+              <TableCell>
+                {formatDate(org.membershipByUser.joinedAt.toString())}
+              </TableCell>
+              <TableCell>{org._count.membership}</TableCell>
+              <TableCell>
+                {
+                  Members[
+                    org.membershipByUser.membershipRole as keyof typeof Members
+                  ]
+                }
+              </TableCell>
+              <TableCell className='space-x-2 text-right'>{buttons}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );
