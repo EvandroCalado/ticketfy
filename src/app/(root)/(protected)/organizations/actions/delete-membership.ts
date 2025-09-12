@@ -9,16 +9,21 @@ export const deleteMembership = async (
   userId: string,
   organizationId: string,
 ) => {
-  await requireAuthOnly();
+  const { user } = await requireAuthOnly();
 
   const memberships = await getMemberships(organizationId);
 
-  const isLastMembership = (memberships ?? []).length === 1;
+  const myMembership = (memberships ?? []).find(
+    membership => membership.userId === user.id,
+  );
 
-  if (isLastMembership) {
+  const isMyself = user.id === userId;
+  const isAdmin = myMembership?.membershipRole === 'ADMIN';
+
+  if (!isMyself && !isAdmin) {
     return {
       success: false,
-      message: 'Você não pode deletar o ultimo membro da organização',
+      message: 'Somente o administrador pode deletar membros',
       fieldErrors: undefined,
       payload: undefined,
     };
@@ -35,7 +40,9 @@ export const deleteMembership = async (
 
   return {
     success: true,
-    message: 'Membro deletado com sucesso',
+    message: isMyself
+      ? 'Você saiu da organização com sucesso'
+      : 'Membro deletado com sucesso',
     fieldErrors: undefined,
     payload: undefined,
   };
