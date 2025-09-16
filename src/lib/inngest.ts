@@ -12,6 +12,5 @@ type Events = {
 
 export const inngest = new Inngest({
   id: 'ticketfy',
-  eventKey: process.env.INNGEST_EVENT_KEY,
   schemas: new EventSchemas().fromRecord<Events>(),
 });
